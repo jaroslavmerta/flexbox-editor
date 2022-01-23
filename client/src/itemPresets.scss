@@ -1,0 +1,133 @@
+/* pokud tohle řešení, které se vyhýbá css modulům, nebude vyhovovat, lze využít if funkce:
+if(presets[0] === 'vertical){
+    classes.push(styles.vertical)
+}
+...stejně pro všechny css třídy
+*/
+
+//boxItem /flex-BOX
+.vertical{
+    flex-direction: column;
+}
+.horizontal{
+    flex-direction: row;
+}
+.grow{
+    flex-grow: 1;
+}
+.contentWidth{
+    width:fit-content
+}
+
+//flex item align self
+.fi-start{
+    align-self:start;
+}
+.fi-center{
+    align-self:center;
+}
+.fi-end{
+    align-self:end;
+}
+.fi-stretch{
+    align-self:stretch;
+}
+
+//flex BOX justify-content
+.fb-jc-start{
+    justify-content: start;
+}
+.fb-jc-center{
+    justify-content: center;
+}
+.fb-jc-end{
+    justify-content: end;
+}
+.fb-jc-s_between{
+    justify-content: space-between;
+}
+.fb-jc-s_around{
+    justify-content: space-around;
+}
+.fb-jc-s_evenly{
+    justify-content: space-evenly;
+}
+
+//flex BOX align-items
+.fb-ai-start{
+    align-items: start;
+}
+.fb-ai-center{
+    align-items: center;
+}
+.fb-ai-end{
+    align-items: end;
+}
+.fb-ai-stretch{
+    align-items: stretch;
+}
+
+.rsz-width{
+    resize: horizontal;
+    overflow: auto;
+}
+.rsz-hight{
+    resize: vertical;
+    overflow: auto;
+}
+.rsz-both{
+    resize: both;
+    overflow: auto;
+}
+
+//percentage size
+.x100{
+    width: 100%;
+}
+.y100{
+    height: 100%;
+}
+
+#boxItem-preset{
+    h4{
+        justify-content: center;
+    }
+    div{
+        flex-direction: column;
+        align-items: start;
+        justify-content: start;
+        div{
+            align-items: center;
+            flex-direction: row;
+        }
+    }
+}
+#edt-box-preset{
+    width:390px;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    &>div{
+        &>div:first-child{border-right: 1px solid black;}
+    }
+    h4{
+        //margin:0px 10px;
+       // width: max-content;
+        align-self: center;
+        //padding: 10px 10px 10px 10px;
+        color: black;
+        //background-color: #d4a406;
+        //border: 1px solid black;
+    }
+    /* &>div{
+        flex-direction: row;
+    } */
+
+    
+}
+
+
+body{
+    padding:0;
+    margin:0;
+}

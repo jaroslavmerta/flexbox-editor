@@ -1,0 +1,175 @@
+$C_MENU_BG: rgb(31, 29, 29);
+.itemMenu{
+    position:absolute;
+    background-color: gray;
+    border-radius: 5px;
+    min-width:137px;
+   /*  top:50px;
+    left:50px; */
+    //z-index: 50;
+    
+    .x_right_subMenu{
+        left:127px;
+    }
+    .x_left_subMenu{
+        left:-160px;
+    }
+    .y_up_subMenu{
+        top: -15px;
+    }
+    .y_down_subMenu{
+        bottom: -15px;
+    }
+
+
+    .subMenu{
+        display:none;
+        justify-content: center   ;
+        align-items: stretch;
+        background-color: gray;
+        position: absolute;
+        flex-direction: column;
+        list-style-type: none;
+        
+        padding: 10px 0;
+        z-index: 1;
+        width:150px;
+        border-radius: 5px;
+
+        
+        li{display:flex;
+            justify-content: start;
+            background-color: $C_MENU_BG;
+            button{
+                display: inline;
+                //width:100%;
+                //margin:10px
+            }
+            padding:0px;
+        }
+    }
+    
+
+    
+    &>ul{
+        display: flex;
+        flex-direction: column;
+        list-style-type: none;
+        margin: 10px 0px 10px 0px;
+        padding: 0;
+        li{
+            &:hover .subMenu{
+                display:flex;
+            }
+            &:hover{
+                background-color: rgb(44, 42, 42);
+            }
+            
+            background-color: $C_MENU_BG;
+            button{
+                position: relative;
+                margin: 5px 10px 5px 10px;
+                border:none;
+                //background-color: rgb(212, 164, 6);
+                border-radius: 5px;
+                font-size: medium;
+                font-weight: 500;
+                padding: 5px;
+                &:hover{
+                    background-color: rgb(216, 205, 205);
+                   
+                }
+                
+            }
+        }
+        
+    }
+    .titleBoxRow{
+        display: flex;
+        flex-direction: row;
+        align-items: start;
+        div{
+            justify-content: start;
+            align-items: start;
+            div{
+                align-items: center;
+            }
+        }
+    }
+    .titleBoxCol{
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+    }
+}
+form{
+    align-items: center;
+    h4{
+        color:white;
+        align-self: center;
+    }
+    display:flex;
+    flex-direction: column;
+    &>div{
+        display: flex;
+        
+        flex-direction: row;
+        align-items: start;
+        
+        div{
+            justify-content: start;
+            flex-direction: column;
+            div{
+                flex-direction: row;
+                align-items: start;
+
+                div{
+                    align-items: center;
+
+                }
+            }
+        }
+    }
+    div{
+        display: flex;
+        
+    }
+    label, input{
+        
+        //color:white;
+        margin: 5px 10px 5px 10px;
+        border:none;
+        background-color: rgb(212, 164, 6);
+        border-radius: 5px;
+        font-size: medium;
+        font-weight: 500;
+        padding: 5px;
+        &:hover{
+            background-color: rgb(255, 255, 255);
+            
+        }
+    }
+    input[type=submit]{
+        width:80%;
+        align-self: center;
+    }
+}
+
+.hide{
+    display:none;
+}
+
+.hasNav{
+    opacity:0.8;
+    outline:2px solid blue;
+    outline-offset: -2px;
+    }
+
+.hasNavMove{
+    outline:4px solid green;
+}
+
+
+
+
+

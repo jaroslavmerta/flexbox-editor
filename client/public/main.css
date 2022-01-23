@@ -1,0 +1,338 @@
+/*!*********************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/HTMLComponents/flexBox/flexBox.module.scss ***!
+  \*********************************************************************************************************************************************************************/
+.src-HTMLComponents-flexBox-flexBox-module__flexBox--u2rU1 {
+  display: flex;
+  flex-wrap: wrap;
+  border: 1px solid black;
+  min-height: 100px;
+  max-width: 100vw;
+  align-items: center;
+  justify-content: center;
+}
+/*!***************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/HTMLComponents/menu/menu.module.scss ***!
+  \***************************************************************************************************************************************************************/
+.src-HTMLComponents-menu-menu-module__hidden--Et2k3 {
+  display: none;
+}
+/*!*************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/editor/editorComponents/item/itemMenu/itemMenu.module.scss ***!
+  \*************************************************************************************************************************************************************************************/
+.src-editor-editorComponents-item-itemMenu-itemMenu-module__itemMenu--DzXat {
+  position: absolute;
+  background-color: gray;
+  border-radius: 5px;
+  min-width: 137px;
+  /*  top:50px;
+   left:50px; */
+}
+.src-editor-editorComponents-item-itemMenu-itemMenu-module__itemMenu--DzXat .src-editor-editorComponents-item-itemMenu-itemMenu-module__x_right_subMenu--ktco0 {
+  left: 127px;
+}
+.src-editor-editorComponents-item-itemMenu-itemMenu-module__itemMenu--DzXat .src-editor-editorComponents-item-itemMenu-itemMenu-module__x_left_subMenu--ZuMsN {
+  left: -160px;
+}
+.src-editor-editorComponents-item-itemMenu-itemMenu-module__itemMenu--DzXat .src-editor-editorComponents-item-itemMenu-itemMenu-module__y_up_subMenu--mUOrh {
+  top: -15px;
+}
+.src-editor-editorComponents-item-itemMenu-itemMenu-module__itemMenu--DzXat .src-editor-editorComponents-item-itemMenu-itemMenu-module__y_down_subMenu--W3RhZ {
+  bottom: -15px;
+}
+.src-editor-editorComponents-item-itemMenu-itemMenu-module__itemMenu--DzXat .src-editor-editorComponents-item-itemMenu-itemMenu-module__subMenu--CQnGm {
+  display: none;
+  justify-content: center;
+  align-items: stretch;
+  background-color: gray;
+  position: absolute;
+  flex-direction: column;
+  list-style-type: none;
+  padding: 10px 0;
+  z-index: 1;
+  width: 150px;
+  border-radius: 5px;
+}
+.src-editor-editorComponents-item-itemMenu-itemMenu-module__itemMenu--DzXat .src-editor-editorComponents-item-itemMenu-itemMenu-module__subMenu--CQnGm li {
+  display: flex;
+  justify-content: start;
+  background-color: #1f1d1d;
+  padding: 0px;
+}
+.src-editor-editorComponents-item-itemMenu-itemMenu-module__itemMenu--DzXat .src-editor-editorComponents-item-itemMenu-itemMenu-module__subMenu--CQnGm li button {
+  display: inline;
+}
+.src-editor-editorComponents-item-itemMenu-itemMenu-module__itemMenu--DzXat > ul {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  margin: 10px 0px 10px 0px;
+  padding: 0;
+}
+.src-editor-editorComponents-item-itemMenu-itemMenu-module__itemMenu--DzXat > ul li {
+  background-color: #1f1d1d;
+}
+.src-editor-editorComponents-item-itemMenu-itemMenu-module__itemMenu--DzXat > ul li:hover .src-editor-editorComponents-item-itemMenu-itemMenu-module__subMenu--CQnGm {
+  display: flex;
+}
+.src-editor-editorComponents-item-itemMenu-itemMenu-module__itemMenu--DzXat > ul li:hover {
+  background-color: #2c2a2a;
+}
+.src-editor-editorComponents-item-itemMenu-itemMenu-module__itemMenu--DzXat > ul li button {
+  position: relative;
+  margin: 5px 10px 5px 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: medium;
+  font-weight: 500;
+  padding: 5px;
+}
+.src-editor-editorComponents-item-itemMenu-itemMenu-module__itemMenu--DzXat > ul li button:hover {
+  background-color: #d8cdcd;
+}
+.src-editor-editorComponents-item-itemMenu-itemMenu-module__itemMenu--DzXat .src-editor-editorComponents-item-itemMenu-itemMenu-module__titleBoxRow--ujmUs {
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+}
+.src-editor-editorComponents-item-itemMenu-itemMenu-module__itemMenu--DzXat .src-editor-editorComponents-item-itemMenu-itemMenu-module__titleBoxRow--ujmUs div {
+  justify-content: start;
+  align-items: start;
+}
+.src-editor-editorComponents-item-itemMenu-itemMenu-module__itemMenu--DzXat .src-editor-editorComponents-item-itemMenu-itemMenu-module__titleBoxRow--ujmUs div div {
+  align-items: center;
+}
+.src-editor-editorComponents-item-itemMenu-itemMenu-module__itemMenu--DzXat .src-editor-editorComponents-item-itemMenu-itemMenu-module__titleBoxCol--gPj_p {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+form {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+form h4 {
+  color: white;
+  align-self: center;
+}
+form > div {
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+}
+form > div div {
+  justify-content: start;
+  flex-direction: column;
+}
+form > div div div {
+  flex-direction: row;
+  align-items: start;
+}
+form > div div div div {
+  align-items: center;
+}
+form div {
+  display: flex;
+}
+form label, form input {
+  margin: 5px 10px 5px 10px;
+  border: none;
+  background-color: #d4a406;
+  border-radius: 5px;
+  font-size: medium;
+  font-weight: 500;
+  padding: 5px;
+}
+form label:hover, form input:hover {
+  background-color: white;
+}
+form input[type=submit] {
+  width: 80%;
+  align-self: center;
+}
+
+.src-editor-editorComponents-item-itemMenu-itemMenu-module__hide--tYQYV {
+  display: none;
+}
+
+.src-editor-editorComponents-item-itemMenu-itemMenu-module__hasNav--j83FD {
+  opacity: 0.8;
+  outline: 2px solid blue;
+  outline-offset: -2px;
+}
+
+.src-editor-editorComponents-item-itemMenu-itemMenu-module__hasNavMove--c8O5R {
+  outline: 4px solid green;
+}
+/*!****************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/editor/editor.module.scss ***!
+  \****************************************************************************************************************************************************/
+.src-editor-editor-module__moveBox--sjLHR {
+  outline: 2px solid red;
+}
+
+.src-editor-editor-module__focus--R6iee {
+  opacity: 0.8;
+  outline: 2px solid blue;
+  outline-offset: -2px;
+}
+/*!*******************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/editor/editorComponents/item/flexBoxItem/flexBoxItem.module.scss ***!
+  \*******************************************************************************************************************************************************************************************/
+.src-editor-editorComponents-item-flexBoxItem-flexBoxItem-module__boxItem_Y_1--TWmmV {
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid black;
+}
+
+.src-editor-editorComponents-item-flexBoxItem-flexBoxItem-module__BIEmpty--zWRud {
+  flex-grow: 1;
+  border: 1px solid black;
+  padding: 10px;
+}
+/*!************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/editor/editorComponents/item/item.module.scss ***!
+  \************************************************************************************************************************************************************************/
+img {
+  display: block;
+}
+/*!***************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/itemPresets.scss ***!
+  \***************************************************************************************************************/
+@charset "UTF-8";
+/* pokud tohle řešení, které se vyhýbá css modulům, nebude vyhovovat, lze využít if funkce:
+if(presets[0] === 'vertical){
+    classes.push(styles.vertical)
+}
+...stejně pro všechny css třídy
+*/
+.vertical {
+  flex-direction: column;
+}
+
+.horizontal {
+  flex-direction: row;
+}
+
+.grow {
+  flex-grow: 1;
+}
+
+.contentWidth {
+  width: fit-content;
+}
+
+.fi-start {
+  align-self: start;
+}
+
+.fi-center {
+  align-self: center;
+}
+
+.fi-end {
+  align-self: end;
+}
+
+.fi-stretch {
+  align-self: stretch;
+}
+
+.fb-jc-start {
+  justify-content: start;
+}
+
+.fb-jc-center {
+  justify-content: center;
+}
+
+.fb-jc-end {
+  justify-content: end;
+}
+
+.fb-jc-s_between {
+  justify-content: space-between;
+}
+
+.fb-jc-s_around {
+  justify-content: space-around;
+}
+
+.fb-jc-s_evenly {
+  justify-content: space-evenly;
+}
+
+.fb-ai-start {
+  align-items: start;
+}
+
+.fb-ai-center {
+  align-items: center;
+}
+
+.fb-ai-end {
+  align-items: end;
+}
+
+.fb-ai-stretch {
+  align-items: stretch;
+}
+
+.rsz-width {
+  resize: horizontal;
+  overflow: auto;
+}
+
+.rsz-hight {
+  resize: vertical;
+  overflow: auto;
+}
+
+.rsz-both {
+  resize: both;
+  overflow: auto;
+}
+
+.x100 {
+  width: 100%;
+}
+
+.y100 {
+  height: 100%;
+}
+
+#boxItem-preset h4 {
+  justify-content: center;
+}
+#boxItem-preset div {
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+}
+#boxItem-preset div div {
+  align-items: center;
+  flex-direction: row;
+}
+
+#edt-box-preset {
+  width: 390px;
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  /* &>div{
+      flex-direction: row;
+  } */
+}
+#edt-box-preset > div > div:first-child {
+  border-right: 1px solid black;
+}
+#edt-box-preset h4 {
+  align-self: center;
+  color: black;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
