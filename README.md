@@ -10,9 +10,9 @@ My main part in this is to make description of used techniques including reflect
 
 # little apologize
 I hope this list below will disappear very soon, becasue they are basic mistakes I did because I was too hungry to make things work as sooon as possible :-)
-- adds comments to functions that have no comments (character: lazy programmer)  
-- removes functions that will no be used anymore  
-- adds basic desription of main parts of code  
+- add comments to functions that have no comments (character: lazy programmer)  
+- remove functions that will no be used anymore  
+- add basic desription of main parts of code  
 - make better adresary tree like better names of files and sorting because when I started it was good and it made perfect sense, but things changed from then, but names not.
 
 # desription
