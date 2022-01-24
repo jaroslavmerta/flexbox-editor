@@ -8,7 +8,7 @@ The result of this activity should not be just a product that does something, bu
 Download, try, look into codebase, criticize code techniques. You can fork and make some changes or just write me suggestions and I will try to apply them if they are worthy.   Your name will not be forgotten.  
 My main part in this is to make description of used techniques including reflection of the changes.  
 
-# little apologize
+# apologize
 I hope this list below will disappear very soon, because they are basic mistakes I did because I was too hungry to make things work as sooon as possible :-)
 - add comments to functions that have no comments (character: lazy programmer)  
 - remove functions that will no be used anymore  
