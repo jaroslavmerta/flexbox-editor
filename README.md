@@ -13,6 +13,7 @@ I hope this list below will disappear very soon, becasue they are basic mistakes
 - adds comments to functions that have no comments (character: lazy programmer)  
 - removes functions that will no be used anymore  
 - adds basic desription of main parts of code  
+- make better adresary tree like better names of files and sorting because when I started it was good and it made perfect sense, but things changed from then, but names not.
 
 # desription
 - programming language: typescript
