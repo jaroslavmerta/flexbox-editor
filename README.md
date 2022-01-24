@@ -13,7 +13,7 @@ I hope this list below will disappear very soon, because they are basic mistakes
 - add comments to functions that have no comments (character: lazy programmer)  
 - remove functions that will no be used anymore  
 - add basic desription of main parts of code  
-- make better adresary tree like better names of files and sorting because when I started it was good and it made perfect sense, but things changed from then, but names not.
+- make better adresary tree like better names of files and sorting. When I started it was good and it made perfect sense, but things changed from then, but some names not.
 
 # desription
 - programming language: typescript
