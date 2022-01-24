@@ -9,7 +9,7 @@ Download, try, look into codebase, criticize code techniques. You can fork and m
 My main part in this is to make description of used techniques including reflection of the changes.  
 
 # little apologize
-I hope this list below will disappear very soon, becasue they are basic mistakes I did because I was too hungry to make things work as sooon as possible :-)
+I hope this list below will disappear very soon, because they are basic mistakes I did because I was too hungry to make things work as sooon as possible :-)
 - add comments to functions that have no comments (character: lazy programmer)  
 - remove functions that will no be used anymore  
 - add basic desription of main parts of code  
