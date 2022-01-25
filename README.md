@@ -21,4 +21,4 @@ I hope this list below will disappear very soon, because they are basic mistakes
 
 
 # how to run
-Clone the repository and run the command "npm run dev" in the console in the flexbox-editor / client folder. Then you should see adress on which project is running. In your browser type this adress, it should be: http://localhost:8080/ 
+Clone the repository and run the command "npm run dev" in the console in the flexbox-editor / client folder. Then you should see adress on which project is running. In your browser(Chrome, Firefox, Edge, Opera, updated to the latest version) type this adress, it should be: http://localhost:8080/ 
