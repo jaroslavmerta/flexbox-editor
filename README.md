@@ -22,4 +22,3 @@ I hope this list below will disappear very soon, because they are basic mistakes
 
 # how to run
 Clone the repository and run the command "npm run dev" in the console in the flexbox-editor / client folder. Then you should see adress on which project is running. In your browser type this adress, it should be: http://localhost:8080/ 
- Pro spuštění stačí naklonovat repozitář a v konzoli ve složce flexbox-editor/client spustit příkaz "npm run dev"
