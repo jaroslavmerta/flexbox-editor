@@ -18,3 +18,8 @@ I hope this list below will disappear very soon, because they are basic mistakes
 # desription
 - programming language: typescript
 - database: Local storage (funny one, but yes, now it uses local storage, because it needs more advanced database design I am not capable of for now)
+
+
+# how to run
+Clone the repository and run the command "npm run dev" in the console in the flexbox-editor / client folder. Then you should see adress on which project is running. In your browser type this adress, it should be: http://localhost:8080/ 
+ Pro spuštění stačí naklonovat repozitář a v konzoli ve složce flexbox-editor/client spustit příkaz "npm run dev"
