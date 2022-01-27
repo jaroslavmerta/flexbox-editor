@@ -1,3 +1,4 @@
+**This readme is still not complete, but in a few days it will be for this time ;-)
 # flexbox-editor
 
 Hey everyone,  
@@ -16,12 +17,20 @@ I hope this list below will disappear very soon, because they are basic mistakes
 - make better adresary tree like better names of files and sorting (When I started it was good and it made perfect sense, but things changed from then, but some names not)
 
 # technical desription
-- programming language: typescript
+- programming language: Typescript
 - programming paradigm: OOP
 - styling method: CSS modules written  in Sass
 - module bundler/task runner: Webpack
 - database: Local storage (funny one, but yes, now it uses local storage, because it needs more advanced database design I am not capable of for now)
 
+# what Flexbox-editor can do / how to control
+The application allows you to add boxes and images. Boxes can contain items. Items can be additional boxes or pictures.
+Items can be added, removed, positioned within their box, resized and moved from one box to another. 
+The application is controlled via a menu that can be launched by clicking the left mouse button in the editor area (flat box on the top of the page). The menu is very similar to the menu from OS Microsoft Windows that you can open by clicking the right mouse button on desktop.
+
+# what about the flexbox?
+Css flexbox is main way that influences the behavior of the items. The idea is pretty same, here every box is actually flexbox, has the same features like flex-direction, justify-content, align-items... and the same way item is actually flex item and you can use its features like aling-self and flex-grow (here only for box).
+
 
 # how to run
-You need to have Node.js installed on OS (my version of Node is v16.13.1 and it works fine). Clone the repository and run the command "npm run dev" in the console in the folder: flexbox-editor/client . Then you should see adress on which project is running. In your browser(Chrome, Firefox, Edge, Opera, updated to the latest version) type this adress, it should be: http://localhost:8080/ 
+You need to have Node.js installed on your OS (my version of Node.js is v16.13.1 and it works fine). Clone the repository and run the command "npm run dev" in the console in the folder: flexbox-editor/client . Then you should see adress on which project is running. In your browser(Chrome, Firefox, Edge, Opera, updated to the latest version) type this adress, it should be: http://localhost:8080/ 
