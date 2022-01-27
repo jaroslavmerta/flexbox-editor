@@ -34,3 +34,15 @@ Css flexbox is main way that influences the behavior of the items. The idea is p
 
 # how to run
 You need to have Node.js installed on your OS (my version of Node.js is v16.13.1 and it works fine). Clone the repository and run the command "npm run dev" in the console in the folder: flexbox-editor/client . Then you should see adress on which project is running. In your browser(Chrome, Firefox, Edge, Opera, updated to the latest version) type this adress, it should be: http://localhost:8080/ 
+
+# logical structure (loading...)
+
+Editor made up from components:  
+-Item (class contains functions that can be applied to all items)
+-BoxItem (class contains functions that affect only box item)
+-ImageItem (class contains functions that affect image item)
+-Main box (class contains functions that affect main box)
+
+Menu 
+event delegation  
+objects
