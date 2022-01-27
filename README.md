@@ -15,10 +15,13 @@ I hope this list below will disappear very soon, because they are basic mistakes
 - add basic desription of main parts of code  
 - make better adresary tree like better names of files and sorting (When I started it was good and it made perfect sense, but things changed from then, but some names not)
 
-# desription
+# technical desription
 - programming language: typescript
+- programming paradigm: OOP
+- styling method: CSS modules written  in Sass
+- module bundler/task runner: Webpack
 - database: Local storage (funny one, but yes, now it uses local storage, because it needs more advanced database design I am not capable of for now)
 
 
 # how to run
-You need to have Node.js installed on OS (my version of Node is v16.13.1 and it works fine). Clone the repository and run the command "npm run dev" in the console in the flexbox-editor / client folder. Then you should see adress on which project is running. In your browser(Chrome, Firefox, Edge, Opera, updated to the latest version) type this adress, it should be: http://localhost:8080/ 
+You need to have Node.js installed on OS (my version of Node is v16.13.1 and it works fine). Clone the repository and run the command "npm run dev" in the console in the folder: flexbox-editor/client . Then you should see adress on which project is running. In your browser(Chrome, Firefox, Edge, Opera, updated to the latest version) type this adress, it should be: http://localhost:8080/ 
