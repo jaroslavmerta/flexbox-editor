@@ -38,11 +38,11 @@ You need to have Node.js installed on your OS (my version of Node.js is v16.13.1
 # logical structure (loading...)
 
 Editor made up from components:  
--Item (class contains functions that can be applied to all items)
--BoxItem (class contains functions that affect only box item)
--ImageItem (class contains functions that affect image item)
--Main box (class contains functions that affect main box)
+-Item (class contains functions that can be applied to all items)  
+-BoxItem (class contains functions that affect only box item)  
+-ImageItem (class contains functions that affect image item)  
+-Main box (class contains functions that affect main box)  
 
-Menu 
+Menu  
 event delegation  
 objects
