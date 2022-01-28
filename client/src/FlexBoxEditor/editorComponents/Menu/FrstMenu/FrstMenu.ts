@@ -54,7 +54,7 @@ export class FrstMenu extends Menu{
             {id: 'edt-mainBox', type:'button', text :'Edit main box', notClose:'doNotClose',subMenu:[
                     {id: 'edt-mainBox-pstn-scndMenu-radioPstnBox', type:'button', text :'Edit position'},
                     {id: 'edt-mainBox-drctn-scndMenu-radio', type:'button', text :'Edit direction'},
-                    {id: 'add-mainBox-bckgrnd-scndMenu-bttn', type:'file', text :'Background' },
+                    /* {id: 'add-mainBox-bckgrnd-scndMenu-bttn', type:'file', text :'Background' }, */
             ]},
         ];
 
