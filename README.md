@@ -24,7 +24,7 @@ I hope this list below will disappear very soon, because they are basic mistakes
 - database: Local storage (funny one, but yes, now it uses local storage, because it needs more advanced database design I am not capable of for now)
 
 # what Flexbox-editor can do / how to control
-The application allows you to add boxes and images. Boxes can contain items. Items can be additional boxes or pictures.
+The application allows you to add boxes and images. Boxes can contain items. Items can be additional boxes or images.
 Items can be added, removed, positioned within their box, resized and moved from one box to another. 
 The application is controlled via a menu that can be launched by clicking the left mouse button in the editor area (flat box on the top of the page). The menu is very similar to the menu from OS Microsoft Windows that you can open by clicking the right mouse button on desktop.
 
@@ -37,11 +37,13 @@ You need to have Node.js installed on your OS (my version of Node.js is v16.13.1
 
 # logical structure (loading...)
 
-Editor made up from components:  
+Editor is made up from components:  
 - Item (class contains functions that can be applied to all items)  
 - BoxItem (class contains functions that affect only box item)  
 - ImageItem (class contains functions that affect image item)  
 - Main box (class contains functions that affect main box)  
+- Menu (class contains functions that create components for menu like unordered lists with buttons, anchors inside, navList, "title div" for group of buttons)
+- 
 
 Menu  
 event delegation  
