@@ -15,6 +15,7 @@ I hope this list below will disappear very soon, because they are basic mistakes
 - remove functions that will not be used anymore  
 - add basic desription of main parts of code  
 - make better adresary tree like better names of files and sorting (When I started it was good and it made perfect sense, but things changed from then, but some names not)
+- make better logical structure in Menu classes
 
 # technical desription
 - programming language: Typescript
@@ -42,8 +43,8 @@ Editor is made up from components:
 - BoxItem (class contains functions that affect only box item)  
 - ImageItem (class contains functions that affect image item)  
 - Main box (class contains functions that affect main box)  
-- Menu (class contains functions that create components for menu like unordered lists with buttons, anchors inside, navList, "title div" for group of buttons)
-- 
+- Menu (class contains functions that create components for menu like unordered lists with buttons, anchors inside, navList, "title div" for group of buttons etc.)
+- FirstMenu ()
 
 Menu  
 event delegation  
