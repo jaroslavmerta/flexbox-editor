@@ -3,6 +3,7 @@ import { Item } from '../FlexBoxEditor/editorComponents/Item/Item';
 import { BoxItem } from "../FlexBoxEditor/editorComponents/Item/BoxItem/BoxItem";
 import { ImageItem } from '../FlexBoxEditor/editorComponents/Item/ImageItem/ImageItem';
 import { MainBox } from '../FlexBoxEditor/editorComponents/MainBox/MainBox';
+import { ShowHideMenu } from './../FlexBoxEditor/editorComponents/Menu/ShowHideMenu/ShowHideMenu';
 
 export interface eventAndCall {
     name: string;
@@ -18,13 +19,16 @@ export class EventListeners{
     private frstMenu: FrstMenu;
     private events:(eventAndCall | eventAndCall[])[]
     private mainBox: MainBox;
+    private showHideMenu: ShowHideMenu;
 
-    constructor(boxItem: BoxItem,frstMenu: FrstMenu, imageItem:ImageItem, item: Item, mainbox:MainBox){
+    constructor(boxItem: BoxItem,frstMenu: FrstMenu, imageItem:ImageItem, item: Item, mainbox:MainBox, showHideMenu:ShowHideMenu){
         this.imageItem = imageItem;
         this.boxItem = boxItem;
         this.frstMenu = frstMenu;
         this.item = item;
         this.mainBox = mainbox;
+        this.showHideMenu = showHideMenu;
+
 
         this.events = [
             {name:'click', call: this.item.rszPercent},
@@ -52,7 +56,7 @@ export class EventListeners{
             {name:'click', call: this.mainBox.edtMainBoxDcrtn},
             {name:'click', call: this.mainBox.edtOuterMainBox},
             {name:'click', call: this.mainBox.edtMainBoxPstn},
-            {name:'click', call: this.frstMenu.showHideFrstMenu(frstMenu)}                      
+            {name:'click', call: this.showHideMenu.showHideMenu(showHideMenu)}                      
         ]
     }
 

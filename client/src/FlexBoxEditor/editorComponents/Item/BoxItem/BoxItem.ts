@@ -11,6 +11,7 @@ import { ctgrId } from "../../../editorTypes";
 import { InputGetter } from '../../../../common/inputGetter/InputGetter';
 import { ExistInLocStorageError } from "../../../../common/error/locStorageError/ExistInLocStorageError";
 import { runBoxItemFnc, scndMenuBoxItem } from './objectInterfaces';
+import { buttonData } from "../../Menu/menuIntrfc";
 
 
 let debug = false;
@@ -18,6 +19,9 @@ let debug = false;
 export class BoxItem extends Flex{
 
     public scndMenu: scndMenuBoxItem;
+
+    public clickedIBox:buttonData[];
+    public edtOuterBoxItemSubMenu: buttonData[];
 
 
     private boxItemStyles: {};
@@ -89,6 +93,48 @@ export class BoxItem extends Flex{
             horizontal: styles.BIEmpty,
             vertical: styles.boxItem_Y_1
         }
+
+            //Box item
+            this.clickedIBox = [            
+                {id: 'edt-box', type:'button', text :'Edit box', notClose:'doNotClose', subMenu:[
+                    {id: this.scndMenu.runScndMenu.edt.box.bckgrnd, type:'file', text :'Background' },
+                    {id: 'rsz-item-pixel-scndMenu-bttn', type:'button', text :'Pixel resize'},
+                    {id: 'rsz-item-percent-scndMenu-radio', type:'button', text :'Percent resize'},
+                    {id: this.scndMenu.runScndMenu.edt.box.pstn, type:'button', text :'Edit position'},
+                    {id: this.scndMenu.runScndMenu.edt.box.drctn, type:'button', text :'Edit direction'},
+                    {id: this.scndMenu.runScndMenu.edt.box.grow, type:'button', text:'Edit grow'},
+                    
+                ]},
+                {id: 'edt-outerBox', type:'button', text :'Edit outer BOX',notClose:'doNotClose', subMenu:[]},
+                {id: 'add', type:'button', text :'Add', notClose:'doNotClose', subMenu:[
+                    {id: this.scndMenu.runScndMenu.add.innerBox, type:'button', text :'Add inner box'},
+                    {id: 'add-outerBox-scndMenu-radio', type:'button', text :'Add outer box'},
+                    {id: 'add-imageItem', type:'file', text :'Add image',
+                        input:{
+                            id: 'image_input',
+                            type:'file',
+                            accept:"image/jpeg, image,/png"
+                            }
+                    },
+                    
+                ]},
+                {id: 'move-item', type:'button', text :'Move box'},
+                {id: 'rmv', type:'button', text :'Remove', notClose:'doNotClose', subMenu:[
+                    {id: 'rmv-boxItem', type:'button', text :'Remove item box'},
+                    {id: 'rmv-boxItem-all', type:'button', text :'Remove item box and all in it'}
+    
+                ]},
+            ];
+    
+            //Edit outer box submenu se musí tvořit 
+            this.edtOuterBoxItemSubMenu = [
+                {id: this.scndMenu.runScndMenu.edt.outerBox.bckgrnd, type:'button', text :'Background'},
+                {id: 'rsz-outerBox-pixel-scndMenu-bttn', type:'button', text :'Pixel resize'},
+                {id: 'rsz-outerBox-percent-scndMenu-radio', type:'button', text :'Percent resize'},
+                {id: this.scndMenu.runScndMenu.edt.box.pstn, type:'button', text :'Edit position'},
+                {id: this.scndMenu.runScndMenu.edt.outerBox.drctn, type:'button', text :'Edit direction'},
+                {id: this.scndMenu.runScndMenu.edt.outerBox.grow, type:'button', text:'Edit grow'},
+            ];
         
     }
 

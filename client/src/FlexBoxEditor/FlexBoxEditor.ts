@@ -8,6 +8,7 @@ import { FrstMenu } from './editorComponents/Menu/FrstMenu/FrstMenu';
 import { FrstMainBox } from './editorComponents/MainBox/FrstMainBox/FrstMainBox';
 import { MainBox } from './editorComponents/MainBox/MainBox';
 import { ScndMenu } from './editorComponents/Menu/ScndMenu/ScndMenu';
+import { ShowHideMenu } from './editorComponents/Menu/ShowHideMenu/ShowHideMenu';
 require('../itemPresets.scss');
 
 export class FlexBoxEditor {
@@ -21,8 +22,9 @@ export class FlexBoxEditor {
     private item: Item;
     private mainBox: MainBox;
     private input: Input;
-    private subMenu: ScndMenu
-
+    private scndMenu: ScndMenu
+    private showHideMenu: ShowHideMenu;
+    
     public eventListeners:EventListeners;
 
     constructor(){
@@ -31,11 +33,12 @@ export class FlexBoxEditor {
         this.imageItem = new ImageItem();
         this.frstMainBox = new FrstMainBox(this.boxItem, this.imageItem,  this.flex);
         this.input = new Input();
-        this.subMenu = new ScndMenu(this.input, this.boxItem);
-        this.frstMenu = new FrstMenu(this.input, this.subMenu, this.boxItem);
-        this.item = new Item();
+        this.scndMenu = new ScndMenu(this.input, this.boxItem);
         this.mainBox = new MainBox(this.boxItem, this.imageItem);
-        this.eventListeners = new EventListeners(this.boxItem, this.frstMenu, this.imageItem, this.item, this.mainBox);
+        this.frstMenu = new FrstMenu(this.input, this.boxItem, this.mainBox);
+        this.item = new Item();
+        this.showHideMenu = new ShowHideMenu(this.frstMenu, this.scndMenu, this.boxItem, this.mainBox, this.imageItem);
+        this.eventListeners = new EventListeners(this.boxItem, this.frstMenu, this.imageItem, this.item, this.mainBox, this.showHideMenu);
     }
 
     public crtEditor (){

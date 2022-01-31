@@ -7,19 +7,49 @@ import { ctgrId } from "../../editorTypes";
 import { BoxItem } from "../Item/BoxItem/BoxItem";
 import { ImageItem } from "../Item/ImageItem/ImageItem";
 import { Flex } from '../../../HTMLComponents/flexBox/Flex';
+import { buttonData } from "../Menu/menuIntrfc";
 
 let debug = true;
 
 export class MainBox{
     
+    //Dependencies
     private boxItem:BoxItem;
     private imageItem: ImageItem;
+
+    //Buttons
+    public clickedMainBox: buttonData[];
+    public edtOuterMainBoxSubMenu: buttonData[];
 
     constructor(boxItem:BoxItem, imageItem:ImageItem){
 
         this.imageItem = imageItem;
         this.boxItem = boxItem;
-        }
+
+        //Main box 
+        this.clickedMainBox = [
+            {id: 'add', type:'button', text :'Add',notClose:'doNotClose', subMenu:[
+                {id: this.boxItem.scndMenu.runScndMenu.add.innerBox, type:'button', text :'Add inner box'},
+                {id: 'add-imageItem', type:'file', text :'Add image',
+                    input:{
+                        id: 'image_input',
+                        type:'file',
+                        accept:"image/jpeg, image,/png"
+                    }
+                },
+            ]},
+            {id: 'edt-mainBox', type:'button', text :'Edit main box', notClose:'doNotClose',subMenu:[
+                    {id: 'edt-mainBox-pstn-scndMenu-radioPstnBox', type:'button', text :'Edit position'},
+                    {id: 'edt-mainBox-drctn-scndMenu-radio', type:'button', text :'Edit direction'},
+                    /* {id: 'add-mainBox-bckgrnd-scndMenu-bttn', type:'file', text :'Background' }, */
+            ]},
+        ];
+
+        this.edtOuterMainBoxSubMenu = [
+            {id: 'edt-outerMainBox-pstn-scndMenu-radioPstnBox', type:'button', text :'Edit position'},
+            {id: 'edt-outerMainBox-drctn-scndMenu-radio', type:'button', text :'Edit direction'},
+        ];
+    }
 
    protected getItems(ctgrItems:item[], ctgrId:ctgrId,boxItem:BoxItem, imageItem:ImageItem, styles?: object, atributes?:object ){
         const docFrag = document.createDocumentFragment();

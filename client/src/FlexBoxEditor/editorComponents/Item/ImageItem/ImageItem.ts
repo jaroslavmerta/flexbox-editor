@@ -7,9 +7,28 @@ import stylIMenu from "../frstMenu/frstMenu.module.scss"
 import { FrstMenu } from "../../Menu/FrstMenu/FrstMenu";
 import { Item } from '../Item';
 import { ExistInLocStorageError } from "../../../../common/error/locStorageError/ExistInLocStorageError";
+import { buttonData } from "../../Menu/menuIntrfc";
 
 let debug = false;
 export class ImageItem extends Item{
+
+    //Buttons
+    public clickedImg:buttonData[];
+
+    constructor() {
+        super();
+        //Image item
+        this.clickedImg = [
+            {id: 'edt', type:'button', text :'Edit image',notClose:'doNotClose', subMenu:[
+                {id: 'rsz-item-percent-scndMenu-radio', type:'button', text :'Percent resize'},
+                {id: 'edt-img-pstn-scndMenu-radioPstnImg', type:'button', text :'Edit position'},
+            ]},
+            {id: 'edt-outerBox', type:'button', text :'Edit outer BOX',notClose:'doNotClose', subMenu:[]},
+            {id: 'add-outerBox-scndMenu-radio', type:'button', text :'Add outer box'},
+            {id: 'move-item', type:'button', text :'Move image'},
+            {id: 'rmv-imageItem', type:'button', text :'Remove image'}
+        ];
+    }
 
 
     public addImgItem(e:Event){

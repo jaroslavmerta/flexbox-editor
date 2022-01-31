@@ -1,4 +1,5 @@
 $C_MENU_BG: rgb(31, 29, 29);
+
 .itemMenu{
     position:absolute;
     background-color: gray;
@@ -154,22 +155,3 @@ form{
         align-self: center;
     }
 }
-
-.hide{
-    display:none;
-}
-
-.hasNav{
-    opacity:0.8;
-    outline:2px solid blue;
-    outline-offset: -2px;
-    }
-
-.hasNavMove{
-    outline:4px solid green;
-}
-
-
-
-
-

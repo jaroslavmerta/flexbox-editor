@@ -5,9 +5,9 @@ import { items, item, boxItemClass } from "../../../common/localStorage/storageI
 import { ctgrId } from "../../editorTypes";
 import stylEditor from "../../editor.module.scss"
 import stylIMenu from "../Menu/FrstMenu/frstMenu.module.scss"
-import { FrstMenu } from "../Menu/FrstMenu/FrstMenu";
 import { InputGetter } from '../../../common/inputGetter/InputGetter';
 import { ExistInLocStorageError } from "../../../common/error/locStorageError/ExistInLocStorageError";
+import { ShowHideMenu } from './../Menu/ShowHideMenu/ShowHideMenu';
 require('./item.module.scss');
 
 let debug=false;
@@ -315,7 +315,7 @@ export class Item{
                             resizer.addEventListener('mousedown', initResize, false);
                         break;
                     }
-                    FrstMenu.resize = true;
+                    ShowHideMenu.resize = true;
                 }
             }
         }
@@ -389,7 +389,7 @@ export class Item{
             }
             document.getElementById('resizer')?.remove();
             
-            FrstMenu.resize = false;
+            ShowHideMenu.resize = false;
             
         }
     }
@@ -495,7 +495,7 @@ export class Item{
                                 if (saved) {
                                     document.getElementById('resizer')?.remove();
                                     LocStorage.setItem('items', items)
-                                    FrstMenu.resize = false;
+                                    ShowHideMenu.resize = false;
                                 }
                             }
                         }
@@ -532,7 +532,7 @@ export class Item{
                                 trigger.classList.add(stylEditor.focus);
                                 trigger.classList.remove(stylIMenu.hasNav);
                                 
-                                FrstMenu.move = true;
+                                ShowHideMenu.move = true;
                     }
                 }
             }
@@ -572,7 +572,7 @@ export class Item{
                     }
 
                     trigger.classList.remove(stylIMenu.hasNavMove);
-                    FrstMenu.move = false;
+                    ShowHideMenu.move = false;
                     
                 }
             }
@@ -696,7 +696,7 @@ export class Item{
                                         itemBox.classList.remove(stylEditor.moveBox);
                                     }
                                     trigger.classList.remove(stylIMenu.hasNavMove);
-                                    FrstMenu.move = false;
+                                    ShowHideMenu.move = false;
                                 }
                                 //pokud je target ditetem moving itemu, upozorni uživatele, že nelze přesouvat otce do svého dítěte
                                 else{

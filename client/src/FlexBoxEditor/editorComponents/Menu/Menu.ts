@@ -8,8 +8,10 @@ export class Menu{
 
     constructor(){
         this.navData = {id: 'itemMenu'};
-
     }
+
+    
+
 
     private crtTitleInDiv(titleText:string  ){
         const divBox = document.createElement('div');
@@ -144,9 +146,9 @@ export class Menu{
         buttonData.forEach( button => {
             const li =  document.createElement('li');
             li.setAttribute('id',button.id);
-            let newButton:HTMLElement = <HTMLElement>{};
+            
                                      
-            newButton =  document.createElement('button');
+            let newButton =  document.createElement('button');
             newButton.setAttribute('id',button.id);
             newButton.setAttribute('type',button.type);               
             newButton.innerText = button.text;
@@ -242,6 +244,7 @@ export class Menu{
         
         
         let frstMainBox = document.getElementById('frstMainBox');
+        
         if (frstMainBox) {
             let docWidth = document.documentElement.clientWidth;
             let docHeight = document.documentElement.scrollHeight;
