@@ -13,12 +13,12 @@ let debug = false;
 export class ImageItem extends Item{
 
     //Buttons
-    public clickedImg:buttonData[];
+    public imgItemFrstMenuBttns:buttonData[];
 
     constructor() {
         super();
         //Image item
-        this.clickedImg = [
+        this.imgItemFrstMenuBttns = [
             {id: 'edt', type:'button', text :'Edit image',notClose:'doNotClose', subMenu:[
                 {id: 'rsz-item-percent-scndMenu-radio', type:'button', text :'Percent resize'},
                 {id: 'edt-img-pstn-scndMenu-radioPstnImg', type:'button', text :'Edit position'},

@@ -1,9 +1,9 @@
-export interface scndMenuBoxItem{
-    runScndMenu:runBoxItemScndMenu,
-    runFnc:runBoxItemFnc
+export interface scndMenuBoxItemIds{
+    runScndMenu:runBoxItemScndMenuIds,
+    runFnc:runBoxItemFncIds
 }
 
-export interface runBoxItemScndMenu {
+export interface runBoxItemScndMenuIds {
     edt:{
         box:edtBox,
         outerBox:edtBox
@@ -29,7 +29,7 @@ interface addBox{
   
 }
 
-export interface runBoxItemFnc {
+export interface runBoxItemFncIds {
     edt:{
         box:edtBoxRunFunc,
         outerBox:edtBoxRunFunc

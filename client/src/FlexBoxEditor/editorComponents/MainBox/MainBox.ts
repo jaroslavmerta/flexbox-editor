@@ -18,7 +18,7 @@ export class MainBox{
     private imageItem: ImageItem;
 
     //Buttons
-    public clickedMainBox: buttonData[];
+    public mainBoxFrstMenuBttns: buttonData[];
     public edtOuterMainBoxSubMenu: buttonData[];
 
     constructor(boxItem:BoxItem, imageItem:ImageItem){
@@ -27,9 +27,9 @@ export class MainBox{
         this.boxItem = boxItem;
 
         //Main box 
-        this.clickedMainBox = [
+        this.mainBoxFrstMenuBttns = [
             {id: 'add', type:'button', text :'Add',notClose:'doNotClose', subMenu:[
-                {id: this.boxItem.scndMenu.runScndMenu.add.innerBox, type:'button', text :'Add inner box'},
+                {id: this.boxItem.scndMenuIds.runScndMenu.add.innerBox, type:'button', text :'Add inner box'},
                 {id: 'add-imageItem', type:'file', text :'Add image',
                     input:{
                         id: 'image_input',

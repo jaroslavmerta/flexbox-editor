@@ -131,22 +131,22 @@ export class ShowHideMenu{
                     evTarget.classList.contains('scndMainBox') ||
                     evTarget.id === 'edt-img-pstn-scndMenu-radioPstnImg' ||
                     evTarget.id === 'add-outerBox-scndMenu-radio' || //
-                    evTarget.id === this.boxItem.scndMenu.runScndMenu.add.innerBox || //
-                    evTarget.id === this.boxItem.scndMenu.runScndMenu.edt.box.pstn || //
-                    evTarget.id === this.boxItem.scndMenu.runScndMenu.edt.outerBox.drctn || //
+                    evTarget.id === this.boxItem.scndMenuIds.runScndMenu.add.innerBox || //
+                    evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.box.pstn || //
+                    evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.outerBox.drctn || //
                     evTarget.id === 'rsz-item-pixel-scndMenu-bttn' || 
-                    evTarget.id === this.boxItem.scndMenu.runScndMenu.edt.box.grow || //
-                    evTarget.id === this.boxItem.scndMenu.runScndMenu.edt.outerBox.grow || //
+                    evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.box.grow || //
+                    evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.outerBox.grow || //
                     evTarget.id === 'rsz-item-percent-scndMenu-radio' || 
                     evTarget.id === 'rsz-outerBox-percent-scndMenu-radio' || 
                     evTarget.id === 'rsz-outerBox-pixel-scndMenu-bttn' || 
                     evTarget.id === 'edt-outerMainBox-drctn-scndMenu-radio' || 
-                    evTarget.id === this.boxItem.scndMenu.runScndMenu.edt.box.drctn || //
+                    evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.box.drctn || //
                     evTarget.id === 'edt-mainBox-drctn-scndMenu-radio' || 
-                    evTarget.id === this.boxItem.scndMenu.runScndMenu.edt.box.pstn || //
+                    evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.box.pstn || //
                     evTarget.id === 'edt-outerMainBox-pstn-scndMenu-radioPstnBox' || 
-                    evTarget.id === this.boxItem.scndMenu.runScndMenu.edt.box.bckgrnd || //
-                    evTarget.id === this.boxItem.scndMenu.runScndMenu.edt.outerBox.bckgrnd || //
+                    evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.box.bckgrnd || //
+                    evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.outerBox.bckgrnd || //
                     evTarget.id === 'add-mainBox-bckgrnd-scndMenu-bttn' || 
                     evTarget.id === 'edt-mainBox-pstn-scndMenu-radioPstnBox') && 
                     !evTarget.classList.contains(styles.hasNav)/* !itemNav[0] */ 
@@ -155,7 +155,7 @@ export class ShowHideMenu{
                         //pokud je otevřené menu v itemu, ale klikne se po druhé na jiný item,
                         //odstraní existující menu než se vytvoří nové v druhém itemu
                         showHideMenu.rmvMenu(evTarget, styles.hasNav);
-                        if((evTarget.id === 'add-mainBox-bckgrnd-scndMenu-bttn') ||(evTarget.id === this.boxItem.scndMenu.runScndMenu.edt.outerBox.bckgrnd) ||(evTarget.id === this.boxItem.scndMenu.runScndMenu.edt.box.bckgrnd) ||(evTarget.id === this.boxItem.scndMenu.runScndMenu.edt.box.pstn) || (evTarget.id === this.boxItem.scndMenu.runScndMenu.edt.box.pstn)||(evTarget.id === 'edt-mainBox-drctn-scndMenu-radio')||(evTarget.id === 'edt-outerMainBox-drctn-scndMenu-radio')||(evTarget.id === this.boxItem.scndMenu.runScndMenu.edt.outerBox.drctn) ||(evTarget.id === this.boxItem.scndMenu.runScndMenu.edt.outerBox.grow) ||(evTarget.id === 'rsz-outerBox-percent-scndMenu-radio') ||(evTarget.id === 'rsz-outerBox-pixel-scndMenu-bttn') ||(evTarget.id === 'rsz-item-percent-scndMenu-radio')||(evTarget.id === this.boxItem.scndMenu.runScndMenu.edt.box.grow)||(evTarget.id === this.boxItem.scndMenu.runScndMenu.edt.box.drctn) ||(evTarget.id === 'add-outerBox-scndMenu-radio') || (evTarget.id === 'rsz-item-pixel-scndMenu-bttn') ||(evTarget.id === this.boxItem.scndMenu.runScndMenu.add.innerBox) ||(evTarget.id === 'edt-img-pstn-scndMenu-radioPstnImg')|| (evTarget.id === 'edt-outerBox-preset') ||(evTarget.id === this.boxItem.scndMenu.runScndMenu.edt.box.pstn) || (evTarget.id === 'edt-mainBox-pstn-scndMenu-radioPstnBox')){
+                        if((evTarget.id === 'add-mainBox-bckgrnd-scndMenu-bttn') ||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.outerBox.bckgrnd) ||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.box.bckgrnd) ||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.box.pstn) || (evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.box.pstn)||(evTarget.id === 'edt-mainBox-drctn-scndMenu-radio')||(evTarget.id === 'edt-outerMainBox-drctn-scndMenu-radio')||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.outerBox.drctn) ||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.outerBox.grow) ||(evTarget.id === 'rsz-outerBox-percent-scndMenu-radio') ||(evTarget.id === 'rsz-outerBox-pixel-scndMenu-bttn') ||(evTarget.id === 'rsz-item-percent-scndMenu-radio')||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.box.grow)||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.box.drctn) ||(evTarget.id === 'add-outerBox-scndMenu-radio') || (evTarget.id === 'rsz-item-pixel-scndMenu-bttn') ||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.add.innerBox) ||(evTarget.id === 'edt-img-pstn-scndMenu-radioPstnImg')|| (evTarget.id === 'edt-outerBox-preset') ||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.box.pstn) || (evTarget.id === 'edt-mainBox-pstn-scndMenu-radioPstnBox')){
                             const menuTrgtId = localStorage.getItem('triggerid');
                             if(menuTrgtId){
                                 const menuTrgt = document.getElementById(menuTrgtId);
@@ -217,20 +217,20 @@ export class ShowHideMenu{
 
                 //First level of menu
                 if((dataKind === 'mainBox')){
-                    nav = this.frstMenu.createFrstMenu(e, evTarget.id, this.mainBox.clickedMainBox);
+                    nav = this.frstMenu.createFrstMenu(e, evTarget.id, this.mainBox.mainBoxFrstMenuBttns);
                 }
                 
                 if(dataKind === 'imageItem'){
                     if (trggrPrntKind) {
                         if (trggrPrntKind === 'boxItem' || trggrPrntKind === 'mainBox') {
-                            nav = this.frstMenu.createFrstMenu(e, evTarget.id, this.imageItem.clickedImg, trggrPrntKind);
+                            nav = this.frstMenu.createFrstMenu(e, evTarget.id, this.imageItem.imgItemFrstMenuBttns, trggrPrntKind);
                         }
                     }
                 }
                 if(dataKind === 'boxItem'){
                     if (trggrPrntKind) {
                         if (trggrPrntKind === 'boxItem'||trggrPrntKind === 'mainBox') {
-                            nav = this.frstMenu.createFrstMenu(e, evTarget.id, this.boxItem.clickedIBox, trggrPrntKind);
+                            nav = this.frstMenu.createFrstMenu(e, evTarget.id, this.boxItem.boxItemFrstMenuBttns, trggrPrntKind);
                         }
                     }
                 }

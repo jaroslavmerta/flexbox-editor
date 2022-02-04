@@ -1,10 +1,7 @@
 import { buttonData } from '../menuIntrfc';
 import { Menu } from '../Menu';
 import styles from './frstMenu.module.scss';
-
 import { Input } from '../../../../HTMLComponents/input/Input';
-
-import { ScndMenu } from '../ScndMenu/ScndMenu';
 import { BoxItem } from './../../Item/BoxItem/BoxItem';
 import { MainBox } from './../../MainBox/MainBox';
 
@@ -46,7 +43,7 @@ export class FrstMenu extends Menu{
             let index = buttonData.findIndex(button => button.id === 'edt-outerBox');
             if(buttonData[index].subMenu){
                 if(trggrPrntKind === 'boxItem'){
-                    buttonData[index].subMenu = this.boxItem.edtOuterBoxItemSubMenu;
+                    buttonData[index].subMenu = this.boxItem.edtOuterBoxItemSubMenuBttns;
                     
                 }
                 else if(trggrPrntKind === 'mainBox'){

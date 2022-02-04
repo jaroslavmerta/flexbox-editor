@@ -10,7 +10,7 @@ import { ctgrId } from "../../../editorTypes";
 
 import { InputGetter } from '../../../../common/inputGetter/InputGetter';
 import { ExistInLocStorageError } from "../../../../common/error/locStorageError/ExistInLocStorageError";
-import { runBoxItemFnc, scndMenuBoxItem } from './objectInterfaces';
+import { runBoxItemFncIds, scndMenuBoxItemIds } from './objectInterfaces';
 import { buttonData } from "../../Menu/menuIntrfc";
 
 
@@ -18,18 +18,17 @@ let debug = false;
 
 export class BoxItem extends Flex{
 
-    public scndMenu: scndMenuBoxItem;
+    public scndMenuIds: scndMenuBoxItemIds;
+    //public frstMenuBttns;
 
-    public clickedIBox:buttonData[];
-    public edtOuterBoxItemSubMenu: buttonData[];
+    public boxItemFrstMenuBttns:buttonData[];
+    public edtOuterBoxItemSubMenuBttns: buttonData[];
 
-
-    private boxItemStyles: {};
 
     constructor(){
         super();
 
-        this.scndMenu = {
+        this.scndMenuIds = {
             runScndMenu:{
                 edt:{
                     box:{
@@ -89,25 +88,22 @@ export class BoxItem extends Flex{
 
     
 
-        this.boxItemStyles = {
-            horizontal: styles.BIEmpty,
-            vertical: styles.boxItem_Y_1
-        }
+
 
             //Box item
-            this.clickedIBox = [            
+            this.boxItemFrstMenuBttns = [            
                 {id: 'edt-box', type:'button', text :'Edit box', notClose:'doNotClose', subMenu:[
-                    {id: this.scndMenu.runScndMenu.edt.box.bckgrnd, type:'file', text :'Background' },
+                    {id: this.scndMenuIds.runScndMenu.edt.box.bckgrnd, type:'file', text :'Background' },
                     {id: 'rsz-item-pixel-scndMenu-bttn', type:'button', text :'Pixel resize'},
                     {id: 'rsz-item-percent-scndMenu-radio', type:'button', text :'Percent resize'},
-                    {id: this.scndMenu.runScndMenu.edt.box.pstn, type:'button', text :'Edit position'},
-                    {id: this.scndMenu.runScndMenu.edt.box.drctn, type:'button', text :'Edit direction'},
-                    {id: this.scndMenu.runScndMenu.edt.box.grow, type:'button', text:'Edit grow'},
+                    {id: this.scndMenuIds.runScndMenu.edt.box.pstn, type:'button', text :'Edit position'},
+                    {id: this.scndMenuIds.runScndMenu.edt.box.drctn, type:'button', text :'Edit direction'},
+                    {id: this.scndMenuIds.runScndMenu.edt.box.grow, type:'button', text:'Edit grow'},
                     
                 ]},
                 {id: 'edt-outerBox', type:'button', text :'Edit outer BOX',notClose:'doNotClose', subMenu:[]},
                 {id: 'add', type:'button', text :'Add', notClose:'doNotClose', subMenu:[
-                    {id: this.scndMenu.runScndMenu.add.innerBox, type:'button', text :'Add inner box'},
+                    {id: this.scndMenuIds.runScndMenu.add.innerBox, type:'button', text :'Add inner box'},
                     {id: 'add-outerBox-scndMenu-radio', type:'button', text :'Add outer box'},
                     {id: 'add-imageItem', type:'file', text :'Add image',
                         input:{
@@ -127,18 +123,18 @@ export class BoxItem extends Flex{
             ];
     
             //Edit outer box submenu se musí tvořit 
-            this.edtOuterBoxItemSubMenu = [
-                {id: this.scndMenu.runScndMenu.edt.outerBox.bckgrnd, type:'button', text :'Background'},
+            this.edtOuterBoxItemSubMenuBttns = [
+                {id: this.scndMenuIds.runScndMenu.edt.outerBox.bckgrnd, type:'button', text :'Background'},
                 {id: 'rsz-outerBox-pixel-scndMenu-bttn', type:'button', text :'Pixel resize'},
                 {id: 'rsz-outerBox-percent-scndMenu-radio', type:'button', text :'Percent resize'},
-                {id: this.scndMenu.runScndMenu.edt.box.pstn, type:'button', text :'Edit position'},
-                {id: this.scndMenu.runScndMenu.edt.outerBox.drctn, type:'button', text :'Edit direction'},
-                {id: this.scndMenu.runScndMenu.edt.outerBox.grow, type:'button', text:'Edit grow'},
+                {id: this.scndMenuIds.runScndMenu.edt.box.pstn, type:'button', text :'Edit position'},
+                {id: this.scndMenuIds.runScndMenu.edt.outerBox.drctn, type:'button', text :'Edit direction'},
+                {id: this.scndMenuIds.runScndMenu.edt.outerBox.grow, type:'button', text:'Edit grow'},
             ];
         
     }
 
-    public addImgBckGrnd(runFnc:runBoxItemFnc){
+    public addImgBckGrnd(runFnc:runBoxItemFncIds){
         return (e:Event)=>{
             if ((<HTMLElement>e.target).id === runFnc.edt.box.bckgrnd.clickInput || (<HTMLElement>e.target).id === runFnc.edt.outerBox.bckgrnd.clickInput) {
                 
@@ -166,7 +162,7 @@ export class BoxItem extends Flex{
      * coder: I used wrapper function for first time to pass a dependence to event callback
      * @param e 
      */
-     public fileReader(runFnc:runBoxItemFnc){
+     public fileReader(runFnc:runBoxItemFncIds){
         return (e:Event)=>{
         //if(debug)   
         if ( (<HTMLElement>e.target).id === runFnc.edt.box.bckgrnd.runFnc || (<HTMLElement>e.target).id === 'outerBox-bckgrnd-input') {
@@ -233,7 +229,7 @@ export class BoxItem extends Flex{
      }
     } 
     
-    public rmvBoxBckGrnd(runFnc:runBoxItemFnc){
+    public rmvBoxBckGrnd(runFnc:runBoxItemFncIds){
         return(e:Event)=>{
         //pokud se kliklo na tlačítko add boxItem
         if ((<HTMLElement>e.target).id === runFnc.rmv.box.bckgrnd || (<HTMLElement>e.target).id === runFnc.rmv.outerBox.bckgrnd){
@@ -289,7 +285,7 @@ export class BoxItem extends Flex{
     }
     }
 
-    public edtGrow(runFnc:runBoxItemFnc){
+    public edtGrow(runFnc:runBoxItemFncIds){
         return(e:Event)=>{
         //pokud se kliklo na tlačítko add boxItem
         if ((<HTMLElement>e.target).id === runFnc.edt.box.grow|| (<HTMLElement>e.target).id === runFnc.edt.outerBox.grow){
@@ -377,7 +373,7 @@ export class BoxItem extends Flex{
     }
     }
 
-    public edtBoxDcrtn(runFnc:runBoxItemFnc){
+    public edtBoxDcrtn(runFnc:runBoxItemFncIds){
         return(e:Event)=>{
             //pokud se kliklo na tlačítko add boxItem
             if ((<HTMLElement>e.target).id === runFnc.edt.box.drctn || (<HTMLElement>e.target).id === runFnc.edt.outerBox.drctn){
@@ -531,9 +527,9 @@ export class BoxItem extends Flex{
     public addInnerBoxItem(flexBoxItem: BoxItem){
         return(e:Event)=> {
             //pokud se kliklo na tlačítko add boxItem
-            if ((<HTMLElement>e.target).id === flexBoxItem.scndMenu.runFnc.add.innerBox){
+            if ((<HTMLElement>e.target).id === flexBoxItem.scndMenuIds.runFnc.add.innerBox){
                 e.preventDefault();
-                console.log(flexBoxItem.scndMenu.runFnc.add.innerBox)
+                console.log(flexBoxItem.scndMenuIds.runFnc.add.innerBox)
                 //even target je button z menu!
                 const evTarget = (<HTMLElement>e.target);
                 //získání hodnot z checked inputů
@@ -892,7 +888,7 @@ export class BoxItem extends Flex{
         }
     } */
 
-    public edtboxItemPstn(runFnc:runBoxItemFnc){
+    public edtboxItemPstn(runFnc:runBoxItemFncIds){
         return(e:Event)=>{
         if ((<HTMLElement>e.target).id === runFnc.edt.box.pstn  || (<HTMLElement>e.target).id === runFnc.edt.outerBox.pstn ){
             e.preventDefault();
