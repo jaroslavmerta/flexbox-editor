@@ -25,6 +25,7 @@ interface edtBox{
     drctn:string,
     grow:string,
     bckgrnd: string,
+    rszPixel: string
 }
 
 interface addBox{

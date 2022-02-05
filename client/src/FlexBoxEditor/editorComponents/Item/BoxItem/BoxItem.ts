@@ -2,7 +2,7 @@ import { Flex } from "../../../../HTMLComponents/flexBox/Flex"
 import { LocStorage } from '../../../../common/localStorage/LocStorage';
 import { InputGetter } from '../../../../common/inputGetter/InputGetter';
 import { ShowHideMenu } from "../../Menu/ShowHideMenu/ShowHideMenu";
-import { Item } from "../Item";
+
 
 //Error
 import { ExistInLocStorageError } from "../../../../common/error/locStorageError/ExistInLocStorageError";
@@ -16,6 +16,7 @@ import { item, boxItemClass,} from "../../../../common/localStorage/storageInter
 import styles from './boxItem.module.scss';
 import stylEditor from "../../../editor.module.scss"
 import stylIMenu from "../../Menu/FrstMenu/frstMenu.module.scss"
+import { Item } from './../Item';
 
 
 let debug = false;
@@ -29,8 +30,12 @@ export class BoxItem extends Flex{
     public scndMenuIds: scndMenuBoxItemIds;
     public bttns: bttns;
 
-    constructor(){
+    //Dependencies
+    private item:Item;
+
+    constructor(item:Item){
         super();
+        this.item = item;
 
         this.scndMenuIds = {
             runScndMenu:{
@@ -40,12 +45,14 @@ export class BoxItem extends Flex{
                         drctn: 'edt-box-drctn-scndMenu-radio',
                         grow:'edt-box-grow-scndMenu-radio',
                         bckgrnd: 'edt-box-bckgrnd-scndMenu-bttn',
+                        rszPixel:'rsz-boxItem-pixel-scndMenu-bttn'
                     },
                     outerBox:{
                         pstn: 'edt-outerBox-pstn-scndMenu-radioPstnBox',
                         drctn:'edt-outerBox-drctn-scndMenu-radio',
                         grow:'edt-outerBox-grow-scndMenu-radio',
                         bckgrnd: 'edt-outerBox-bckgrnd-scndMenu-bttn',
+                        rszPixel:'rsz-outerBoxItem-pixel-scndMenu-bttn'
                         },
                 },
                 add:{
@@ -85,7 +92,7 @@ export class BoxItem extends Flex{
                 },
                 add:{
                     innerBox:'add-innerBoxItem',
-                    outerBox:''
+                    outerBox:'add-outerBoxItem'
                 }
             }
         };
@@ -95,8 +102,8 @@ export class BoxItem extends Flex{
                 theMenu:[            
                     {id: 'edt-box', type:'button', text :'Edit box', notClose:'doNotClose', subMenu:[
                         {id: this.scndMenuIds.runScndMenu.edt.box.bckgrnd, type:'file', text :'Background' },
-                        {id: 'rsz-item-pixel-scndMenu-bttn', type:'button', text :'Pixel resize'},
-                        {id: 'rsz-item-percent-scndMenu-radio', type:'button', text :'Percent resize'},
+                        {id: this.scndMenuIds.runScndMenu.edt.box.rszPixel, type:'button', text :'Pixel resize'},
+                        {id: this.item.scndMenuIds.runScndMenu.edt.item.rszPercent, type:'button', text :'Percent resize'},
                         {id: this.scndMenuIds.runScndMenu.edt.box.pstn, type:'button', text :'Edit position'},
                         {id: this.scndMenuIds.runScndMenu.edt.box.drctn, type:'button', text :'Edit direction'},
                         {id: this.scndMenuIds.runScndMenu.edt.box.grow, type:'button', text:'Edit grow'},
@@ -124,9 +131,9 @@ export class BoxItem extends Flex{
                 ],
                 subMenuEdtOuter:[
                     {id: this.scndMenuIds.runScndMenu.edt.outerBox.bckgrnd, type:'button', text :'Background'},
-                    {id: 'rsz-outerBox-pixel-scndMenu-bttn', type:'button', text :'Pixel resize'},
-                    {id: 'rsz-outerBox-percent-scndMenu-radio', type:'button', text :'Percent resize'},
-                    {id: this.scndMenuIds.runScndMenu.edt.box.pstn, type:'button', text :'Edit position'},
+                    {id: this.scndMenuIds.runScndMenu.edt.outerBox.rszPixel, type:'button', text :'Pixel resize'},
+                    {id: this.item.scndMenuIds.runScndMenu.edt.outerBoxItem.rszPercent, type:'button', text :'Percent resize'},
+                    {id: this.scndMenuIds.runScndMenu.edt.outerBox.pstn, type:'button', text :'Edit position'},
                     {id: this.scndMenuIds.runScndMenu.edt.outerBox.drctn, type:'button', text :'Edit direction'},
                     {id: this.scndMenuIds.runScndMenu.edt.outerBox.grow, type:'button', text:'Edit grow'},
                 ]
@@ -486,8 +493,8 @@ export class BoxItem extends Flex{
     public addOuterBoxItem(flexBoxItem: BoxItem){
         return(e:Event)=> {
             //pokud se kliklo na tlačítko add boxItem
-            if ((<HTMLElement>e.target).id === 'add-outerBoxItem'){
-                console.log('add-outerBoxItem')
+            if ((<HTMLElement>e.target).id === flexBoxItem.scndMenuIds.runFnc.add.outerBox){
+                console.log(flexBoxItem.scndMenuIds.runFnc.add.outerBox)
                 e.preventDefault();
                 //even target je button z menu!
                 const evTarget = (<HTMLElement>e.target);

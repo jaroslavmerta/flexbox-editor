@@ -1,24 +1,48 @@
 import { addAtributes } from "../../../common/AtributesToElement";
 import { addInlineStyle } from "../../../common/StyleToElement";
 import { LocStorage } from '../../../common/localStorage/LocStorage';
-import { items, item, boxItemClass } from "../../../common/localStorage/storageInterfaces";
+import { item, boxItemClass } from "../../../common/localStorage/storageInterfaces";
 import { ctgrId } from "../../editorTypes";
 import stylEditor from "../../editor.module.scss"
 import stylIMenu from "../Menu/FrstMenu/frstMenu.module.scss"
 import { InputGetter } from '../../../common/inputGetter/InputGetter';
 import { ExistInLocStorageError } from "../../../common/error/locStorageError/ExistInLocStorageError";
 import { ShowHideMenu } from './../Menu/ShowHideMenu/ShowHideMenu';
-import { itemBttns } from "./objectInterfaces";
+import { itemBttns, runItemFncIds, scndMenuItemIds } from "./objectInterfaces";
 require('./item.module.scss');
 
-let debug=false;
-
 export class Item{
+
+    public scndMenuIds: scndMenuItemIds;
 
     //Buttons
     public bttns:itemBttns;
 
     constructor() {
+
+        this.scndMenuIds = {
+            runScndMenu:{
+                edt:{
+                    item:{
+                        rszPercent: 'rsz-item-percent-scndMenu-radio'
+                    },
+                    outerBoxItem:{
+                        rszPercent:'rsz-outerBoxItem-percent-scndMenu-radio'
+                    }
+                }
+            },
+            runFnc:{
+                edt:{
+                    item:{
+                        rszPercent:'rsz-item-percent'
+                    },
+                    outerBoxItem:{
+                        rszPercent:'rsz-outerBoxItem-percent'
+                    }
+                }
+            }
+        }
+
         this.bttns = {
             scndMenu: {
                 algnSelf: [
@@ -38,16 +62,17 @@ export class Item{
         }
     }
 
-    public rszPercent(e:Event){
+    public rszPercent(runFnc:runItemFncIds){
+        return(e:Event)=> {
         //musí být dvě funkce, jedna pro klik na button, druhá pro klik na označený boxItem třídou moveBox
-        if ((<HTMLElement>e.target).id === 'rsz-item-percent' || (<HTMLElement>e.target).id === 'rsz-outerBox-percent') {
+        if ((<HTMLElement>e.target).id === runFnc.edt.item.rszPercent || (<HTMLElement>e.target).id === runFnc.edt.outerBoxItem.rszPercent) {
             e.preventDefault();
             console.log((<HTMLElement>e.target).id);
             let triggerId:string|null = null;
-            if ((<HTMLElement>e.target).id === 'rsz-item-percent' ) {
+            if ((<HTMLElement>e.target).id === runFnc.edt.item.rszPercent ) {
                 triggerId = localStorage.getItem('triggerid')
             }
-            else if ((<HTMLElement>e.target).id === 'rsz-outerBox-percent'){
+            else if ((<HTMLElement>e.target).id === runFnc.edt.outerBoxItem.rszPercent){
                 triggerId = localStorage.getItem('trggrPrntId')
 
             }
@@ -185,6 +210,7 @@ export class Item{
                 }
             }
         }
+    }
     }
 
     

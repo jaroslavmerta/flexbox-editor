@@ -6,6 +6,7 @@ import stylEditor from "../../../editor.module.scss"
 import { BoxItem } from './../../Item/BoxItem/BoxItem';
 import { MainBox } from './../../MainBox/MainBox';
 import { ImageItem } from './../../Item/ImageItem/ImageItem';
+import { Item } from '../../Item/Item';
 
 export class ShowHideMenu{
 
@@ -19,16 +20,18 @@ export class ShowHideMenu{
     private boxItem: BoxItem;
     private mainBox: MainBox;
     private imageItem: ImageItem;
+    private item: Item;
 
     private moveStateMenu:buttonData[];
     private rszStateMenu: buttonData[];
 
-    constructor(frstMenu: FrstMenu, scndMenu:ScndMenu, boxItem: BoxItem, mainBox:MainBox, imageItem:ImageItem){
+    constructor(frstMenu: FrstMenu, scndMenu:ScndMenu, boxItem: BoxItem, mainBox:MainBox, imageItem:ImageItem, item: Item){
         this.frstMenu = frstMenu;
         this.scndMenu = scndMenu;
         this.boxItem = boxItem;
         this.mainBox = mainBox;
         this.imageItem = imageItem;
+        this.item = item;
 
         //Move state menu
         this.moveStateMenu = [
@@ -130,32 +133,32 @@ export class ShowHideMenu{
                     evTarget.classList.contains('item') || 
                     evTarget.classList.contains('scndMainBox') ||
                     evTarget.id === 'edt-img-pstn-scndMenu-radioPstnImg' ||
-                    evTarget.id === 'add-outerBox-scndMenu-radio' || //
+                    evTarget.id === this.boxItem.scndMenuIds.runScndMenu.add.outerBox || //
                     evTarget.id === this.boxItem.scndMenuIds.runScndMenu.add.innerBox || //
-                    evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.box.pstn || //
+                    evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.box.pstn || ////////
                     evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.outerBox.drctn || //
-                    evTarget.id === 'rsz-item-pixel-scndMenu-bttn' || 
+                    evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.box.rszPixel || 
                     evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.box.grow || //
                     evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.outerBox.grow || //
-                    evTarget.id === 'rsz-item-percent-scndMenu-radio' || 
-                    evTarget.id === 'rsz-outerBox-percent-scndMenu-radio' || 
-                    evTarget.id === 'rsz-outerBox-pixel-scndMenu-bttn' || 
-                    evTarget.id === 'edt-outerMainBox-drctn-scndMenu-radio' || 
+                    evTarget.id === this.item.scndMenuIds.runScndMenu.edt.item.rszPercent || 
+                    evTarget.id === this.item.scndMenuIds.runScndMenu.edt.outerBoxItem.rszPercent || 
+                    evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.outerBox.rszPixel || 
+                    evTarget.id === this.mainBox.scndMenuIds.runScndMenu.edt.outerBox.drctn || 
                     evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.box.drctn || //
-                    evTarget.id === 'edt-mainBox-drctn-scndMenu-radio' || 
-                    evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.box.pstn || //
-                    evTarget.id === 'edt-outerMainBox-pstn-scndMenu-radioPstnBox' || 
+                    evTarget.id === this.mainBox.scndMenuIds.runScndMenu.edt.box.drctn || 
+                    evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.outerBox.pstn || //
+                    evTarget.id === this.mainBox.scndMenuIds.runScndMenu.edt.outerBox.pstn || 
                     evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.box.bckgrnd || //
                     evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.outerBox.bckgrnd || //
                     evTarget.id === 'add-mainBox-bckgrnd-scndMenu-bttn' || 
-                    evTarget.id === 'edt-mainBox-pstn-scndMenu-radioPstnBox') && 
+                    evTarget.id === this.mainBox.scndMenuIds.runScndMenu.edt.box.pstn) && 
                     !evTarget.classList.contains(styles.hasNav)/* !itemNav[0] */ 
                     ) {
                         
                         //pokud je otevřené menu v itemu, ale klikne se po druhé na jiný item,
                         //odstraní existující menu než se vytvoří nové v druhém itemu
                         showHideMenu.rmvMenu(evTarget, styles.hasNav);
-                        if((evTarget.id === 'add-mainBox-bckgrnd-scndMenu-bttn') ||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.outerBox.bckgrnd) ||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.box.bckgrnd) ||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.box.pstn) || (evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.box.pstn)||(evTarget.id === 'edt-mainBox-drctn-scndMenu-radio')||(evTarget.id === 'edt-outerMainBox-drctn-scndMenu-radio')||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.outerBox.drctn) ||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.outerBox.grow) ||(evTarget.id === 'rsz-outerBox-percent-scndMenu-radio') ||(evTarget.id === 'rsz-outerBox-pixel-scndMenu-bttn') ||(evTarget.id === 'rsz-item-percent-scndMenu-radio')||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.box.grow)||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.box.drctn) ||(evTarget.id === 'add-outerBox-scndMenu-radio') || (evTarget.id === 'rsz-item-pixel-scndMenu-bttn') ||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.add.innerBox) ||(evTarget.id === 'edt-img-pstn-scndMenu-radioPstnImg')|| (evTarget.id === 'edt-outerBox-preset') ||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.box.pstn) || (evTarget.id === 'edt-mainBox-pstn-scndMenu-radioPstnBox')){
+                        if((evTarget.id === 'add-mainBox-bckgrnd-scndMenu-bttn') ||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.outerBox.bckgrnd) ||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.box.bckgrnd) ||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.outerBox.pstn) || (evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.box.pstn)||(evTarget.id === this.mainBox.scndMenuIds.runScndMenu.edt.box.drctn)||(evTarget.id === this.mainBox.scndMenuIds.runScndMenu.edt.outerBox.drctn)||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.outerBox.drctn) ||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.outerBox.grow) ||(evTarget.id === this.item.scndMenuIds.runScndMenu.edt.outerBoxItem.rszPercent) ||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.outerBox.rszPixel) ||(evTarget.id === this.item.scndMenuIds.runScndMenu.edt.item.rszPercent)||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.box.grow)||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.box.drctn) ||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.add.outerBox) || (evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.box.rszPixel) ||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.add.innerBox) ||(evTarget.id === 'edt-img-pstn-scndMenu-radioPstnImg')|| (evTarget.id === 'edt-outerBox-preset') ||(evTarget.id === this.mainBox.scndMenuIds.runScndMenu.edt.outerBox.pstn) || (evTarget.id === this.mainBox.scndMenuIds.runScndMenu.edt.box.pstn)){
                             const menuTrgtId = localStorage.getItem('triggerid');
                             if(menuTrgtId){
                                 const menuTrgt = document.getElementById(menuTrgtId);
@@ -217,7 +220,7 @@ export class ShowHideMenu{
 
                 //First level of menu
                 if((dataKind === 'mainBox')){
-                    nav = this.frstMenu.createFrstMenu(e, evTarget.id, this.mainBox.mainBoxFrstMenuBttns);
+                    nav = this.frstMenu.createFrstMenu(e, evTarget.id, this.mainBox.bttns.frstMenu.theMenu);
                 }
                 
                 if(dataKind === 'imageItem'){

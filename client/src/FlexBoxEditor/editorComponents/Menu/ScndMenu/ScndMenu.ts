@@ -2,7 +2,6 @@ import { Input } from "../../../../HTMLComponents/input/Input";
 import { radioBttn } from "../../../../HTMLComponents/input/inputIntrfc";
 import { buttonData } from "../menuIntrfc";
 import { ctgrId } from "../../../editorTypes";
-import { FrstMenu } from "../FrstMenu/FrstMenu";
 import { checkClases } from "../FrstMenu/objectInterfaces";
 import { bttnScndMenu, radioMenu, radioPstnBoxMenu, radioPstnBoxScndMenu, radioPstnImgScndMenu, radioScndMenu } from './objectInterfaces';
 import styles from '../FrstMenu/frstMenu.module.scss';
@@ -13,6 +12,7 @@ import { ExistInLocStorageError } from "../../../../common/error/locStorageError
 import { BoxItem } from "../../Item/BoxItem/BoxItem";
 import { Box } from './../../Box/Box';
 import { Item } from './../../Item/Item';
+import { MainBox } from './../../MainBox/MainBox';
 
 
 export class ScndMenu extends Menu {
@@ -21,6 +21,8 @@ export class ScndMenu extends Menu {
     private boxItem: BoxItem;
     private box:Box;
     private item:Item;
+    private mainBox:MainBox;
+
 
     //Texts for buttons affecting item position
     private fbColTextAiAs: string[];
@@ -28,14 +30,12 @@ export class ScndMenu extends Menu {
     private fbColTextJc: string[];
     private fbRowTextJc: string[];
 
-    //Inputs radio
-
     private radioScndMenus:radioScndMenu[];
     private bttnScndMenus:bttnScndMenu[];
     private radioPstnBoxScndMenus:radioPstnBoxScndMenu[];
     private radioPstnImgScndMenus:radioPstnImgScndMenu[];
 
-    constructor(input:Input, boxItem:BoxItem, box:Box, item:Item){
+    constructor(input:Input, boxItem:BoxItem, box:Box, item:Item, mainBox:MainBox){
         super();
 
         //Dependencies 
@@ -43,6 +43,7 @@ export class ScndMenu extends Menu {
         this.input = input;
         this.box = box;
         this.item = item;
+        this.mainBox = mainBox;
 
         //Texts for buttons affecting item position
         this.fbRowTextAiAs = ['Top', 'Center', 'Down'];
@@ -52,15 +53,15 @@ export class ScndMenu extends Menu {
         
         //Second menu objects
         this.radioScndMenus = [
-            {id:'rsz-item-percent-scndMenu-radio', radioData: {buttonData: this.item.bttns.scndMenu.rszPercent, formId:'boxItem-preset', submitId:'rsz-item-percent',submitText:'Change size',checkClas:['width', 'height']}},
-            {id:'rsz-outerBox-percent-scndMenu-radio', radioData: {buttonData: this.item.bttns.scndMenu.rszPercent, formId:'boxItem-preset', submitId:'rsz-outerBox-percent',submitText:'Change size',checkClas:['width', 'height'], outerBox: true}},
-            {id:this.boxItem.scndMenuIds.runScndMenu.edt.box.grow, radioData: {buttonData: this.boxItem.bttns.scndMenu.grow, formId:'boxItem-preset', submitId: this.boxItem.scndMenuIds.runFnc.edt.box.grow ,submitText:'Edit grow',checkClas:['grow']}},
-            {id:this.boxItem.scndMenuIds.runScndMenu.edt.outerBox.grow, radioData: {buttonData: this.boxItem.bttns.scndMenu.grow, formId:'boxItem-preset', submitId: this.boxItem.scndMenuIds.runFnc.edt.outerBox.grow, submitText:'Edit grow',checkClas:['grow'], outerBox: true}},
-            {id:this.boxItem.scndMenuIds.runScndMenu.edt.box.drctn, radioData: {buttonData: this.box.bttns.scndMenu.drctn, formId:'boxItem-preset', submitId: this.boxItem.scndMenuIds.runFnc.edt.box.drctn, submitText:'Edit direction',checkClas:['flexDrctn']}},
-            {id:this.boxItem.scndMenuIds.runScndMenu.edt.outerBox.drctn, radioData: {buttonData: this.box.bttns.scndMenu.drctn, formId:'boxItem-preset', submitId: this.boxItem.scndMenuIds.runFnc.edt.outerBox.drctn, submitText:'Edit direction',checkClas:['flexDrctn'], outerBox: true}},
-            {id:'edt-mainBox-drctn-scndMenu-radio', radioData: {buttonData: this.box.bttns.scndMenu.drctn, formId:'boxItem-preset', submitId:'edt-mainBox-drctn',submitText:'Edit direction',checkClas:['flexDrctn']}},
-            {id:'edt-outerMainBox-drctn-scndMenu-radio', radioData: {buttonData: this.box.bttns.scndMenu.drctn, formId:'boxItem-preset', submitId:'edt-outerMainBox-drctn',submitText:'Edit direction',checkClas:['flexDrctn'], outerBox: true}},
-            {id:'add-outerBox-scndMenu-radio', radioData: {buttonData: this.boxItem.bttns.scndMenu.addBoxItem, formId:'boxItem-preset', submitId:'add-outerBoxItem',submitText:'Create box'}},
+            {id: this.item.scndMenuIds.runScndMenu.edt.item.rszPercent, radioData: {buttonData: this.item.bttns.scndMenu.rszPercent, formId:'boxItem-preset', submitId:this.item.scndMenuIds.runFnc.edt.item.rszPercent,submitText:'Change size',checkClas:['width', 'height']}},
+            {id: this.item.scndMenuIds.runScndMenu.edt.outerBoxItem.rszPercent, radioData: {buttonData: this.item.bttns.scndMenu.rszPercent, formId:'boxItem-preset', submitId: this.item.scndMenuIds.runFnc.edt.outerBoxItem.rszPercent,submitText:'Change size',checkClas:['width', 'height'], outerBox: true}},
+            {id: this.boxItem.scndMenuIds.runScndMenu.edt.box.grow, radioData: {buttonData: this.boxItem.bttns.scndMenu.grow, formId:'boxItem-preset', submitId: this.boxItem.scndMenuIds.runFnc.edt.box.grow ,submitText:'Edit grow',checkClas:['grow']}},
+            {id: this.boxItem.scndMenuIds.runScndMenu.edt.outerBox.grow, radioData: {buttonData: this.boxItem.bttns.scndMenu.grow, formId:'boxItem-preset', submitId: this.boxItem.scndMenuIds.runFnc.edt.outerBox.grow, submitText:'Edit grow',checkClas:['grow'], outerBox: true}},
+            {id: this.boxItem.scndMenuIds.runScndMenu.edt.box.drctn, radioData: {buttonData: this.box.bttns.scndMenu.drctn, formId:'boxItem-preset', submitId: this.boxItem.scndMenuIds.runFnc.edt.box.drctn, submitText:'Edit direction',checkClas:['flexDrctn']}},
+            {id: this.boxItem.scndMenuIds.runScndMenu.edt.outerBox.drctn, radioData: {buttonData: this.box.bttns.scndMenu.drctn, formId:'boxItem-preset', submitId: this.boxItem.scndMenuIds.runFnc.edt.outerBox.drctn, submitText:'Edit direction',checkClas:['flexDrctn'], outerBox: true}},
+            {id: this.mainBox.scndMenuIds.runScndMenu.edt.box.drctn, radioData: {buttonData: this.box.bttns.scndMenu.drctn, formId:'boxItem-preset', submitId:this.mainBox.scndMenuIds.runFnc.edt.box.drctn,submitText:'Edit direction',checkClas:['flexDrctn']}},
+            {id: this.mainBox.scndMenuIds.runScndMenu.edt.outerBox.drctn, radioData: {buttonData: this.box.bttns.scndMenu.drctn, formId:'boxItem-preset', submitId:this.mainBox.scndMenuIds.runFnc.edt.outerBox.drctn,submitText:'Edit direction',checkClas:['flexDrctn'], outerBox: true}},
+            {id:this.boxItem.scndMenuIds.runScndMenu.add.outerBox, radioData: {buttonData: this.boxItem.bttns.scndMenu.addBoxItem, formId:'boxItem-preset', submitId:this.boxItem.scndMenuIds.runFnc.add.outerBox,submitText:'Create box'}},
             {id:this.boxItem.scndMenuIds.runScndMenu.add.innerBox, radioData: {buttonData: this.boxItem.bttns.scndMenu.addBoxItem, formId:'boxItem-preset', submitId:this.boxItem.scndMenuIds.runFnc.add.innerBox,submitText:'Create box'}},
         ];
        
@@ -68,15 +69,15 @@ export class ScndMenu extends Menu {
             {id: this.boxItem.scndMenuIds.runScndMenu.edt.box.bckgrnd, bttnData: this.boxItem.bttns.scndMenu.bckGrnd},
             //{id: 'add-mainBox-bckgrnd-scndMenu-bttn', bttnData: this.boxBckGrndBttns},
             {id: this.boxItem.scndMenuIds.runScndMenu.edt.outerBox.bckgrnd, bttnData: this.boxItem.bttns.scndMenu.bckGrndOuter},
-            {id: 'rsz-item-pixel-scndMenu-bttn', bttnData: this.boxItem.bttns.scndMenu.rszPixel},
-            {id: 'rsz-outerBox-pixel-scndMenu-bttn', bttnData: this.boxItem.bttns.scndMenu.rszPixelOuter},
+            {id: this.boxItem.scndMenuIds.runScndMenu.edt.box.rszPixel, bttnData: this.boxItem.bttns.scndMenu.rszPixel},
+            {id: this.boxItem.scndMenuIds.runScndMenu.edt.outerBox.rszPixel, bttnData: this.boxItem.bttns.scndMenu.rszPixelOuter},
         ]
 
         this.radioPstnBoxScndMenus = [
-            {id:this.boxItem.scndMenuIds.runScndMenu.edt.box.pstn, radioPstnData: {aiBttns: this.box.bttns.scndMenu.algnItms, jcBttns:this.box.bttns.scndMenu.jstfItms, submitId: this.boxItem.scndMenuIds.runFnc.edt.box.pstn, asBttns: this.item.bttns.scndMenu.algnSelf,} },
-            {id:this.boxItem.scndMenuIds.runScndMenu.edt.box.pstn, radioPstnData: {aiBttns: this.box.bttns.scndMenu.algnItms, jcBttns:this.box.bttns.scndMenu.jstfItms, submitId: this.boxItem.scndMenuIds.runFnc.edt.outerBox.pstn, asBttns: this.item.bttns.scndMenu.algnSelf, outerBox: true} },
-            {id:'edt-mainBox-pstn-scndMenu-radioPstnBox', radioPstnData: {aiBttns: this.box.bttns.scndMenu.algnItms, jcBttns:this.box.bttns.scndMenu.jstfItms, submitId:'edt-mainBox-pstn'} },
-            {id:'edt-outerMainBox-pstn-scndMenu-radioPstnBox', radioPstnData: {aiBttns: this.box.bttns.scndMenu.algnItms, jcBttns:this.box.bttns.scndMenu.jstfItms, submitId:'edt-outerMainBox-pstn', asBttns:undefined, outerBox:true } },
+            {id: this.boxItem.scndMenuIds.runScndMenu.edt.box.pstn, radioPstnData: {aiBttns: this.box.bttns.scndMenu.algnItms, jcBttns:this.box.bttns.scndMenu.jstfItms, submitId: this.boxItem.scndMenuIds.runFnc.edt.box.pstn, asBttns: this.item.bttns.scndMenu.algnSelf,} },
+            {id: this.boxItem.scndMenuIds.runScndMenu.edt.outerBox.pstn, radioPstnData: {aiBttns: this.box.bttns.scndMenu.algnItms, jcBttns:this.box.bttns.scndMenu.jstfItms, submitId: this.boxItem.scndMenuIds.runFnc.edt.outerBox.pstn, asBttns: this.item.bttns.scndMenu.algnSelf, outerBox: true} },
+            {id: this.mainBox.scndMenuIds.runScndMenu.edt.box.pstn, radioPstnData: {aiBttns: this.box.bttns.scndMenu.algnItms, jcBttns:this.box.bttns.scndMenu.jstfItms, submitId:this.mainBox.scndMenuIds.runFnc.edt.box.pstn} },
+            {id: this.mainBox.scndMenuIds.runScndMenu.edt.outerBox.pstn, radioPstnData: {aiBttns: this.box.bttns.scndMenu.algnItms, jcBttns:this.box.bttns.scndMenu.jstfItms, submitId:this.mainBox.scndMenuIds.runFnc.edt.outerBox.pstn, asBttns:undefined, outerBox:true } },
         ];
 
         this.radioPstnImgScndMenus = [

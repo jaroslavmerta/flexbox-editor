@@ -21,27 +21,27 @@ export class EventListeners{
     private mainBox: MainBox;
     private showHideMenu: ShowHideMenu;
 
-    constructor(boxItem: BoxItem,frstMenu: FrstMenu, imageItem:ImageItem, item: Item, mainbox:MainBox, showHideMenu:ShowHideMenu){
+    constructor(boxItem: BoxItem,frstMenu: FrstMenu, imageItem:ImageItem, item: Item, mainBox:MainBox, showHideMenu:ShowHideMenu){
         this.imageItem = imageItem;
         this.boxItem = boxItem;
         this.frstMenu = frstMenu;
         this.item = item;
-        this.mainBox = mainbox;
+        this.mainBox = mainBox;
         this.showHideMenu = showHideMenu;
 
 
         this.events = [
-            {name:'click', call: this.item.rszPercent},
+            {name:'click', call: this.item.rszPercent(this.item.scndMenuIds.runFnc)},
             {name:'click', call: this.boxItem.rszPixel},
             {name:'click', call: this.boxItem.rszPixelEnd},
-            {name:'click', call: this.boxItem.rszPixelState(item)},
+            {name:'click', call: this.boxItem.rszPixelState(this.item)},
             {name:'click', call: this.item.moveEnd},
             {name:'click', call: this.item.moveItem},
             {name:'click', call: this.item.moveItemHere},
             {name:'click', call: this.imageItem.edtImgPstn},
             {name:'click', call: this.imageItem.rmvImgItem},
             {name:'click', call: this.imageItem.addImgItem},
-            {name:'change', call: this.imageItem.fileReader(imageItem)},
+            {name:'change', call: this.imageItem.fileReader(this.imageItem)},
             {name:'change', call: this.boxItem.fileReader(this.boxItem.scndMenuIds.runFnc)},
             {name:'click', call: this.boxItem.rmvBoxBckGrnd(this.boxItem.scndMenuIds.runFnc)},
             {name:'click', call: this.boxItem.addImgBckGrnd(this.boxItem.scndMenuIds.runFnc)},
@@ -51,12 +51,12 @@ export class EventListeners{
             {name:'click', call: this.boxItem.edtboxItemPstn(this.boxItem.scndMenuIds.runFnc)},
             {name:'click', call: this.boxItem.rmvBoxItem},
             {name:'click', call: this.boxItem.rmvBoxItemAll},
-            {name:'click', call: this.boxItem.addInnerBoxItem(boxItem)},
-            {name:'click', call: this.boxItem.addOuterBoxItem(boxItem)},
-            {name:'click', call: this.mainBox.edtMainBoxDcrtn},
+            {name:'click', call: this.boxItem.addInnerBoxItem(this.boxItem)},
+            {name:'click', call: this.boxItem.addOuterBoxItem(this.boxItem)},
+            {name:'click', call: this.mainBox.edtMainBoxDcrtn(this.mainBox.scndMenuIds.runFnc)},
             {name:'click', call: this.mainBox.edtOuterMainBox},
-            {name:'click', call: this.mainBox.edtMainBoxPstn},
-            {name:'click', call: this.showHideMenu.showHideMenu(showHideMenu)}                      
+            {name:'click', call: this.mainBox.edtMainBoxPstn(this.mainBox.scndMenuIds.runFnc)},
+            {name:'click', call: this.showHideMenu.showHideMenu(this.showHideMenu)}                      
         ]
     }
 

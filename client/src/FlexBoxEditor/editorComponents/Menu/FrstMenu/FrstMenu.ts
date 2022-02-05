@@ -45,7 +45,7 @@ export class FrstMenu extends Menu{
                     
                 }
                 else if(trggrPrntKind === 'mainBox'){
-                    buttonData[index].subMenu = this.mainBox.edtOuterMainBoxSubMenu;
+                    buttonData[index].subMenu = this.mainBox.bttns.frstMenu.subMenuEdtOuter;
                 }
             };
         }

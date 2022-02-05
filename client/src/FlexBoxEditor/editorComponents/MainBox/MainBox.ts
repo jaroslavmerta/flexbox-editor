@@ -8,6 +8,7 @@ import { BoxItem } from "../Item/BoxItem/BoxItem";
 import { ImageItem } from "../Item/ImageItem/ImageItem";
 import { Flex } from '../../../HTMLComponents/flexBox/Flex';
 import { buttonData } from "../Menu/menuIntrfc";
+import { mainBoxBttns, runMainBoxFncIds, scndMenuMainBoxIds } from "./objectInterfaces";
 
 let debug = true;
 
@@ -16,39 +17,69 @@ export class MainBox{
     //Dependencies
     private boxItem:BoxItem;
     private imageItem: ImageItem;
+    public bttns: mainBoxBttns;
 
-    //Buttons
-    public mainBoxFrstMenuBttns: buttonData[];
-    public edtOuterMainBoxSubMenu: buttonData[];
+    public scndMenuIds: scndMenuMainBoxIds;
 
     constructor(boxItem:BoxItem, imageItem:ImageItem){
 
         this.imageItem = imageItem;
         this.boxItem = boxItem;
 
-        //Main box 
-        this.mainBoxFrstMenuBttns = [
-            {id: 'add', type:'button', text :'Add',notClose:'doNotClose', subMenu:[
-                {id: this.boxItem.scndMenuIds.runScndMenu.add.innerBox, type:'button', text :'Add inner box'},
-                {id: 'add-imageItem', type:'file', text :'Add image',
-                    input:{
-                        id: 'image_input',
-                        type:'file',
-                        accept:"image/jpeg, image,/png"
+        this.scndMenuIds = {
+            runScndMenu:{
+                edt:{
+                    box:{
+                        drctn:'edt-mainBox-drctn-scndMenu-radio',
+                        pstn:'edt-mainBox-pstn-scndMenu-radioPstnBox',
+                    },
+                    outerBox:{
+                        drctn:'edt-outerMainBox-drctn-scndMenu-radio',
+                        pstn:'edt-outerMainBox-pstn-scndMenu-radioPstnBox',
                     }
-                },
-            ]},
-            {id: 'edt-mainBox', type:'button', text :'Edit main box', notClose:'doNotClose',subMenu:[
-                    {id: 'edt-mainBox-pstn-scndMenu-radioPstnBox', type:'button', text :'Edit position'},
-                    {id: 'edt-mainBox-drctn-scndMenu-radio', type:'button', text :'Edit direction'},
-                    /* {id: 'add-mainBox-bckgrnd-scndMenu-bttn', type:'file', text :'Background' }, */
-            ]},
-        ];
+                }
+            },
+            runFnc:{
+                edt:{
+                    box:{
+                        drctn:'edt-mainBox-drctn',
+                        pstn:'edt-mainBox-pstn'
+                    },
+                    outerBox:{
+                        drctn:'edt-outerMainBox-drctn',
+                        pstn:'edt-outerMainBox-pstn'
+                    }
+                }
+            }
+        }
 
-        this.edtOuterMainBoxSubMenu = [
-            {id: 'edt-outerMainBox-pstn-scndMenu-radioPstnBox', type:'button', text :'Edit position'},
-            {id: 'edt-outerMainBox-drctn-scndMenu-radio', type:'button', text :'Edit direction'},
-        ];
+        //Main box 
+        this.bttns = {
+            frstMenu: {
+                theMenu:[
+                    {id: 'add', type:'button', text :'Add',notClose:'doNotClose', subMenu:[
+                        {id: this.boxItem.scndMenuIds.runScndMenu.add.innerBox, type:'button', text :'Add inner box'},
+                        {id: 'add-imageItem', type:'file', text :'Add image',
+                            input:{
+                                id: 'image_input',
+                                type:'file',
+                                accept:"image/jpeg, image,/png"
+                            }
+                        },
+                    ]},
+                    {id: 'edt-mainBox', type:'button', text :'Edit main box', notClose:'doNotClose',subMenu:[
+                            {id: this.scndMenuIds.runScndMenu.edt.box.pstn, type:'button', text :'Edit position'},
+                            {id: this.scndMenuIds.runScndMenu.edt.box.drctn, type:'button', text :'Edit direction'},
+                            /* {id: 'add-mainBox-bckgrnd-scndMenu-bttn', type:'file', text :'Background' }, */
+                    ]},
+                ],
+                subMenuEdtOuter:[
+                    {id: this.scndMenuIds.runScndMenu.edt.outerBox.pstn, type:'button', text :'Edit position'},
+                    {id: this.scndMenuIds.runScndMenu.edt.outerBox.drctn, type:'button', text :'Edit direction'},
+                ]
+            }
+        }
+
     }
 
    protected getItems(ctgrItems:item[], ctgrId:ctgrId,boxItem:BoxItem, imageItem:ImageItem, styles?: object, atributes?:object ){
@@ -170,16 +201,17 @@ export class MainBox{
         LocStorage.setItem('items', items);
     }
      
-     public edtMainBoxPstn(e:Event){
-        if ((<HTMLElement>e.target).id === 'edt-mainBox-pstn' || (<HTMLElement>e.target).id === 'edt-outerMainBox-pstn' ) {
+     public edtMainBoxPstn(runFnc:runMainBoxFncIds){
+        return(e:Event)=>{
+        if ((<HTMLElement>e.target).id === runFnc.edt.box.pstn || (<HTMLElement>e.target).id === runFnc.edt.outerBox.pstn ) {
             e.preventDefault();
             console.log((<HTMLElement>e.target).id);
 
             let triggerId: string | null = null;
-            if ((<HTMLElement>e.target).id === 'edt-mainBox-pstn') {
+            if ((<HTMLElement>e.target).id === runFnc.edt.box.pstn) {
                 triggerId = localStorage.getItem('triggerid');
             }
-            else if ((<HTMLElement>e.target).id === 'edt-outerMainBox-pstn'){
+            else if ((<HTMLElement>e.target).id === runFnc.edt.outerBox.pstn){
                 triggerId = localStorage.getItem('trggrPrntId');
 
             }
@@ -234,6 +266,7 @@ export class MainBox{
                 }
             }
         }
+    }
     }
 
      public edtOuterMainBox(e:Event){
@@ -294,9 +327,10 @@ export class MainBox{
         }
     }
 
-    public edtMainBoxDcrtn(e:Event){
+    public edtMainBoxDcrtn(runFnc:runMainBoxFncIds){
+        return(e:Event)=>{
         //pokud se kliklo na tlačítko add boxItem
-        if ((<HTMLElement>e.target).id === 'edt-mainBox-drctn' || (<HTMLElement>e.target).id === 'edt-outerMainBox-drctn'){
+        if ((<HTMLElement>e.target).id === runFnc.edt.box.drctn || (<HTMLElement>e.target).id === runFnc.edt.outerBox.drctn){
             e.preventDefault();
             console.log((<HTMLElement>e.target).id);
 
@@ -305,10 +339,10 @@ export class MainBox{
             console.log(presets);
             let triggerId;
             //trigger je element, na kterém se vyvolalo menu
-            if ((<HTMLElement>e.target).id === 'edt-mainBox-drctn') {
+            if ((<HTMLElement>e.target).id === runFnc.edt.box.drctn) {
                 triggerId = localStorage.getItem('triggerid');
             }
-            else if ((<HTMLElement>e.target).id === 'edt-outerMainBox-drctn'){
+            else if ((<HTMLElement>e.target).id === runFnc.edt.outerBox.drctn){
                 triggerId = localStorage.getItem('trggrPrntId');
             }
             if(triggerId){
@@ -341,6 +375,6 @@ export class MainBox{
                 }
             }
         }
-    
+    }
 }
 }
