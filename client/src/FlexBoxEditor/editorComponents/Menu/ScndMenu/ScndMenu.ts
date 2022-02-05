@@ -22,9 +22,7 @@ export class ScndMenu extends Menu {
 
     //Buttons
     private rszItmBtns:  buttonData[];
-    
     private rszOuterBoxBtns: buttonData[];
-
 
     //Texts for Buttons
     private fbColTextAiAs: string[];

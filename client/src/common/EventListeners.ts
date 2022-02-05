@@ -32,9 +32,9 @@ export class EventListeners{
 
         this.events = [
             {name:'click', call: this.item.rszPercent},
-            {name:'click', call: this.item.rszItem},
-            {name:'click', call: this.item.rszEnd},
-            {name:'click', call: this.item.rszItemState(item)},
+            {name:'click', call: this.boxItem.rszPixel},
+            {name:'click', call: this.boxItem.rszPixelEnd},
+            {name:'click', call: this.boxItem.rszPixelState(item)},
             {name:'click', call: this.item.moveEnd},
             {name:'click', call: this.item.moveItem},
             {name:'click', call: this.item.moveItemHere},

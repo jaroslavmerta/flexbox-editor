@@ -1,17 +1,21 @@
-import { eventAndCall } from "../../../../common/EventListeners";
 import { Flex } from "../../../../HTMLComponents/flexBox/Flex"
-import { itemBoxCol } from './flexItemCss';
 import { LocStorage } from '../../../../common/localStorage/LocStorage';
-import { item, imgItemClass, items, boxItemClass,} from "../../../../common/localStorage/storageInterfaces";
-import styles from './boxItem.module.scss';
-
-
-import { ctgrId } from "../../../editorTypes";
-
 import { InputGetter } from '../../../../common/inputGetter/InputGetter';
+import { ShowHideMenu } from "../../Menu/ShowHideMenu/ShowHideMenu";
+import { Item } from "../Item";
+
+//Error
 import { ExistInLocStorageError } from "../../../../common/error/locStorageError/ExistInLocStorageError";
+
+// Interfaces/Types
+import { ctgrId } from "../../../editorTypes";
 import { bttns, runBoxItemFncIds, scndMenuBoxItemIds } from './objectInterfaces';
-import { buttonData } from "../../Menu/menuIntrfc";
+import { item, boxItemClass,} from "../../../../common/localStorage/storageInterfaces";
+
+// Scss
+import styles from './boxItem.module.scss';
+import stylEditor from "../../../editor.module.scss"
+import stylIMenu from "../../Menu/FrstMenu/frstMenu.module.scss"
 
 
 let debug = false;
@@ -1051,6 +1055,347 @@ export class BoxItem extends Flex{
                     }
                 }
             }
+        }
+    }
+
+    public rszPixelState(item:Item){
+        return (e:Event)=>{
+        if (
+        (<HTMLElement>e.target).id === 'rsz-box-width' ||
+        (<HTMLElement>e.target).id === 'rsz-box-height' ||
+        (<HTMLElement>e.target).id === 'rsz-box-both' ||
+        (<HTMLElement>e.target).id === 'rsz-outerBox-width' ||
+        (<HTMLElement>e.target).id === 'rsz-outerBox-height' ||
+        (<HTMLElement>e.target).id === 'rsz-outerBox-both' 
+        ){
+            console.log(`rsz item...${(<HTMLElement>e.target).id}`);
+            let triggerId;
+            let menuTrggrId;
+            if (
+            (<HTMLElement>e.target).id === 'rsz-box-width' ||
+            (<HTMLElement>e.target).id === 'rsz-box-height' ||
+            (<HTMLElement>e.target).id === 'rsz-box-both') {
+                triggerId = localStorage.getItem('triggerid');
+            }
+            else if (
+            (<HTMLElement>e.target).id === 'rsz-outerBox-width' ||
+            (<HTMLElement>e.target).id === 'rsz-outerBox-height' ||
+            (<HTMLElement>e.target).id === 'rsz-outerBox-both' ){
+                triggerId = localStorage.getItem('trggrPrntId');
+                menuTrggrId = localStorage.getItem('triggerid');
+            }
+            if (triggerId) {
+                const trigger = document.getElementById(triggerId);
+                if(trigger){
+                    const triggerCategory = <ctgrId>trigger.getAttribute('data-category');
+
+                    localStorage.setItem('resizingItem', triggerId);
+                    //if trigger contains grow property, set style width/height and remove grow
+                    trigger.style.position = 'relative';
+                    trigger.style.overflow = 'hidden';
+                    
+                    //item.resizeEven(trigger, item);
+                    trigger.classList.add(stylEditor.focus);
+                    if (menuTrggrId) {
+                        let menuTrggr = document.getElementById(menuTrggrId);
+                        if (menuTrggr) {
+                            menuTrggr.classList.remove(stylIMenu.hasNav);
+                        }
+                    }
+                    else {
+                        trigger.classList.remove(stylIMenu.hasNav);
+                    }
+                    
+                    var resizer = document.createElement('div');
+                    resizer.id = 'resizer';
+                    resizer.style.width = '10px';
+                    resizer.style.height = '10px';
+                    resizer.style.background = 'red';
+                    resizer.style.position = 'absolute';
+                    resizer.style.right = '0';
+                    resizer.style.bottom = '0';
+                    resizer.style.cursor = 'se-resize';
+                    trigger.appendChild(resizer);
+                    
+                    switch ((<HTMLElement>e.target).id) {
+                        case 'rsz-box-width':
+                        case'rsz-outerBox-width':
+                            localStorage.setItem('rszItem', 'rsz-width');
+
+                            if (trigger.classList.contains('grow')) {
+                                if (trigger.parentElement?.classList.contains('horizontal')) {
+                                    trigger.style.width = `${trigger.offsetWidth}px`; 
+                                    trigger.classList.remove('grow');
+                                }
+                            }
+
+                            var resizeWidth = function (e:Event) {
+                                console.log('pageX',(<MouseEvent>e).pageX);
+                                //offsetLeft takes the nearest POSITIONED parentElement
+                                trigger.style.width = ((<MouseEvent>e).pageX - trigger.offsetLeft -15) + 'px';
+                                
+                            }
+                            
+                            var stopResize = function () {
+                                window.removeEventListener('mousemove', resizeWidth, false);
+                                window.removeEventListener('mouseup', stopResize, false);
+                            }
+                            
+                            var initResize= function () {
+                                e.preventDefault()
+                                window.addEventListener('mousemove', resizeWidth, false);
+                                window.addEventListener('mouseup', stopResize, false);
+                            }
+                    
+                            resizer.addEventListener('mousedown', initResize, false);
+                        break;
+                        case 'rsz-box-height':
+                        case 'rsz-outerBox-height':
+                            localStorage.setItem('rszItem', 'rsz-height');
+
+                            if (trigger.classList.contains('grow')) {
+                                if (trigger.parentElement?.classList.contains('vertical')) {
+                                    trigger.style.height = `${trigger.offsetHeight}px`; 
+                                    trigger.classList.remove('grow');
+                                }
+                            }
+
+                            var resizeHeight = function (e:Event) {
+                                trigger.style.height = ((<MouseEvent>e).pageY - trigger.offsetTop - 32) + 'px';
+                            }
+                            
+                            var stopResize = function () {
+                                window.removeEventListener('mousemove', resizeHeight, false);
+                                window.removeEventListener('mouseup', stopResize, false);
+                            }
+                            
+                            var initResize= function () {
+                                window.addEventListener('mousemove', resizeHeight, false);
+                                window.addEventListener('mouseup', stopResize, false);
+                            }
+                            console.log('adfadsff')
+                            resizer.addEventListener('mousedown', initResize, false);
+                        break;
+                        case 'rsz-box-both':
+                        case 'rsz-outerBox-both':
+                            localStorage.setItem('rszItem', 'rsz-both');
+
+                            if (trigger.classList.contains('grow')) {
+                                if (trigger.parentElement?.classList.contains('horizontal')) {
+                                    trigger.style.width = `${trigger.offsetWidth}px`; 
+                                }
+                                if (trigger.parentElement?.classList.contains('vertical')) {
+                                    trigger.style.height = `${trigger.offsetHeight}px`; 
+                                }
+                                trigger.classList.remove('grow');
+                                
+                            }
+                            
+                            var resizeBoth = function (e:Event) {
+                                
+                                trigger.style.width = ((<MouseEvent>e).pageX - trigger.offsetLeft - 22) + 'px';
+                                trigger.style.height = ((<MouseEvent>e).pageY - trigger.offsetTop - 32) + 'px';
+                            }
+                            
+                            var stopResize = function () {
+                                window.removeEventListener('mousemove', resizeBoth, false);
+                                window.removeEventListener('mouseup', stopResize, false);
+                            }
+                            
+                            var initResize= function () {
+                                window.addEventListener('mousemove', resizeBoth, false);
+                                window.addEventListener('mouseup', stopResize, false);
+                            }
+                            console.log('adfadsff')
+                            resizer.addEventListener('mousedown', initResize, false);
+                        break;
+                    }
+                    ShowHideMenu.resize = true;
+                }
+            }
+        }
+    }
+    }
+
+    /**
+     * Cancels rsz item
+     * @param e 
+     */
+     public rszPixelEnd(e:Event){
+        //musí být dvě funkce, jedna pro klik na button, druhá pro klik na označený boxItem třídou moveBox
+        if ((<HTMLElement>e.target).id === 'rsz-item-pixel-end') {
+            console.log('rsz-item-pixel-end');
+            
+          /*   const mainBox = document.getElementById('frstMainBox');
+            mainBox?.classList.remove('hasNavRsz'); */
+            
+            let resizngItemId = localStorage.getItem('resizingItem');
+            let resizngItem:HTMLElement | null;
+            if (resizngItemId) {
+                
+                resizngItem = document.getElementById(resizngItemId);
+                
+                if (resizngItem) {
+                    const trggrCtgrName = <ctgrId>resizngItem.getAttribute('data-category');
+                    const items = LocStorage.getItems('items');
+                    let ctgrData:item | null = null;
+                    try {
+                        ctgrData = LocStorage.getCtgr(items, trggrCtgrName);
+                        
+                    } catch (error:unknown) {
+                        if (error instanceof ExistInLocStorageError) {
+                            console.log(error.message, error.property)
+                        }
+                    }
+                    if (ctgrData) {
+                        const rszingItemData = LocStorage.findItem(ctgrData.subItems, resizngItemId);
+                        if (rszingItemData) {
+                            //vrácení původních css tríd pro width
+                            console.log((<boxItemClass>rszingItemData.classes).grow);
+                            (<boxItemClass>rszingItemData.classes).grow.forEach(classs => {
+                                    resizngItem!.classList.add(classs);
+                                
+                            });
+                            if (rszingItemData.inlStyl) {
+                                let iterator:keyof typeof rszingItemData.inlStyl;
+                                for ( iterator in rszingItemData.inlStyl) {
+                                    resizngItem!.style[`${iterator}`] = rszingItemData.inlStyl[iterator]!;
+                                } 
+                            }
+                                
+                        
+
+                        
+                            resizngItem.classList.remove(stylEditor.focus);
+                            //remove style needed to resize 
+                            resizngItem.style.position = '';
+                            resizngItem.style.overflow = '';
+                            
+                            //if inline style width or hight is already in memory, do not delete these inline styles
+                            if (!rszingItemData.inlStyl?.width ) {
+                                resizngItem.style.width = '';
+                            }
+                            else if (!rszingItemData.inlStyl?.height) {
+                                resizngItem.style.height = '';
+                            }
+                        }
+                    }
+                }
+            }
+            document.getElementById('resizer')?.remove();
+            
+            ShowHideMenu.resize = false;
+            
+        }
+    }
+
+    /**
+     * Cancels move item
+     * @param e 
+     */
+    public rszPixel(e:Event){
+        //musí být dvě funkce, jedna pro klik na button, druhá pro klik na označený boxItem třídou moveBox
+        if ((<HTMLElement>e.target).id === 'rsz-item-pixel') {
+            console.log('rsz-item-pixel');
+                let resizngItemId = localStorage.getItem('resizingItem');
+                let resizngItem:HTMLElement | null;
+                if (resizngItemId) {
+                    
+                    resizngItem = document.getElementById(resizngItemId);
+                    if (resizngItem) {
+                        const trggrCtgrName = <ctgrId>resizngItem.getAttribute('data-category');
+                        resizngItem.classList.remove(stylEditor.focus);
+                        //remove style needed to resize 
+                        resizngItem.style.position = '';
+
+                        //width and Height of resizingItem
+                        
+                        const items = LocStorage.getItems('items');
+                        let ctgrData:item | null = null;
+                        try {
+                            ctgrData = LocStorage.getCtgr(items, trggrCtgrName);
+                            
+                        } catch (error:unknown) {
+                            if (error instanceof ExistInLocStorageError) {
+                                console.log(error.message, error.property)
+                            }
+                        }
+                        if (ctgrData) {
+                            const rszItemData = LocStorage.findItem(ctgrData.subItems, resizngItemId);
+                            if (rszItemData) {
+                                let rszItemWidth;
+                                let rszItemHeight;
+                                const rszDrctn = localStorage.getItem('rszItem');
+                                switch (rszDrctn) {
+                                    case 'rsz-width':
+                                        rszItemWidth = resizngItem.style.width;
+                                        console.log(resizngItem.style.width);
+                                        LocStorage.saveInlStylWidth(rszItemData, rszItemWidth);
+                                        
+                                        
+                                        if (resizngItem.classList.contains('x100')) {
+                                            resizngItem.classList.remove('x100');
+                                            (<boxItemClass>rszItemData.classes).width[0] = 'x0';
+                                        }
+
+                                        if (resizngItem.parentElement?.classList.contains('horizontal')) {
+                                                if ((<boxItemClass>rszItemData.classes).grow[0] === 'grow') {
+                                                    (<boxItemClass>rszItemData!.classes).grow[0] = 'noGrow';
+                                            }
+                                        }
+                                        break;
+                                    case 'rsz-height':
+                                        rszItemHeight = resizngItem.style.height;
+                                        LocStorage.saveInlStylHeight(rszItemData,rszItemHeight);
+
+                                        if (resizngItem.classList.contains('y100')) {
+                                            resizngItem.classList.remove('y100');
+                                            (<boxItemClass>rszItemData.classes).height[0] = 'y0';
+                                        }
+
+                                        if (resizngItem.parentElement?.classList.contains('vertical')) {
+                                            if ((<boxItemClass>rszItemData.classes).grow[0] === 'grow') {
+                                                (<boxItemClass>rszItemData!.classes).grow[0] = 'noGrow';
+                                        }
+                                    }
+                                        break;
+                                    case 'rsz-both':
+                                        rszItemWidth = resizngItem.style.width;
+                                        rszItemHeight = resizngItem.style.height;
+                                        LocStorage.saveInlStylWidth(rszItemData, rszItemWidth);
+                                        LocStorage.saveInlStylHeight(rszItemData,rszItemHeight);
+
+                                        if (resizngItem.classList.contains('y100')) {
+                                            resizngItem.classList.remove('y100');
+                                            (<boxItemClass>rszItemData.classes).height[0] = 'y0';
+                                        }
+                                        if (resizngItem.classList.contains('x100')) {
+                                            resizngItem.classList.remove('x100');
+                                            (<boxItemClass>rszItemData.classes).width[0] = 'x0';
+                                        }
+
+                                        if (resizngItem.parentElement?.classList.contains('horizontal')) {
+                                            if ((<boxItemClass>rszItemData.classes).grow[0] === 'grow') {
+                                                (<boxItemClass>rszItemData!.classes).grow[0] = 'noGrow';
+                                            }
+                                        }
+                                        if (resizngItem.parentElement?.classList.contains('vertical')) {
+                                            if ((<boxItemClass>rszItemData.classes).grow[0] === 'grow') {
+                                                (<boxItemClass>rszItemData!.classes).grow[0] = 'noGrow';
+                                            }
+                                        }
+                                        break;
+                                }
+                                let saved = LocStorage.upgrItem(ctgrData.subItems, resizngItemId, rszItemData);
+                                if (saved) {
+                                    document.getElementById('resizer')?.remove();
+                                    LocStorage.setItem('items', items)
+                                    ShowHideMenu.resize = false;
+                                }
+                            }
+                        }
+                    }
+                }
         }
     }
     
