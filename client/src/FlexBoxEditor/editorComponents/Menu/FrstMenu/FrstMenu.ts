@@ -41,7 +41,7 @@ export class FrstMenu extends Menu{
             let index = buttonData.findIndex(button => button.id === 'edt-outerBox');
             if(buttonData[index].subMenu){
                 if(trggrPrntKind === 'boxItem'){
-                    buttonData[index].subMenu = this.boxItem.bttns.scndMenu.bckGrndOuter;
+                    buttonData[index].subMenu = this.boxItem.bttns.frstMenu.subMenuEdtOuter;
                     
                 }
                 else if(trggrPrntKind === 'mainBox'){

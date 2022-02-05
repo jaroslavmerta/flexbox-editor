@@ -8,11 +8,35 @@ import stylIMenu from "../Menu/FrstMenu/frstMenu.module.scss"
 import { InputGetter } from '../../../common/inputGetter/InputGetter';
 import { ExistInLocStorageError } from "../../../common/error/locStorageError/ExistInLocStorageError";
 import { ShowHideMenu } from './../Menu/ShowHideMenu/ShowHideMenu';
+import { itemBttns } from "./objectInterfaces";
 require('./item.module.scss');
 
 let debug=false;
 
 export class Item{
+
+    //Buttons
+    public bttns:itemBttns;
+
+    constructor() {
+        this.bttns = {
+            scndMenu: {
+                algnSelf: [
+                    {id: 'start', type:'radio', name :'ornt', value:'fi-start', text:'Start'},
+                    {id: 'center', type:'radio', name :'ornt', value:'fi-center', text:'Center'},
+                    {id: 'end', type:'radio', name :'ornt', value:'fi-end', text:'End'},
+                    {id: 'stretch', type:'radio', name :'ornt', value:'fi-stretch', text:'Stretch'},
+                    {id: 'none-as', type:'radio', name :'ornt', value:'fi-none', text:'None'},
+                ],
+                rszPercent: [
+                    {id: 'x100', type:'radio', name :'width', value:'x100', text:'Width 100%'},
+                    {id: 'x0', type:'radio', name :'width', value:'x0', text:'No % width'},
+                    {id: 'y100', type:'radio', name :'height', value:'y100', text:'Height 100%'},
+                    {id: 'y0', type:'radio', name :'height', value:'y0', text:'No % height'},
+                ]
+            }
+        }
+    }
 
     public rszPercent(e:Event){
         //musí být dvě funkce, jedna pro klik na button, druhá pro klik na označený boxItem třídou moveBox

@@ -36,10 +36,10 @@ export class FlexBoxEditor {
         this.frstMainBox = new FrstMainBox(this.boxItem, this.imageItem,  this.flex);
         this.input = new Input();
         this.box = new Box();
-        this.scndMenu = new ScndMenu(this.input, this.boxItem, this.box);
+        this.item = new Item();
+        this.scndMenu = new ScndMenu(this.input, this.boxItem, this.box, this.item);
         this.mainBox = new MainBox(this.boxItem, this.imageItem);
         this.frstMenu = new FrstMenu(this.input, this.boxItem, this.mainBox);
-        this.item = new Item();
         this.showHideMenu = new ShowHideMenu(this.frstMenu, this.scndMenu, this.boxItem, this.mainBox, this.imageItem);
         this.eventListeners = new EventListeners(this.boxItem, this.frstMenu, this.imageItem, this.item, this.mainBox, this.showHideMenu);
     }

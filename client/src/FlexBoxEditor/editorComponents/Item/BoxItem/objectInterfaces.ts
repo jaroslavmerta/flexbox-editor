@@ -70,6 +70,8 @@ export interface bttns{
         bckGrndOuter: buttonData[],
         grow: radioBttn[],
         addBoxItem: radioBttn[],
+        rszPixel:buttonData[],
+        rszPixelOuter:buttonData[]
     }
 
 }

@@ -12,6 +12,7 @@ import { Menu } from '../Menu';
 import { ExistInLocStorageError } from "../../../../common/error/locStorageError/ExistInLocStorageError";
 import { BoxItem } from "../../Item/BoxItem/BoxItem";
 import { Box } from './../../Box/Box';
+import { Item } from './../../Item/Item';
 
 
 export class ScndMenu extends Menu {
@@ -19,72 +20,40 @@ export class ScndMenu extends Menu {
     protected input:Input;
     private boxItem: BoxItem;
     private box:Box;
+    private item:Item;
 
-    //Buttons
-    private rszItmBtns:  buttonData[];
-    private rszOuterBoxBtns: buttonData[];
-
-    //Texts for Buttons
+    //Texts for buttons affecting item position
     private fbColTextAiAs: string[];
     private fbRowTextAiAs: string[];
     private fbColTextJc: string[];
     private fbRowTextJc: string[];
 
     //Inputs radio
-    protected edtItem: radioBttn[];
- 
-    protected rszItmPercentBtns: radioBttn[];
-
 
     private radioScndMenus:radioScndMenu[];
     private bttnScndMenus:bttnScndMenu[];
     private radioPstnBoxScndMenus:radioPstnBoxScndMenu[];
     private radioPstnImgScndMenus:radioPstnImgScndMenu[];
 
-    constructor(input:Input, boxItem:BoxItem, box:Box){
+    constructor(input:Input, boxItem:BoxItem, box:Box, item:Item){
         super();
 
+        //Dependencies 
         this.boxItem = boxItem;
         this.input = input;
         this.box = box;
-        
-        this.edtItem = [
-            {id: 'start', type:'radio', name :'ornt', value:'fi-start', text:'Start'},
-            {id: 'center', type:'radio', name :'ornt', value:'fi-center', text:'Center'},
-            {id: 'end', type:'radio', name :'ornt', value:'fi-end', text:'End'},
-            {id: 'stretch', type:'radio', name :'ornt', value:'fi-stretch', text:'Stretch'},
-            {id: 'none-as', type:'radio', name :'ornt', value:'fi-none', text:'None'},
-        ];
+        this.item = item;
 
+        //Texts for buttons affecting item position
         this.fbRowTextAiAs = ['Top', 'Center', 'Down'];
         this.fbColTextAiAs = ['Left', 'Center', 'Right'];
         this.fbRowTextJc = ['Left', 'Center', 'Right'];
         this.fbColTextJc = ['Top','Center','Down'];
-
-        this.rszItmBtns = [
-            {id: 'rsz-box-width', type:'button', text:'Resize width'},
-            {id: 'rsz-box-height', type:'button', text:'Resize height'},
-            {id: 'rsz-box-both', type:'button', text:'Resize both'},
-            {id: 'rsz-box-pxl', type:'button', text:'Resize with pixels'}
-        ];
-        this.rszOuterBoxBtns = [
-            {id: 'rsz-outerBox-width', type:'button', text:'Resize width'},
-            {id: 'rsz-outerBox-height', type:'button', text:'Resize height'},
-            {id: 'rsz-outerBox-both', type:'button', text:'Resize both'},
-            {id: 'rsz-outerBox-pxl', type:'button', text:'Resize with pixels'}
-        ];
-
-        this.rszItmPercentBtns = [
-            {id: 'x100', type:'radio', name :'width', value:'x100', text:'Width 100%'},
-            {id: 'x0', type:'radio', name :'width', value:'x0', text:'No % width'},
-            {id: 'y100', type:'radio', name :'height', value:'y100', text:'Height 100%'},
-            {id: 'y0', type:'radio', name :'height', value:'y0', text:'No % height'},
-        ];
         
         //Second menu objects
         this.radioScndMenus = [
-            {id:'rsz-item-percent-scndMenu-radio', radioData: {buttonData: this.rszItmPercentBtns, formId:'boxItem-preset', submitId:'rsz-item-percent',submitText:'Change size',checkClas:['width', 'height']}},
-            {id:'rsz-outerBox-percent-scndMenu-radio', radioData: {buttonData: this.rszItmPercentBtns, formId:'boxItem-preset', submitId:'rsz-outerBox-percent',submitText:'Change size',checkClas:['width', 'height'], outerBox: true}},
+            {id:'rsz-item-percent-scndMenu-radio', radioData: {buttonData: this.item.bttns.scndMenu.rszPercent, formId:'boxItem-preset', submitId:'rsz-item-percent',submitText:'Change size',checkClas:['width', 'height']}},
+            {id:'rsz-outerBox-percent-scndMenu-radio', radioData: {buttonData: this.item.bttns.scndMenu.rszPercent, formId:'boxItem-preset', submitId:'rsz-outerBox-percent',submitText:'Change size',checkClas:['width', 'height'], outerBox: true}},
             {id:this.boxItem.scndMenuIds.runScndMenu.edt.box.grow, radioData: {buttonData: this.boxItem.bttns.scndMenu.grow, formId:'boxItem-preset', submitId: this.boxItem.scndMenuIds.runFnc.edt.box.grow ,submitText:'Edit grow',checkClas:['grow']}},
             {id:this.boxItem.scndMenuIds.runScndMenu.edt.outerBox.grow, radioData: {buttonData: this.boxItem.bttns.scndMenu.grow, formId:'boxItem-preset', submitId: this.boxItem.scndMenuIds.runFnc.edt.outerBox.grow, submitText:'Edit grow',checkClas:['grow'], outerBox: true}},
             {id:this.boxItem.scndMenuIds.runScndMenu.edt.box.drctn, radioData: {buttonData: this.box.bttns.scndMenu.drctn, formId:'boxItem-preset', submitId: this.boxItem.scndMenuIds.runFnc.edt.box.drctn, submitText:'Edit direction',checkClas:['flexDrctn']}},
@@ -99,21 +68,20 @@ export class ScndMenu extends Menu {
             {id: this.boxItem.scndMenuIds.runScndMenu.edt.box.bckgrnd, bttnData: this.boxItem.bttns.scndMenu.bckGrnd},
             //{id: 'add-mainBox-bckgrnd-scndMenu-bttn', bttnData: this.boxBckGrndBttns},
             {id: this.boxItem.scndMenuIds.runScndMenu.edt.outerBox.bckgrnd, bttnData: this.boxItem.bttns.scndMenu.bckGrndOuter},
-            {id: 'rsz-item-pixel-scndMenu-bttn', bttnData: this.rszItmBtns},
-            {id: 'rsz-outerBox-pixel-scndMenu-bttn', bttnData: this.rszOuterBoxBtns},
-
+            {id: 'rsz-item-pixel-scndMenu-bttn', bttnData: this.boxItem.bttns.scndMenu.rszPixel},
+            {id: 'rsz-outerBox-pixel-scndMenu-bttn', bttnData: this.boxItem.bttns.scndMenu.rszPixelOuter},
         ]
 
         this.radioPstnBoxScndMenus = [
-            {id:this.boxItem.scndMenuIds.runScndMenu.edt.box.pstn, radioPstnData: {aiBttns: this.box.bttns.scndMenu.algnItms, jcBttns:this.box.bttns.scndMenu.jstfItms, submitId: this.boxItem.scndMenuIds.runFnc.edt.box.pstn, asBttns: this.edtItem,} },
-            {id:this.boxItem.scndMenuIds.runScndMenu.edt.box.pstn, radioPstnData: {aiBttns: this.box.bttns.scndMenu.algnItms, jcBttns:this.box.bttns.scndMenu.jstfItms, submitId: this.boxItem.scndMenuIds.runFnc.edt.outerBox.pstn, asBttns: this.edtItem, outerBox: true} },
+            {id:this.boxItem.scndMenuIds.runScndMenu.edt.box.pstn, radioPstnData: {aiBttns: this.box.bttns.scndMenu.algnItms, jcBttns:this.box.bttns.scndMenu.jstfItms, submitId: this.boxItem.scndMenuIds.runFnc.edt.box.pstn, asBttns: this.item.bttns.scndMenu.algnSelf,} },
+            {id:this.boxItem.scndMenuIds.runScndMenu.edt.box.pstn, radioPstnData: {aiBttns: this.box.bttns.scndMenu.algnItms, jcBttns:this.box.bttns.scndMenu.jstfItms, submitId: this.boxItem.scndMenuIds.runFnc.edt.outerBox.pstn, asBttns: this.item.bttns.scndMenu.algnSelf, outerBox: true} },
             {id:'edt-mainBox-pstn-scndMenu-radioPstnBox', radioPstnData: {aiBttns: this.box.bttns.scndMenu.algnItms, jcBttns:this.box.bttns.scndMenu.jstfItms, submitId:'edt-mainBox-pstn'} },
             {id:'edt-outerMainBox-pstn-scndMenu-radioPstnBox', radioPstnData: {aiBttns: this.box.bttns.scndMenu.algnItms, jcBttns:this.box.bttns.scndMenu.jstfItms, submitId:'edt-outerMainBox-pstn', asBttns:undefined, outerBox:true } },
         ];
 
         this.radioPstnImgScndMenus = [
             {
-                id:'edt-img-pstn-scndMenu-radioPstnImg', radioPstnData: this.edtItem            
+                id:'edt-img-pstn-scndMenu-radioPstnImg', radioPstnData: this.item.bttns.scndMenu.algnSelf            
             }
         ];
     }

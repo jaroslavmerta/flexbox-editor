@@ -162,6 +162,18 @@ export class BoxItem extends Flex{
                     {id: 'grow', type:'radio', name : BoxItem.width, value:'grow', text:'Grow', checked:'checked'},
                     {id: 'noGrow', type:'radio', name :BoxItem.width, value:'noGrow', text:'Fit content'},
                 ],
+                rszPixel:[
+                    {id: 'rsz-box-width', type:'button', text:'Resize width'},
+                    {id: 'rsz-box-height', type:'button', text:'Resize height'},
+                    {id: 'rsz-box-both', type:'button', text:'Resize both'},
+                    {id: 'rsz-box-pxl', type:'button', text:'Resize with pixels'}
+                ],
+                rszPixelOuter:[
+                    {id: 'rsz-outerBox-width', type:'button', text:'Resize width'},
+                    {id: 'rsz-outerBox-height', type:'button', text:'Resize height'},
+                    {id: 'rsz-outerBox-both', type:'button', text:'Resize both'},
+                    {id: 'rsz-outerBox-pxl', type:'button', text:'Resize with pixels'}
+                ]
                
             }
         }
