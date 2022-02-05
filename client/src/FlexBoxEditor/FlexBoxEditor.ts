@@ -9,6 +9,7 @@ import { FrstMainBox } from './editorComponents/MainBox/FrstMainBox/FrstMainBox'
 import { MainBox } from './editorComponents/MainBox/MainBox';
 import { ScndMenu } from './editorComponents/Menu/ScndMenu/ScndMenu';
 import { ShowHideMenu } from './editorComponents/Menu/ShowHideMenu/ShowHideMenu';
+import { Box } from './editorComponents/Box/Box';
 require('../itemPresets.scss');
 
 export class FlexBoxEditor {
@@ -16,6 +17,7 @@ export class FlexBoxEditor {
     //Dependecies
     private flex:Flex;
     private boxItem:BoxItem;
+    private box:Box;
     private imageItem:ImageItem;
     private frstMainBox:FrstMainBox;
     private frstMenu: FrstMenu;
@@ -33,7 +35,8 @@ export class FlexBoxEditor {
         this.imageItem = new ImageItem();
         this.frstMainBox = new FrstMainBox(this.boxItem, this.imageItem,  this.flex);
         this.input = new Input();
-        this.scndMenu = new ScndMenu(this.input, this.boxItem);
+        this.box = new Box();
+        this.scndMenu = new ScndMenu(this.input, this.boxItem, this.box);
         this.mainBox = new MainBox(this.boxItem, this.imageItem);
         this.frstMenu = new FrstMenu(this.input, this.boxItem, this.mainBox);
         this.item = new Item();

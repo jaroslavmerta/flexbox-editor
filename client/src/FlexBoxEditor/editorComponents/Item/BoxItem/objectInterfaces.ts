@@ -1,3 +1,6 @@
+import { radioBttn } from '../../../../HTMLComponents/input/inputIntrfc';
+import { buttonData } from './../../Menu/menuIntrfc';
+
 export interface scndMenuBoxItemIds{
     runScndMenu:runBoxItemScndMenuIds,
     runFnc:runBoxItemFncIds
@@ -38,7 +41,7 @@ export interface runBoxItemFncIds {
     rmv:{
         box:rmvBox,
         outerBox:rmvBox
-    }
+    },
     add:{
         innerBox:string,
         outerBox:string
@@ -55,3 +58,20 @@ interface edtBoxRunFunc{
 interface rmvBox{
     bckgrnd:string,
 }
+
+//Buttons
+export interface bttns{
+    frstMenu: {
+        theMenu:buttonData[],
+        subMenuEdtOuter:buttonData[]
+    },
+    scndMenu: {
+        bckGrnd: buttonData[],
+        bckGrndOuter: buttonData[],
+        grow: radioBttn[],
+        addBoxItem: radioBttn[],
+    }
+
+}
+
+

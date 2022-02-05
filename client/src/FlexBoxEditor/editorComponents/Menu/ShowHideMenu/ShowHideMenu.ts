@@ -230,7 +230,7 @@ export class ShowHideMenu{
                 if(dataKind === 'boxItem'){
                     if (trggrPrntKind) {
                         if (trggrPrntKind === 'boxItem'||trggrPrntKind === 'mainBox') {
-                            nav = this.frstMenu.createFrstMenu(e, evTarget.id, this.boxItem.boxItemFrstMenuBttns, trggrPrntKind);
+                            nav = this.frstMenu.createFrstMenu(e, evTarget.id, this.boxItem.bttns.frstMenu.theMenu, trggrPrntKind);
                         }
                     }
                 }

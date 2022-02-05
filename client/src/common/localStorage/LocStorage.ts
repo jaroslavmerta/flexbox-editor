@@ -1,8 +1,8 @@
-import { FrstMenu } from "../../FlexBoxEditor/editorComponents/Menu/FrstMenu/FrstMenu";
 import { ctgrId } from "../../FlexBoxEditor/editorTypes";
 import { ExistInLocStorageError } from "../error/locStorageError/ExistInLocStorageError";
 import { nameValue } from "../inputGetter/objectInterfaces";
 import { boxItemClass, item, items } from "./storageInterfaces";
+import { BoxItem } from "../../FlexBoxEditor/editorComponents/Item/BoxItem/BoxItem";
 
 interface ImgData{
     img:string,
@@ -85,16 +85,16 @@ export class LocStorage{
     }
 
     /**
-     * Save flexbox classes flexDrctn and width from input option
+     * Save flexbox css classes flexDrctn and width from input option
      * @param presets Input option
      * @param classes Class object of box item
      */
     static saveFbInptClasOptn(presets:nameValue[], classes:boxItemClass){
         presets.forEach(preset => {
-            if (preset.name === FrstMenu.flexDrctn) {
+            if (preset.name === BoxItem.flexDrctn) {
                 classes.flexDrctn.push(preset.value); 
             }
-            else if(preset.name === FrstMenu.width){
+            else if(preset.name === BoxItem.width){
                 classes.grow.push(preset.value)
             }
         });

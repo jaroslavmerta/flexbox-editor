@@ -10,7 +10,7 @@ import { ctgrId } from "../../../editorTypes";
 
 import { InputGetter } from '../../../../common/inputGetter/InputGetter';
 import { ExistInLocStorageError } from "../../../../common/error/locStorageError/ExistInLocStorageError";
-import { runBoxItemFncIds, scndMenuBoxItemIds } from './objectInterfaces';
+import { bttns, runBoxItemFncIds, scndMenuBoxItemIds } from './objectInterfaces';
 import { buttonData } from "../../Menu/menuIntrfc";
 
 
@@ -18,12 +18,12 @@ let debug = false;
 
 export class BoxItem extends Flex{
 
+    //names
+    static readonly flexDrctn = 'flexDrctn';
+    static readonly width = 'width';
+
     public scndMenuIds: scndMenuBoxItemIds;
-    //public frstMenuBttns;
-
-    public boxItemFrstMenuBttns:buttonData[];
-    public edtOuterBoxItemSubMenuBttns: buttonData[];
-
+    public bttns: bttns;
 
     constructor(){
         super();
@@ -86,51 +86,82 @@ export class BoxItem extends Flex{
             }
         };
 
-    
-
-
-
-            //Box item
-            this.boxItemFrstMenuBttns = [            
-                {id: 'edt-box', type:'button', text :'Edit box', notClose:'doNotClose', subMenu:[
-                    {id: this.scndMenuIds.runScndMenu.edt.box.bckgrnd, type:'file', text :'Background' },
-                    {id: 'rsz-item-pixel-scndMenu-bttn', type:'button', text :'Pixel resize'},
-                    {id: 'rsz-item-percent-scndMenu-radio', type:'button', text :'Percent resize'},
+        this.bttns = {
+            frstMenu:{
+                theMenu:[            
+                    {id: 'edt-box', type:'button', text :'Edit box', notClose:'doNotClose', subMenu:[
+                        {id: this.scndMenuIds.runScndMenu.edt.box.bckgrnd, type:'file', text :'Background' },
+                        {id: 'rsz-item-pixel-scndMenu-bttn', type:'button', text :'Pixel resize'},
+                        {id: 'rsz-item-percent-scndMenu-radio', type:'button', text :'Percent resize'},
+                        {id: this.scndMenuIds.runScndMenu.edt.box.pstn, type:'button', text :'Edit position'},
+                        {id: this.scndMenuIds.runScndMenu.edt.box.drctn, type:'button', text :'Edit direction'},
+                        {id: this.scndMenuIds.runScndMenu.edt.box.grow, type:'button', text:'Edit grow'},
+                        
+                    ]},
+                    {id: 'edt-outerBox', type:'button', text :'Edit outer BOX',notClose:'doNotClose', subMenu:[]},
+                    {id: 'add', type:'button', text :'Add', notClose:'doNotClose', subMenu:[
+                        {id: this.scndMenuIds.runScndMenu.add.innerBox, type:'button', text :'Add inner box'},
+                        {id: 'add-outerBox-scndMenu-radio', type:'button', text :'Add outer box'},
+                        {id: 'add-imageItem', type:'file', text :'Add image',
+                            input:{
+                                id: 'image_input',
+                                type:'file',
+                                accept:"image/jpeg, image,/png"
+                                }
+                        },
+                        
+                    ]},
+                    {id: 'move-item', type:'button', text :'Move box'},
+                    {id: 'rmv', type:'button', text :'Remove', notClose:'doNotClose', subMenu:[
+                        {id: 'rmv-boxItem', type:'button', text :'Remove item box'},
+                        {id: 'rmv-boxItem-all', type:'button', text :'Remove item box and all in it'}
+        
+                    ]},
+                ],
+                subMenuEdtOuter:[
+                    {id: this.scndMenuIds.runScndMenu.edt.outerBox.bckgrnd, type:'button', text :'Background'},
+                    {id: 'rsz-outerBox-pixel-scndMenu-bttn', type:'button', text :'Pixel resize'},
+                    {id: 'rsz-outerBox-percent-scndMenu-radio', type:'button', text :'Percent resize'},
                     {id: this.scndMenuIds.runScndMenu.edt.box.pstn, type:'button', text :'Edit position'},
-                    {id: this.scndMenuIds.runScndMenu.edt.box.drctn, type:'button', text :'Edit direction'},
-                    {id: this.scndMenuIds.runScndMenu.edt.box.grow, type:'button', text:'Edit grow'},
-                    
-                ]},
-                {id: 'edt-outerBox', type:'button', text :'Edit outer BOX',notClose:'doNotClose', subMenu:[]},
-                {id: 'add', type:'button', text :'Add', notClose:'doNotClose', subMenu:[
-                    {id: this.scndMenuIds.runScndMenu.add.innerBox, type:'button', text :'Add inner box'},
-                    {id: 'add-outerBox-scndMenu-radio', type:'button', text :'Add outer box'},
-                    {id: 'add-imageItem', type:'file', text :'Add image',
+                    {id: this.scndMenuIds.runScndMenu.edt.outerBox.drctn, type:'button', text :'Edit direction'},
+                    {id: this.scndMenuIds.runScndMenu.edt.outerBox.grow, type:'button', text:'Edit grow'},
+                ]
+            },
+            scndMenu:{
+                bckGrnd:[
+                    {id: this.scndMenuIds.runFnc.edt.box.bckgrnd.clickInput, type:'button', text:'Add background image',
                         input:{
-                            id: 'image_input',
+                            id: this.scndMenuIds.runFnc.edt.box.bckgrnd.runFnc,
                             type:'file',
                             accept:"image/jpeg, image,/png"
-                            }
+                        }
                     },
-                    
-                ]},
-                {id: 'move-item', type:'button', text :'Move box'},
-                {id: 'rmv', type:'button', text :'Remove', notClose:'doNotClose', subMenu:[
-                    {id: 'rmv-boxItem', type:'button', text :'Remove item box'},
-                    {id: 'rmv-boxItem-all', type:'button', text :'Remove item box and all in it'}
-    
-                ]},
-            ];
-    
-            //Edit outer box submenu se musí tvořit 
-            this.edtOuterBoxItemSubMenuBttns = [
-                {id: this.scndMenuIds.runScndMenu.edt.outerBox.bckgrnd, type:'button', text :'Background'},
-                {id: 'rsz-outerBox-pixel-scndMenu-bttn', type:'button', text :'Pixel resize'},
-                {id: 'rsz-outerBox-percent-scndMenu-radio', type:'button', text :'Percent resize'},
-                {id: this.scndMenuIds.runScndMenu.edt.box.pstn, type:'button', text :'Edit position'},
-                {id: this.scndMenuIds.runScndMenu.edt.outerBox.drctn, type:'button', text :'Edit direction'},
-                {id: this.scndMenuIds.runScndMenu.edt.outerBox.grow, type:'button', text:'Edit grow'},
-            ];
+                    {id: this.scndMenuIds.runFnc.rmv.box.bckgrnd, type:'button', text:'Remove background image'},
+                ],
+                bckGrndOuter:[
+                    {id: this.scndMenuIds.runFnc.edt.outerBox.bckgrnd.clickInput, type:'button', text:'Add background image',
+                        input:{
+                            id: this.scndMenuIds.runFnc.edt.outerBox.bckgrnd.runFnc,
+                            type:'file',
+                            accept:"image/jpeg, image,/png"
+                        }
+                    },
+                    {id: this.scndMenuIds.runFnc.rmv.outerBox.bckgrnd, type:'button', text:'Remove background image'},
+                ],
+                grow:[
+                    {id: 'grow', type:'radio', name :'grow', value:'grow', text:'Grow'},
+                    {id: 'noGrow', type:'radio', name :'grow', value:'noGrow', text:'No grow'},
+                ],
+                addBoxItem:[
+                    {id: 'horizontal', type:'radio', name : BoxItem.flexDrctn, value:'horizontal', text:'Horizontal'},
+                    {id: 'vertical', type:'radio', name : BoxItem.flexDrctn, value:'vertical', text:'Vertical', checked:'checked'},
+                    {id: 'grow', type:'radio', name : BoxItem.width, value:'grow', text:'Grow', checked:'checked'},
+                    {id: 'noGrow', type:'radio', name :BoxItem.width, value:'noGrow', text:'Fit content'},
+                ],
+               
+            }
+        }
+
         
     }
 
@@ -912,7 +943,7 @@ export class BoxItem extends Flex{
                             presets.push(input.value);
                         }
                     });
-                    console.log(presets);
+                   
                     
                     let triggerData = <item | null>{};
                     const items = LocStorage.getItems('items');
