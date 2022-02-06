@@ -43,7 +43,7 @@ export class ImageItem {
                         {id: this.scndMenuIds.runScndMenu.edt.pstn, type:'button', text :'Edit position'},
                     ]},
                     {id: 'edt-outerBox', type:'button', text :'Edit outer BOX',notClose:'doNotClose', subMenu:[]},
-                    {id: this.boxItem.scndMenuIds.runScndMenu.add.outerBox, type:'button', text :'Add outer box'},
+                    {id: this.boxItem.scndMenuIds.runScndMenu.add.outerBox.addThis, type:'button', text :'Add outer box'},
                     {id: 'move-item', type:'button', text :'Move image'},
                     {id: 'rmv-imageItem', type:'button', text :'Remove image'}
                 ]

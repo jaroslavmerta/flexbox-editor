@@ -56,13 +56,11 @@ export class BoxItem extends Flex{
                         },
                 },
                 add:{
-                    innerBox:'add-innerBox-scndMenu-radio',
-                    outerBox:'add-outerBox-scndMenu-radio',
-                    inBox:{
-                        textField: 'test',
+                    box:{
+                        addThis:'add-innerBox-scndMenu-radio',
                         },
-                    inOuterBox:{
-                        textField: 'test',
+                    outerBox:{
+                        addThis:'add-outerBox-scndMenu-radio',
                         },
                 }
             },
@@ -111,8 +109,8 @@ export class BoxItem extends Flex{
                     ]},
                     {id: 'edt-outerBox', type:'button', text :'Edit outer BOX',notClose:'doNotClose', subMenu:[]},
                     {id: 'add', type:'button', text :'Add', notClose:'doNotClose', subMenu:[
-                        {id: this.scndMenuIds.runScndMenu.add.innerBox, type:'button', text :'Add inner box'},
-                        {id: this.scndMenuIds.runScndMenu.add.outerBox, type:'button', text :'Add outer box'},
+                        {id: this.scndMenuIds.runScndMenu.add.box.addThis, type:'button', text :'Add inner box'},
+                        {id: this.scndMenuIds.runScndMenu.add.outerBox.addThis, type:'button', text :'Add outer box'},
                         {id: 'add-imageItem', type:'file', text :'Add image',
                             input:{
                                 id: 'image_input',

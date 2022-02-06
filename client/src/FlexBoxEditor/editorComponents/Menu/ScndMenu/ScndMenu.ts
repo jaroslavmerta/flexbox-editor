@@ -64,8 +64,8 @@ export class ScndMenu extends Menu {
             {id: this.boxItem.scndMenuIds.runScndMenu.edt.outerBox.drctn, radioData: {buttonData: this.box.bttns.scndMenu.drctn, formId:'boxItem-preset', submitId: this.boxItem.scndMenuIds.runFnc.edt.outerBox.drctn, submitText:'Edit direction',checkClas:['flexDrctn'], outerBox: true}},
             {id: this.mainBox.scndMenuIds.runScndMenu.edt.box.drctn, radioData: {buttonData: this.box.bttns.scndMenu.drctn, formId:'boxItem-preset', submitId:this.mainBox.scndMenuIds.runFnc.edt.box.drctn,submitText:'Edit direction',checkClas:['flexDrctn']}},
             {id: this.mainBox.scndMenuIds.runScndMenu.edt.outerBox.drctn, radioData: {buttonData: this.box.bttns.scndMenu.drctn, formId:'boxItem-preset', submitId:this.mainBox.scndMenuIds.runFnc.edt.outerBox.drctn,submitText:'Edit direction',checkClas:['flexDrctn'], outerBox: true}},
-            {id:this.boxItem.scndMenuIds.runScndMenu.add.outerBox, radioData: {buttonData: this.boxItem.bttns.scndMenu.addBoxItem, formId:'boxItem-preset', submitId:this.boxItem.scndMenuIds.runFnc.add.outerBox,submitText:'Create box'}},
-            {id:this.boxItem.scndMenuIds.runScndMenu.add.innerBox, radioData: {buttonData: this.boxItem.bttns.scndMenu.addBoxItem, formId:'boxItem-preset', submitId:this.boxItem.scndMenuIds.runFnc.add.innerBox,submitText:'Create box'}},
+            {id:this.boxItem.scndMenuIds.runScndMenu.add.outerBox.addThis, radioData: {buttonData: this.boxItem.bttns.scndMenu.addBoxItem, formId:'boxItem-preset', submitId:this.boxItem.scndMenuIds.runFnc.add.outerBox,submitText:'Create box'}},
+            {id:this.boxItem.scndMenuIds.runScndMenu.add.box.addThis, radioData: {buttonData: this.boxItem.bttns.scndMenu.addBoxItem, formId:'boxItem-preset', submitId:this.boxItem.scndMenuIds.runFnc.add.innerBox,submitText:'Create box'}},
         ];
        
         this.bttnScndMenus = [

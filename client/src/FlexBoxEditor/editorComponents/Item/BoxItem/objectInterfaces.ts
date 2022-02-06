@@ -13,10 +13,8 @@ export interface runBoxItemScndMenuIds {
     }, 
 
     add:{
-        innerBox:string,
-        outerBox:string,
-        inBox:addBox,
-        inOuterBox:addBox
+        box:addInBox,
+        outerBox:addInBox
     }
 };
 
@@ -27,10 +25,9 @@ interface edtBox{
     bckgrnd: string,
     rszPixel: string
 }
-
-interface addBox{
-    textField: string,
-  
+//This in name of property refers to box or outerBox from which it is called
+interface addInBox{
+    addThis:string,
 }
 
 export interface runBoxItemFncIds {
