@@ -19,18 +19,18 @@ export class ShowHideMenu{
     private scndMenu: ScndMenu;
     private boxItem: BoxItem;
     private mainBox: MainBox;
-    private imageItem: ImageItem;
+    private imgItem: ImageItem;
     private item: Item;
 
     private moveStateMenu:buttonData[];
     private rszStateMenu: buttonData[];
 
-    constructor(frstMenu: FrstMenu, scndMenu:ScndMenu, boxItem: BoxItem, mainBox:MainBox, imageItem:ImageItem, item: Item){
+    constructor(frstMenu: FrstMenu, scndMenu:ScndMenu, boxItem: BoxItem, mainBox:MainBox, imgItem:ImageItem, item: Item){
         this.frstMenu = frstMenu;
         this.scndMenu = scndMenu;
         this.boxItem = boxItem;
         this.mainBox = mainBox;
-        this.imageItem = imageItem;
+        this.imgItem = imgItem;
         this.item = item;
 
         //Move state menu
@@ -43,6 +43,8 @@ export class ShowHideMenu{
             {id: 'rsz-item-pixel-end', type:'button', text :'Cancel resize'},
         ]; 
     }
+
+    private checkEvTrgtForBttnId(evTarget:EventTarget){}
 
     public showHideMenu(showHideMenu:ShowHideMenu){
         return(e:Event)=> {
@@ -129,10 +131,11 @@ export class ShowHideMenu{
                 else{
                     //pokud je target item a ještě nemá menu
                     if ((
-                    evTarget.classList.contains('frstMainBox') || 
+                    (evTarget.classList.contains('frstMainBox') || 
                     evTarget.classList.contains('item') || 
-                    evTarget.classList.contains('scndMainBox') ||
-                    evTarget.id === 'edt-img-pstn-scndMenu-radioPstnImg' ||
+                    evTarget.classList.contains('scndMainBox')) && 
+                    !evTarget.classList.contains(styles.hasNav) ||
+                    evTarget.id === this.imgItem.scndMenuIds.runScndMenu.edt.pstn ||
                     evTarget.id === this.boxItem.scndMenuIds.runScndMenu.add.outerBox || //
                     evTarget.id === this.boxItem.scndMenuIds.runScndMenu.add.innerBox || //
                     evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.box.pstn || ////////
@@ -151,14 +154,14 @@ export class ShowHideMenu{
                     evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.box.bckgrnd || //
                     evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.outerBox.bckgrnd || //
                     evTarget.id === 'add-mainBox-bckgrnd-scndMenu-bttn' || 
-                    evTarget.id === this.mainBox.scndMenuIds.runScndMenu.edt.box.pstn) && 
-                    !evTarget.classList.contains(styles.hasNav)/* !itemNav[0] */ 
+                    evTarget.id === this.mainBox.scndMenuIds.runScndMenu.edt.box.pstn) 
                     ) {
                         
                         //pokud je otevřené menu v itemu, ale klikne se po druhé na jiný item,
                         //odstraní existující menu než se vytvoří nové v druhém itemu
                         showHideMenu.rmvMenu(evTarget, styles.hasNav);
-                        if((evTarget.id === 'add-mainBox-bckgrnd-scndMenu-bttn') ||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.outerBox.bckgrnd) ||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.box.bckgrnd) ||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.outerBox.pstn) || (evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.box.pstn)||(evTarget.id === this.mainBox.scndMenuIds.runScndMenu.edt.box.drctn)||(evTarget.id === this.mainBox.scndMenuIds.runScndMenu.edt.outerBox.drctn)||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.outerBox.drctn) ||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.outerBox.grow) ||(evTarget.id === this.item.scndMenuIds.runScndMenu.edt.outerBoxItem.rszPercent) ||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.outerBox.rszPixel) ||(evTarget.id === this.item.scndMenuIds.runScndMenu.edt.item.rszPercent)||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.box.grow)||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.box.drctn) ||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.add.outerBox) || (evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.box.rszPixel) ||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.add.innerBox) ||(evTarget.id === 'edt-img-pstn-scndMenu-radioPstnImg')|| (evTarget.id === 'edt-outerBox-preset') ||(evTarget.id === this.mainBox.scndMenuIds.runScndMenu.edt.outerBox.pstn) || (evTarget.id === this.mainBox.scndMenuIds.runScndMenu.edt.box.pstn)){
+                        //gives class hasNav to menuTarget, when user clicked on button that launch second menu
+                        if((evTarget.id === 'add-mainBox-bckgrnd-scndMenu-bttn') ||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.outerBox.bckgrnd) ||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.box.bckgrnd) ||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.outerBox.pstn) || (evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.box.pstn)||(evTarget.id === this.mainBox.scndMenuIds.runScndMenu.edt.box.drctn)||(evTarget.id === this.mainBox.scndMenuIds.runScndMenu.edt.outerBox.drctn)||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.outerBox.drctn) ||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.outerBox.grow) ||(evTarget.id === this.item.scndMenuIds.runScndMenu.edt.outerBoxItem.rszPercent) ||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.outerBox.rszPixel) ||(evTarget.id === this.item.scndMenuIds.runScndMenu.edt.item.rszPercent)||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.box.grow)||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.box.drctn) ||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.add.outerBox) || (evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.box.rszPixel) ||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.add.innerBox) ||(evTarget.id === this.imgItem.scndMenuIds.runScndMenu.edt.pstn)|| (evTarget.id === this.mainBox.scndMenuIds.runScndMenu.edt.outerBox.pstn) || (evTarget.id === this.mainBox.scndMenuIds.runScndMenu.edt.box.pstn)){
                             const menuTrgtId = localStorage.getItem('triggerid');
                             if(menuTrgtId){
                                 const menuTrgt = document.getElementById(menuTrgtId);
@@ -167,7 +170,7 @@ export class ShowHideMenu{
                                 }
                             }
                         }
-                        else{
+                        else{//gives class hasNav to evTarget, when user clicked on frstMainBox, scndMainBox or item
                             localStorage.setItem('triggerid', evTarget.id);
                             evTarget.classList.add(styles.hasNav);
                         }
@@ -226,7 +229,7 @@ export class ShowHideMenu{
                 if(dataKind === 'imageItem'){
                     if (trggrPrntKind) {
                         if (trggrPrntKind === 'boxItem' || trggrPrntKind === 'mainBox') {
-                            nav = this.frstMenu.createFrstMenu(e, evTarget.id, this.imageItem.imgItemFrstMenuBttns, trggrPrntKind);
+                            nav = this.frstMenu.createFrstMenu(e, evTarget.id, this.imgItem.bttns.frstMenu.theMenu, trggrPrntKind);
                         }
                     }
                 }
