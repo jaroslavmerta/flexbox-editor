@@ -112,7 +112,7 @@ export class BoxItem extends Flex{
                     {id: 'edt-outerBox', type:'button', text :'Edit outer BOX',notClose:'doNotClose', subMenu:[]},
                     {id: 'add', type:'button', text :'Add', notClose:'doNotClose', subMenu:[
                         {id: this.scndMenuIds.runScndMenu.add.innerBox, type:'button', text :'Add inner box'},
-                        {id: 'add-outerBox-scndMenu-radio', type:'button', text :'Add outer box'},
+                        {id: this.scndMenuIds.runScndMenu.add.outerBox, type:'button', text :'Add outer box'},
                         {id: 'add-imageItem', type:'file', text :'Add image',
                             input:{
                                 id: 'image_input',

@@ -1,33 +1,56 @@
 import { LocStorage } from "../../../../common/localStorage/LocStorage";
-import { item, items } from "../../../../common/localStorage/storageInterfaces";
+import { item } from "../../../../common/localStorage/storageInterfaces";
 import { ctgrId } from "../../../editorTypes";
 import stylFlexBI from "../BoxItem/boxItem.module.scss"
-import stylEditor from "../../../editor.module.scss"
-import stylIMenu from "../frstMenu/frstMenu.module.scss"
-import { FrstMenu } from "../../Menu/FrstMenu/FrstMenu";
-import { Item } from '../Item';
 import { ExistInLocStorageError } from "../../../../common/error/locStorageError/ExistInLocStorageError";
 import { buttonData } from "../../Menu/menuIntrfc";
+import { imgItemBttns, scndMenuImgItemIds } from "./objectInterface";
+import { Item } from './../Item';
+import { BoxItem } from './../BoxItem/BoxItem';
+import { Box } from './../../Box/Box';
 
 let debug = false;
-export class ImageItem extends Item{
+export class ImageItem {
+
+    //Dependencies
+    private item:Item;
+    private boxItem:BoxItem;
 
     //Buttons
-    public imgItemFrstMenuBttns:buttonData[];
+    public bttns:imgItemBttns;
 
-    constructor() {
-        super();
-        //Image item
-        this.imgItemFrstMenuBttns = [
-            {id: 'edt', type:'button', text :'Edit image',notClose:'doNotClose', subMenu:[
-                {id: 'rsz-item-percent-scndMenu-radio', type:'button', text :'Percent resize'},
-                {id: 'edt-img-pstn-scndMenu-radioPstnImg', type:'button', text :'Edit position'},
-            ]},
-            {id: 'edt-outerBox', type:'button', text :'Edit outer BOX',notClose:'doNotClose', subMenu:[]},
-            {id: 'add-outerBox-scndMenu-radio', type:'button', text :'Add outer box'},
-            {id: 'move-item', type:'button', text :'Move image'},
-            {id: 'rmv-imageItem', type:'button', text :'Remove image'}
-        ];
+    public scndMenuIds: scndMenuImgItemIds;
+
+    constructor(item:Item, boxItem:BoxItem) {
+        //Dependencies
+        this.item = item;
+        this.boxItem = boxItem;
+        
+        this.scndMenuIds = {
+            runScndMenu:{
+                edt:{
+                    pstn:'edt-img-pstn-scndMenu-radioPstnImg'
+                }
+            },
+
+        }
+
+        this.bttns = {
+            frstMenu:{
+                theMenu: [
+                    {id: 'edt', type:'button', text :'Edit image',notClose:'doNotClose', subMenu:[
+                        {id: this.item.scndMenuIds.runScndMenu.edt.item.rszPercent, type:'button', text :'Percent resize'},
+                        {id: this.scndMenuIds.runScndMenu.edt.pstn, type:'button', text :'Edit position'},
+                    ]},
+                    {id: 'edt-outerBox', type:'button', text :'Edit outer BOX',notClose:'doNotClose', subMenu:[]},
+                    {id: this.boxItem.scndMenuIds.runScndMenu.add.outerBox, type:'button', text :'Add outer box'},
+                    {id: 'move-item', type:'button', text :'Move image'},
+                    {id: 'rmv-imageItem', type:'button', text :'Remove image'}
+                ]
+            }
+        }
+
+      
     }
 
 

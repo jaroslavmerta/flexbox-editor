@@ -13,6 +13,7 @@ import { BoxItem } from "../../Item/BoxItem/BoxItem";
 import { Box } from './../../Box/Box';
 import { Item } from './../../Item/Item';
 import { MainBox } from './../../MainBox/MainBox';
+import { ImageItem } from './../../Item/ImageItem/ImageItem';
 
 
 export class ScndMenu extends Menu {
@@ -22,6 +23,7 @@ export class ScndMenu extends Menu {
     private box:Box;
     private item:Item;
     private mainBox:MainBox;
+    private imgItem: ImageItem;
 
 
     //Texts for buttons affecting item position
@@ -35,7 +37,7 @@ export class ScndMenu extends Menu {
     private radioPstnBoxScndMenus:radioPstnBoxScndMenu[];
     private radioPstnImgScndMenus:radioPstnImgScndMenu[];
 
-    constructor(input:Input, boxItem:BoxItem, box:Box, item:Item, mainBox:MainBox){
+    constructor(input:Input, boxItem:BoxItem, box:Box, item:Item, mainBox:MainBox, imgItem:ImageItem){
         super();
 
         //Dependencies 
@@ -44,6 +46,7 @@ export class ScndMenu extends Menu {
         this.box = box;
         this.item = item;
         this.mainBox = mainBox;
+        this.imgItem = imgItem;
 
         //Texts for buttons affecting item position
         this.fbRowTextAiAs = ['Top', 'Center', 'Down'];
@@ -82,7 +85,7 @@ export class ScndMenu extends Menu {
 
         this.radioPstnImgScndMenus = [
             {
-                id:'edt-img-pstn-scndMenu-radioPstnImg', radioPstnData: this.item.bttns.scndMenu.algnSelf            
+                id: this.imgItem.scndMenuIds.runScndMenu.edt.pstn, radioPstnData: this.item.bttns.scndMenu.algnSelf            
             }
         ];
     }
