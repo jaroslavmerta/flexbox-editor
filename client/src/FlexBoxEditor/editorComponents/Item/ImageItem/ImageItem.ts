@@ -29,7 +29,7 @@ export class ImageItem {
         this.scndMenuIds = {
             runScndMenu:{
                 edt:{
-                    pstn:'edt-img-pstn-scndMenu-radioPstnImg'
+                    pstn:'edt-imgItem-pstn-scndMenu-radioPstnImg'
                 }
             },
 

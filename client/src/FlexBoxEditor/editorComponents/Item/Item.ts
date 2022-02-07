@@ -27,7 +27,7 @@ export class Item{
                         rszPercent: 'rsz-item-percent-scndMenu-radio'
                     },
                     outerBoxItem:{
-                        rszPercent:'rsz-outerBoxItem-percent-scndMenu-radio'
+                        rszPercent:'rsz-outerItem-percent-scndMenu-radio'
                     }
                 }
             },
@@ -37,7 +37,7 @@ export class Item{
                         rszPercent:'rsz-item-percent'
                     },
                     outerBoxItem:{
-                        rszPercent:'rsz-outerBoxItem-percent'
+                        rszPercent:'rsz-outerItem-percent'
                     }
                 }
             }

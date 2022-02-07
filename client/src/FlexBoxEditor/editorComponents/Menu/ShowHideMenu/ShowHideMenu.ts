@@ -7,6 +7,12 @@ import { BoxItem } from './../../Item/BoxItem/BoxItem';
 import { MainBox } from './../../MainBox/MainBox';
 import { ImageItem } from './../../Item/ImageItem/ImageItem';
 import { Item } from '../../Item/Item';
+import { runBoxItemScndMenuIds } from '../../Item/BoxItem/objectInterfaces';
+import { runImgItemScndMenuIds } from '../../Item/ImageItem/objectInterface';
+import { runItemScndMenuIds } from '../../Item/objectInterfaces';
+import { CheckId } from './../../../../common/error/checkId/CheckId';
+
+const debugCheckEvTrgtIdForBttnId = false;
 
 export class ShowHideMenu{
 
@@ -44,7 +50,89 @@ export class ShowHideMenu{
         ]; 
     }
 
-    private checkEvTrgtForBttnId(evTarget:EventTarget){}
+    private checkEvTrgtIdForBttnId(evTrgtId:string, boxItemScndMenuIds:runBoxItemScndMenuIds, imgItemScndMenuIds:runImgItemScndMenuIds, itemScndMenuIds:runItemScndMenuIds){
+        let cutEvTarget = evTrgtId.split('-');
+        switch (cutEvTarget[1]) {
+            case 'boxItem':
+                {
+                    let key: keyof runBoxItemScndMenuIds;
+                    for ( key in boxItemScndMenuIds ) {
+                        for (const [k, v] of Object.entries(boxItemScndMenuIds[key].box)) {
+                        
+                            if (v === evTrgtId) {
+                                return true;
+                            }
+                        }
+                    }
+                    if (debugCheckEvTrgtIdForBttnId)
+                        console.log('Event target id is not in BoxItem scndMenuId > boxItem');
+                }
+            break;
+            case 'outerBoxItem':
+                {
+                    let key: keyof runBoxItemScndMenuIds;
+                    for ( key in boxItemScndMenuIds ) {
+                        for (const [k, v] of Object.entries(boxItemScndMenuIds[key].outerBox)) {
+                        
+                            if (v === evTrgtId) {
+                                return true;
+                            }
+                        }
+                    }
+                    if (debugCheckEvTrgtIdForBttnId)
+                        console.log('Event target id is not in BoxItem scndMenuId > outerBox');
+                }
+            break;
+            case 'imgItem':
+                {
+                    let key: keyof runImgItemScndMenuIds;
+                    for ( key in imgItemScndMenuIds ) {
+                        for (const [k, v] of Object.entries(imgItemScndMenuIds[key])) {
+                            
+                            if (v === evTrgtId) {
+                                return true;
+                            }
+                        }
+                    }
+                    if (debugCheckEvTrgtIdForBttnId)
+                        console.log('Event target id is not in ImageItem scndMenuId');
+                }
+            break;
+            case 'item':
+                {
+                    let key: keyof runItemScndMenuIds;
+                    for ( key in itemScndMenuIds ) {
+                        for (const [k, v] of Object.entries(itemScndMenuIds[key].item)) {
+                            
+                            if (v === evTrgtId) {
+                                return true;
+                            }
+                        }
+                    }
+                    if (debugCheckEvTrgtIdForBttnId)
+                        console.log('Event target id is not in Item scndMenuId > item');
+                }
+            break;
+            case 'outerItem':
+                {
+                    let key: keyof runItemScndMenuIds;
+                    for ( key in itemScndMenuIds ) {
+                        for (const [k, v] of Object.entries(itemScndMenuIds[key].outerBoxItem)) {
+                            if (v === evTrgtId) {
+                                return true;
+                            }
+                        }
+                    }
+                    if (debugCheckEvTrgtIdForBttnId)
+                        console.log('Event target id is not in Item scndMenuId > outerBoxItem');
+                }
+            break;
+            default:
+                if (debugCheckEvTrgtIdForBttnId)
+                    console.log("Event target Id does not exist in Items and MainBox property scndMenuIds");
+                return false;
+        }
+    }
 
     public showHideMenu(showHideMenu:ShowHideMenu){
         return(e:Event)=> {
@@ -134,34 +222,15 @@ export class ShowHideMenu{
                     (evTarget.classList.contains('frstMainBox') || 
                     evTarget.classList.contains('item') || 
                     evTarget.classList.contains('scndMainBox')) && 
-                    !evTarget.classList.contains(styles.hasNav) ||
-                    evTarget.id === this.imgItem.scndMenuIds.runScndMenu.edt.pstn ||
-                    evTarget.id === this.boxItem.scndMenuIds.runScndMenu.add.outerBox.addThis || //
-                    evTarget.id === this.boxItem.scndMenuIds.runScndMenu.add.box.addThis || //
-                    evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.box.pstn || ////////
-                    evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.outerBox.drctn || //
-                    evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.box.rszPixel || 
-                    evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.box.grow || //
-                    evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.outerBox.grow || //
-                    evTarget.id === this.item.scndMenuIds.runScndMenu.edt.item.rszPercent || 
-                    evTarget.id === this.item.scndMenuIds.runScndMenu.edt.outerBoxItem.rszPercent || 
-                    evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.outerBox.rszPixel || 
-                    evTarget.id === this.mainBox.scndMenuIds.runScndMenu.edt.outerBox.drctn || 
-                    evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.box.drctn || //
-                    evTarget.id === this.mainBox.scndMenuIds.runScndMenu.edt.box.drctn || 
-                    evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.outerBox.pstn || //
-                    evTarget.id === this.mainBox.scndMenuIds.runScndMenu.edt.outerBox.pstn || 
-                    evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.box.bckgrnd || //
-                    evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.outerBox.bckgrnd || //
-                    evTarget.id === 'add-mainBox-bckgrnd-scndMenu-bttn' || 
-                    evTarget.id === this.mainBox.scndMenuIds.runScndMenu.edt.box.pstn) 
+                    !evTarget.classList.contains(styles.hasNav) || 
+                    this.checkEvTrgtIdForBttnId(evTarget.id, this.boxItem.scndMenuIds.runScndMenu, this.imgItem.scndMenuIds.runScndMenu, this.item.scndMenuIds.runScndMenu))
                     ) {
                         
                         //pokud je otevřené menu v itemu, ale klikne se po druhé na jiný item,
                         //odstraní existující menu než se vytvoří nové v druhém itemu
                         showHideMenu.rmvMenu(evTarget, styles.hasNav);
                         //gives class hasNav to menuTarget, when user clicked on button that launch second menu
-                        if((evTarget.id === 'add-mainBox-bckgrnd-scndMenu-bttn') ||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.outerBox.bckgrnd) ||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.box.bckgrnd) ||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.outerBox.pstn) || (evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.box.pstn)||(evTarget.id === this.mainBox.scndMenuIds.runScndMenu.edt.box.drctn)||(evTarget.id === this.mainBox.scndMenuIds.runScndMenu.edt.outerBox.drctn)||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.outerBox.drctn) ||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.outerBox.grow) ||(evTarget.id === this.item.scndMenuIds.runScndMenu.edt.outerBoxItem.rszPercent) ||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.outerBox.rszPixel) ||(evTarget.id === this.item.scndMenuIds.runScndMenu.edt.item.rszPercent)||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.box.grow)||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.box.drctn) ||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.add.outerBox.addThis) || (evTarget.id === this.boxItem.scndMenuIds.runScndMenu.edt.box.rszPixel) ||(evTarget.id === this.boxItem.scndMenuIds.runScndMenu.add.box.addThis) ||(evTarget.id === this.imgItem.scndMenuIds.runScndMenu.edt.pstn)|| (evTarget.id === this.mainBox.scndMenuIds.runScndMenu.edt.outerBox.pstn) || (evTarget.id === this.mainBox.scndMenuIds.runScndMenu.edt.box.pstn)){
+                        if(this.checkEvTrgtIdForBttnId(evTarget.id, this.boxItem.scndMenuIds.runScndMenu, this.imgItem.scndMenuIds.runScndMenu, this.item.scndMenuIds.runScndMenu)){
                             const menuTrgtId = localStorage.getItem('triggerid');
                             if(menuTrgtId){
                                 const menuTrgt = document.getElementById(menuTrgtId);

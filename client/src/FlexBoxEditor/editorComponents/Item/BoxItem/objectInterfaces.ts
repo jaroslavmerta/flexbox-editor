@@ -18,7 +18,7 @@ export interface runBoxItemScndMenuIds {
     }
 };
 
-interface edtBox{
+export interface edtBox{
     pstn: string,
     drctn:string,
     grow:string,
@@ -26,7 +26,7 @@ interface edtBox{
     rszPixel: string
 }
 //This in name of property refers to box or outerBox from which it is called
-interface addInBox{
+export interface addInBox{
     addThis:string,
 }
 

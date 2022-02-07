@@ -41,26 +41,26 @@ export class BoxItem extends Flex{
             runScndMenu:{
                 edt:{
                     box:{
-                        pstn: 'edt-box-pstn-scndMenu-radioPstnBox',
-                        drctn: 'edt-box-drctn-scndMenu-radio',
-                        grow:'edt-box-grow-scndMenu-radio',
-                        bckgrnd: 'edt-box-bckgrnd-scndMenu-bttn',
+                        pstn: 'edt-boxItem-pstn-scndMenu-radioPstnBox',
+                        drctn: 'edt-boxItem-drctn-scndMenu-radio',
+                        grow:'edt-boxItem-grow-scndMenu-radio',
+                        bckgrnd: 'edt-boxItem-bckgrnd-scndMenu-bttn',
                         rszPixel:'rsz-boxItem-pixel-scndMenu-bttn'
                     },
                     outerBox:{
-                        pstn: 'edt-outerBox-pstn-scndMenu-radioPstnBox',
-                        drctn:'edt-outerBox-drctn-scndMenu-radio',
-                        grow:'edt-outerBox-grow-scndMenu-radio',
-                        bckgrnd: 'edt-outerBox-bckgrnd-scndMenu-bttn',
+                        pstn: 'edt-outerBoxItem-pstn-scndMenu-radioPstnBox',
+                        drctn:'edt-outerBoxItem-drctn-scndMenu-radio',
+                        grow:'edt-outerBoxItem-grow-scndMenu-radio',
+                        bckgrnd: 'edt-outerBoxItem-bckgrnd-scndMenu-bttn',
                         rszPixel:'rsz-outerBoxItem-pixel-scndMenu-bttn'
                         },
                 },
                 add:{
                     box:{
-                        addThis:'add-innerBox-scndMenu-radio',
+                        addThis:'add-boxItem-scndMenu-radio',
                         },
                     outerBox:{
-                        addThis:'add-outerBox-scndMenu-radio',
+                        addThis:'add-outerBoxItem-scndMenu-radio',
                         },
                 }
             },
@@ -498,7 +498,7 @@ export class BoxItem extends Flex{
                 const evTarget = (<HTMLElement>e.target);
                 //získání hodnot z checked inputů
                 let presets = InputGetter.getChckInpdVls('#boxItem-preset');
-                console.log(presets);
+                //console.log(presets);
 
                 //trigger je element, na kterém se vyvolalo menu
                 const triggerId = localStorage.getItem('triggerid');
@@ -544,7 +544,7 @@ export class BoxItem extends Flex{
                                 const triggerPrnt = trigger.parentElement;
                                 //najdi trigger object in local storage
                                 const triggerData = LocStorage.findItem(ctgrData.subItems,triggerId);
-                                console.log('triggerData after LocStorage.findItem(items[triggerCategory],triggerId);', triggerData)
+                                //console.log('triggerData after LocStorage.findItem(items[triggerCategory],triggerId);', triggerData)
                         
                                 const newItemBoxData:item = {
                                     id:newItemId,
