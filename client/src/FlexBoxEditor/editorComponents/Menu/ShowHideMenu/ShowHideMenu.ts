@@ -11,6 +11,7 @@ import { runBoxItemScndMenuIds } from '../../Item/BoxItem/objectInterfaces';
 import { runImgItemScndMenuIds } from '../../Item/ImageItem/objectInterface';
 import { runItemScndMenuIds } from '../../Item/objectInterfaces';
 import { CheckId } from './../../../../common/error/checkId/CheckId';
+import { runMainBoxScndMenuIds } from '../../MainBox/objectInterfaces';
 
 const debugCheckEvTrgtIdForBttnId = false;
 
@@ -50,7 +51,15 @@ export class ShowHideMenu{
         ]; 
     }
 
-    private checkEvTrgtIdForBttnId(evTrgtId:string, boxItemScndMenuIds:runBoxItemScndMenuIds, imgItemScndMenuIds:runImgItemScndMenuIds, itemScndMenuIds:runItemScndMenuIds){
+    /**
+     * Checks event target id for first menu button id, that runs second menu
+     * @param evTrgtId Event target id
+     * @param boxItemScndMenuIds Collection of ids that runs second menu for BoxItem
+     * @param imgItemScndMenuIds Collection of ids that runs second menu for ImageItem
+     * @param itemScndMenuIds Collection of ids that runs second menu for Item
+     * @returns 
+     */
+    private checkEvTrgtIdForBttnId(evTrgtId:string, boxItemScndMenuIds:runBoxItemScndMenuIds, imgItemScndMenuIds:runImgItemScndMenuIds, itemScndMenuIds:runItemScndMenuIds, mainBoxScndMenuIds:runMainBoxScndMenuIds){
         let cutEvTarget = evTrgtId.split('-');
         switch (cutEvTarget[1]) {
             case 'boxItem':
@@ -81,6 +90,36 @@ export class ShowHideMenu{
                     }
                     if (debugCheckEvTrgtIdForBttnId)
                         console.log('Event target id is not in BoxItem scndMenuId > outerBox');
+                }
+            break;
+            case 'mainBox':
+                {
+                    let key: keyof runMainBoxScndMenuIds;
+                    for ( key in mainBoxScndMenuIds ) {
+                        for (const [k, v] of Object.entries(mainBoxScndMenuIds[key].box)) {
+                        
+                            if (v === evTrgtId) {
+                                return true;
+                            }
+                        }
+                    }
+                    if (debugCheckEvTrgtIdForBttnId)
+                        console.log('Event target id is not in MainBox scndMenuId > box');
+                }
+            break;
+            case 'outerMainBox':
+                {
+                    let key: keyof runMainBoxScndMenuIds;
+                    for ( key in mainBoxScndMenuIds ) {
+                        for (const [k, v] of Object.entries(mainBoxScndMenuIds[key].outerBox)) {
+                        
+                            if (v === evTrgtId) {
+                                return true;
+                            }
+                        }
+                    }
+                    if (debugCheckEvTrgtIdForBttnId)
+                        console.log('Event target id is not in MainBox scndMenuId > outerBox');
                 }
             break;
             case 'imgItem':
@@ -148,7 +187,7 @@ export class ShowHideMenu{
                 if (ShowHideMenu.resize) {
                    
                     if((
-                        //pokud je evTarget potomkem komiksu a nemá id resizer
+                        //if event target is frstMainBox descendant and has no id 'resizer'
                         frstMainBox?.contains(evTarget) && evTarget.id !== 'resizer') && 
                         !frstMainBox.classList.contains('hasNavRsz')
                         ){
@@ -223,14 +262,14 @@ export class ShowHideMenu{
                     evTarget.classList.contains('item') || 
                     evTarget.classList.contains('scndMainBox')) && 
                     !evTarget.classList.contains(styles.hasNav) || 
-                    this.checkEvTrgtIdForBttnId(evTarget.id, this.boxItem.scndMenuIds.runScndMenu, this.imgItem.scndMenuIds.runScndMenu, this.item.scndMenuIds.runScndMenu))
+                    this.checkEvTrgtIdForBttnId(evTarget.id, this.boxItem.scndMenuIds.runScndMenu, this.imgItem.scndMenuIds.runScndMenu, this.item.scndMenuIds.runScndMenu, this.mainBox.scndMenuIds.runScndMenu))
                     ) {
                         
                         //pokud je otevřené menu v itemu, ale klikne se po druhé na jiný item,
                         //odstraní existující menu než se vytvoří nové v druhém itemu
                         showHideMenu.rmvMenu(evTarget, styles.hasNav);
                         //gives class hasNav to menuTarget, when user clicked on button that launch second menu
-                        if(this.checkEvTrgtIdForBttnId(evTarget.id, this.boxItem.scndMenuIds.runScndMenu, this.imgItem.scndMenuIds.runScndMenu, this.item.scndMenuIds.runScndMenu)){
+                        if(this.checkEvTrgtIdForBttnId(evTarget.id, this.boxItem.scndMenuIds.runScndMenu, this.imgItem.scndMenuIds.runScndMenu, this.item.scndMenuIds.runScndMenu, this.mainBox.scndMenuIds.runScndMenu)){
                             const menuTrgtId = localStorage.getItem('triggerid');
                             if(menuTrgtId){
                                 const menuTrgt = document.getElementById(menuTrgtId);
