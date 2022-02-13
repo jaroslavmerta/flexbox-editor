@@ -57,7 +57,8 @@ export class ShowHideMenu{
      * @param boxItemScndMenuIds Collection of ids that runs second menu for BoxItem
      * @param imgItemScndMenuIds Collection of ids that runs second menu for ImageItem
      * @param itemScndMenuIds Collection of ids that runs second menu for Item
-     * @returns 
+     * @param mainBoxScndMenuIds Collection of ids that runs second menu for MainBox
+     * @returns boolean 
      */
     private checkEvTrgtIdForBttnId(evTrgtId:string, boxItemScndMenuIds:runBoxItemScndMenuIds, imgItemScndMenuIds:runImgItemScndMenuIds, itemScndMenuIds:runItemScndMenuIds, mainBoxScndMenuIds:runMainBoxScndMenuIds){
         let cutEvTarget = evTrgtId.split('-');
@@ -74,7 +75,8 @@ export class ShowHideMenu{
                         }
                     }
                     if (debugCheckEvTrgtIdForBttnId)
-                        console.log('Event target id is not in BoxItem scndMenuId > boxItem');
+                        console.log('Event target id is not in BoxItem scndMenuId; kind: boxItem');
+                    return false;
                 }
             break;
             case 'outerBoxItem':
@@ -89,7 +91,8 @@ export class ShowHideMenu{
                         }
                     }
                     if (debugCheckEvTrgtIdForBttnId)
-                        console.log('Event target id is not in BoxItem scndMenuId > outerBox');
+                        console.log('Event target id is not in BoxItem scndMenuId; kind: outerBox');
+                    return false;
                 }
             break;
             case 'mainBox':
@@ -104,7 +107,8 @@ export class ShowHideMenu{
                         }
                     }
                     if (debugCheckEvTrgtIdForBttnId)
-                        console.log('Event target id is not in MainBox scndMenuId > box');
+                        console.log('Event target id is not in MainBox scndMenuId; kind: box');
+                    return false;
                 }
             break;
             case 'outerMainBox':
@@ -119,7 +123,8 @@ export class ShowHideMenu{
                         }
                     }
                     if (debugCheckEvTrgtIdForBttnId)
-                        console.log('Event target id is not in MainBox scndMenuId > outerBox');
+                        console.log('Event target id is not in MainBox scndMenuId; kind: outerBox');
+                    return false;
                 }
             break;
             case 'imgItem':
@@ -134,7 +139,8 @@ export class ShowHideMenu{
                         }
                     }
                     if (debugCheckEvTrgtIdForBttnId)
-                        console.log('Event target id is not in ImageItem scndMenuId');
+                        console.log('Event target id is not in ImageItem scndMenuId; kind: imgItem');
+                    return false;
                 }
             break;
             case 'item':
@@ -149,7 +155,8 @@ export class ShowHideMenu{
                         }
                     }
                     if (debugCheckEvTrgtIdForBttnId)
-                        console.log('Event target id is not in Item scndMenuId > item');
+                        console.log('Event target id is not in Item scndMenuId; kind: item');
+                    return false;
                 }
             break;
             case 'outerItem':
@@ -163,7 +170,8 @@ export class ShowHideMenu{
                         }
                     }
                     if (debugCheckEvTrgtIdForBttnId)
-                        console.log('Event target id is not in Item scndMenuId > outerBoxItem');
+                        console.log('Event target id is not in Item scndMenuId; kind: outerBoxItem');
+                    return false;
                 }
             break;
             default:
@@ -173,11 +181,16 @@ export class ShowHideMenu{
         }
     }
 
+    /**
+     * Shows and hide menu
+     * @param showHideMenu 
+     * @returns 
+     */
     public showHideMenu(showHideMenu:ShowHideMenu){
         return(e:Event)=> {
             
             //pro odlišení více menu, změň id např. na frstMainBoxFrstMenu apod.
-            if(!(<HTMLElement>e.target).classList.contains('itemMenu') ){
+            if( !(<HTMLElement>e.target).classList.contains('itemMenu') ){
 
                 const evTarget = (<HTMLElement>e.target);
                 const dataKind = evTarget.getAttribute('data-kind');
@@ -268,7 +281,7 @@ export class ShowHideMenu{
                         //pokud je otevřené menu v itemu, ale klikne se po druhé na jiný item,
                         //odstraní existující menu než se vytvoří nové v druhém itemu
                         showHideMenu.rmvMenu(evTarget, styles.hasNav);
-                        //gives class hasNav to menuTarget, when user clicked on button that launch second menu
+                        //gives class hasNav to menuTarget, when user clicked on button that launches second menu
                         if(this.checkEvTrgtIdForBttnId(evTarget.id, this.boxItem.scndMenuIds.runScndMenu, this.imgItem.scndMenuIds.runScndMenu, this.item.scndMenuIds.runScndMenu, this.mainBox.scndMenuIds.runScndMenu)){
                             const menuTrgtId = localStorage.getItem('triggerid');
                             if(menuTrgtId){
@@ -300,7 +313,7 @@ export class ShowHideMenu{
     }
 
     /**
-     * Callback, when item is clicked, show item menu
+     * When item is clicked, show item menu
      * @param e 
      */
          public showMenu(e:Event, evTarget:HTMLElement){
@@ -362,9 +375,10 @@ export class ShowHideMenu{
         
     }
 
-        /**
-     * Callback, when item is clicked, show item menu
-     * @param e 
+    /**
+     * When item is clicked, show state menu
+     * @param e Event
+     * @param evTarget Event target
      */
     public showStateMenu(e:Event, evTarget:HTMLElement){
     if (
@@ -382,11 +396,17 @@ export class ShowHideMenu{
                 nav = this.frstMenu.createFrstMenu(e, evTarget.id, this.rszStateMenu);
             }
             let root = document.getElementById('root');
+
             root?.appendChild(nav);
-            
         }
     }
 
+    /**
+     * 
+     * @param evTarget 
+     * @param frstMenu 
+     * @param focusClass 
+     */
     public hideMenu(evTarget:HTMLElement, frstMenu:HTMLElement, focusClass:string){
         frstMenu.classList.add(styles.hide);
         this.rmvFocusClass(evTarget, frstMenu, focusClass); 
@@ -414,24 +434,20 @@ export class ShowHideMenu{
         //pokud se znovu klikne do stejného elementu, kde už je otevřené menu, odstran v něm třídu hasNav
         if((evTarget.classList.contains('item') || evTarget.classList.contains('frstMainBox')) && evTarget.classList.contains(focusClass)){
             evTarget.classList.remove(focusClass);
-            console.log('zavírám menu pomocí kontroly tříd')
+            console.log('removes id via checking classes');
         }
         else{
             //spustí se při kliknutí na button, kde není id, ani class item nebo frstMainBox, a také se spustí,když je otevřené menu na jednom itemu
             //a klikne se na jiný item, v tu chvíli tento jiný item nemá třídu hasNav a je event targetem, takže pro odstranění třídy hasNav 
             // na přechozím itemu se musí využít záznam id atributu tohoto předchozího itemu v tagu nav v atributu data-trigger a odstranit třídu na něm
-            console.log('zavírám menu pomocí data-triggerid')
-            if(evTarget.id === 'add-boxItem-preset'){
-               return;
-            }
-            else{
-                
+            
+                console.log('Removes hasNav via triggerid')
                 let triggerId = localStorage.getItem('triggerid');
                 if(triggerId){
                     const prevMenuItem = document.getElementById(triggerId);
                     prevMenuItem?.classList.remove(focusClass);
                 }
-            }
+            
         }
     }
 }
