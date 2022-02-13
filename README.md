@@ -16,6 +16,7 @@ I hope this list below will disappear very soon, because they are basic mistakes
 - add basic desription of main parts of code  
 - make better adresary tree like better names of files and sorting (When I started it was good and it made perfect sense, but things changed from then, but some names not)
 - make better logical structure in Menu classes
+- atomize functions where needed
 
 # technical desription
 - programming language: Typescript
