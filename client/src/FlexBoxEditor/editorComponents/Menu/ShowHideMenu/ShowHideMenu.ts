@@ -182,196 +182,205 @@ export class ShowHideMenu{
     }
 
     /**
-     * Shows and hide menu
-     * @param showHideMenu 
+     * Show or hide RESIZE state menu
      * @returns 
      */
-    public showHideMenu(showHideMenu:ShowHideMenu){
-        return(e:Event)=> {
+    public showHideStateMenuRsz (e:Event){
+        if (ShowHideMenu.resize) {
             
-            //pro odlišení více menu, změň id např. na frstMainBoxFrstMenu apod.
-            if( !(<HTMLElement>e.target).classList.contains('itemMenu') ){
+            const frstMainBox = document.getElementById('frstMainBox');
+            const evTarget = (<HTMLElement>e.target);
 
-                const evTarget = (<HTMLElement>e.target);
-                const dataKind = evTarget.getAttribute('data-kind');
-                const frstMainBox = document.getElementById('frstMainBox');
-                //vytvořit objekt FrstMenu, asi statický, ve kterém se předá argument 'move', který 
-                //v menu signalizuje, at se nezobrazuje klasické menu, ale jen button pro ukončení move akce
-                if (ShowHideMenu.resize) {
-                   
-                    if((
-                        //if event target is frstMainBox descendant and has no id 'resizer'
-                        frstMainBox?.contains(evTarget) && evTarget.id !== 'resizer') && 
-                        !frstMainBox.classList.contains('hasNavRsz')
-                        ){
-                       
-                        showHideMenu.rmvMenu(frstMainBox, 'hasNavRsz');
-                       
-                        localStorage.setItem('triggerid', evTarget.id);
-                        frstMainBox.classList.add('hasNavRsz');
+            if((
+            //if event target is frstMainBox descendant and has no id 'resizer'
+            frstMainBox?.contains(evTarget) && evTarget.id !== 'resizer') && 
+            !frstMainBox.classList.contains('hasNavRsz')
+            ){
+            
+                this.rmvMenu(frstMainBox, 'hasNavRsz');
+            
+                localStorage.setItem('triggerid', evTarget.id);
+                frstMainBox.classList.add('hasNavRsz');
 
-                        showHideMenu.showStateMenu(e,frstMainBox);
-                        
-                    }
-                    else if (frstMainBox){
-                        let frstMenuNav = document.getElementById('itemMenu');
-                        if(frstMenuNav){
-                            if(!frstMenuNav.classList.contains(styles.hide)){
-                                showHideMenu.hideMenu(frstMainBox, frstMenuNav, 'hasNavRsz');
-
-                            }   
-                        }
-                    }
+                this.showStateMenu(e,frstMainBox);
+                
+            }
+            else if (frstMainBox){
+                let frstMenuNav = document.getElementById('itemMenu');
+                if(frstMenuNav){
+                    if(!frstMenuNav.classList.contains(styles.hide)){
+                        this.hideMenu(frstMainBox, frstMenuNav, 'hasNavRsz');
+                    }   
                 }
-                else if (ShowHideMenu.move) {
-                   
-                    if((
-                        evTarget.classList.contains('frstMainBox') || 
-                        evTarget.classList.contains('item') || 
-                        evTarget.classList.contains('scndMainBox')) && 
-                        !evTarget.classList.contains(styles.hasNavMove)/* !itemNav[0] */ 
-                        ){
-                        
-                        showHideMenu.rmvMenu(evTarget, styles.hasNavMove);
-                        //outline se nadá přebýt, takže se musí odstranit moveBox před přidáním hasNavMove
-                        evTarget.classList.remove(stylEditor.moveBox);
-                        evTarget.classList.add(styles.hasNavMove);
-                        showHideMenu.showStateMenu(e,evTarget);
-                        
-                        const prevItemId = localStorage.getItem('prevItem');
-                        let prevItem;
-                        if (prevItemId) {
-                            prevItem = document.getElementById(prevItemId);
-                        }
-                        if (prevItem) {
-                            
-                            if ((dataKind === 'imageItem' || dataKind === 'boxItem') && prevItem.tagName !== 'IMG') {
-                                prevItem.classList.add(stylEditor.moveBox);
-                            }
-                            
-                        }
-
-                        localStorage.setItem('prevItem', evTarget.id);
-                        
-                        
-                    }
-                    else {
-                        let frstMenuNav = document.getElementById('itemMenu');
-                        if(frstMenuNav){
-                            if(!frstMenuNav.classList.contains(styles.hide)){
-                                showHideMenu.hideMenu(evTarget, frstMenuNav, styles.hasNavMove);
-                                
-                                if(dataKind !== 'imageItem')
-                                    evTarget.classList.add(stylEditor.moveBox);
-
-                            }   
-                        }
-                    }
-                }
-                else{
-                    //pokud je target item a ještě nemá menu
-                    if ((
-                    (evTarget.classList.contains('frstMainBox') || 
-                    evTarget.classList.contains('item') || 
-                    evTarget.classList.contains('scndMainBox')) && 
-                    !evTarget.classList.contains(styles.hasNav) || 
-                    this.checkEvTrgtIdForBttnId(evTarget.id, this.boxItem.scndMenuIds.runScndMenu, this.imgItem.scndMenuIds.runScndMenu, this.item.scndMenuIds.runScndMenu, this.mainBox.scndMenuIds.runScndMenu))
-                    ) {
-                        
-                        //pokud je otevřené menu v itemu, ale klikne se po druhé na jiný item,
-                        //odstraní existující menu než se vytvoří nové v druhém itemu
-                        showHideMenu.rmvMenu(evTarget, styles.hasNav);
-                        //gives class hasNav to menuTarget, when user clicked on button that launches second menu
-                        if(this.checkEvTrgtIdForBttnId(evTarget.id, this.boxItem.scndMenuIds.runScndMenu, this.imgItem.scndMenuIds.runScndMenu, this.item.scndMenuIds.runScndMenu, this.mainBox.scndMenuIds.runScndMenu)){
-                            const menuTrgtId = localStorage.getItem('triggerid');
-                            if(menuTrgtId){
-                                const menuTrgt = document.getElementById(menuTrgtId);
-                                if (menuTrgt) {
-                                    menuTrgt.classList.add(styles.hasNav);
-                                }
-                            }
-                        }
-                        else{//gives class hasNav to evTarget, when user clicked on frstMainBox, scndMainBox or item
-                            localStorage.setItem('triggerid', evTarget.id);
-                            evTarget.classList.add(styles.hasNav);
-                        }
-                        
-                        showHideMenu.showMenu(e,evTarget);
-                    }
-                    else if(!evTarget.classList.contains('doNotClose')) {
-                        let frstMenuNav = document.getElementById('itemMenu');
-                        //console.log(frstMenuNav)
-                        if(frstMenuNav){
-                            if(!frstMenuNav.classList.contains(styles.hide)){
-                                showHideMenu.hideMenu(evTarget, frstMenuNav, styles.hasNav);
-                            }   
-                        }
-                    }
-                }   
             }
         }
     }
 
     /**
-     * When item is clicked, show item menu
-     * @param e 
+     * Show or hide MOVE state menu
+     * @returns 
      */
-         public showMenu(e:Event, evTarget:HTMLElement){
-            let nav:HTMLElement = <HTMLElement>{};
+    public showHideStateMenuMove (e:Event){
+        if (ShowHideMenu.move) {
+            const evTarget = (<HTMLElement>e.target);
             const dataKind = evTarget.getAttribute('data-kind');
 
-            if((dataKind === 'mainBox') ||(dataKind === 'imageItem')|| (dataKind === 'boxItem')){
-                //uloz trigger and trigger parent id and kind in local storage
-                localStorage.setItem('triggerid', evTarget.id);
-                let trggrKind = evTarget.getAttribute('data-kind');
-                if (trggrKind) {
-                    localStorage.setItem('triggerkind', trggrKind);
+            if((
+            evTarget.classList.contains('frstMainBox') || 
+            evTarget.classList.contains('item') || 
+            evTarget.classList.contains('scndMainBox')) && 
+            !evTarget.classList.contains(styles.hasNavMove)/* !itemNav[0] */ 
+            ){
+                
+                this.rmvMenu(evTarget, styles.hasNavMove);
+                //outline se nadá přebýt, takže se musí odstranit moveBox před přidáním hasNavMove
+                evTarget.classList.remove(stylEditor.moveBox);
+                evTarget.classList.add(styles.hasNavMove);
+                this.showStateMenu(e,evTarget);
+                
+                const prevItemId = localStorage.getItem('prevItem');
+                let prevItem;
+                if (prevItemId) {
+                    prevItem = document.getElementById(prevItemId);
                 }
-
-                let trggrPrnt = evTarget.parentElement;
-                let trggrPrntKind: string | null = null;
-                if (trggrPrnt) {
-                    trggrPrntKind = trggrPrnt.getAttribute('data-kind');
-                    if (trggrPrntKind) {
-                        localStorage.setItem('trggrPrntKind', trggrPrntKind);
+                if (prevItem) {
+                    
+                    if ((dataKind === 'imageItem' || dataKind === 'boxItem') && prevItem.tagName !== 'IMG') {
+                        prevItem.classList.add(stylEditor.moveBox);
                     }
-                    let trggrPrntId = trggrPrnt.id;
-                    localStorage.setItem('trggrPrntId', trggrPrntId);
                     
                 }
 
-                //Menu part
+                localStorage.setItem('prevItem', evTarget.id);
+            }
+            else {
+                let frstMenuNav = document.getElementById('itemMenu');
+                if(frstMenuNav){
+                    if(!frstMenuNav.classList.contains(styles.hide)){
+                        this.hideMenu(evTarget, frstMenuNav, styles.hasNavMove);
+                        
+                        if(dataKind !== 'imageItem')
+                            evTarget.classList.add(stylEditor.moveBox);
 
-                //First level of menu
-                if((dataKind === 'mainBox')){
-                    nav = this.frstMenu.createFrstMenu(e, evTarget.id, this.mainBox.bttns.frstMenu.theMenu);
+                    }   
                 }
-                
-                if(dataKind === 'imageItem'){
-                    if (trggrPrntKind) {
-                        if (trggrPrntKind === 'boxItem' || trggrPrntKind === 'mainBox') {
-                            nav = this.frstMenu.createFrstMenu(e, evTarget.id, this.imgItem.bttns.frstMenu.theMenu, trggrPrntKind);
+            }
+        }
+    
+    }
+
+    /**
+     * Shows and hide menu
+     * @param showHideMenu Instance of this class to call its functions
+     * @returns 
+     */
+    public showHideMenu(showHideMenu:ShowHideMenu){
+        return(e:Event)=> {
+            if ( !ShowHideMenu.move && !ShowHideMenu.resize ) {
+            
+                const evTarget = (<HTMLElement>e.target);
+            
+                //pokud je target item a ještě nemá menu
+                if ((
+                (evTarget.classList.contains('frstMainBox') || 
+                evTarget.classList.contains('item') || 
+                evTarget.classList.contains('scndMainBox')) && 
+                !evTarget.classList.contains(styles.hasNav) || 
+                this.checkEvTrgtIdForBttnId(evTarget.id, this.boxItem.scndMenuIds.runScndMenu, this.imgItem.scndMenuIds.runScndMenu, this.item.scndMenuIds.runScndMenu, this.mainBox.scndMenuIds.runScndMenu))
+                ) {
+                    
+                    //pokud je otevřené menu v itemu, ale klikne se po druhé na jiný item,
+                    //odstraní existující menu než se vytvoří nové v druhém itemu
+                    showHideMenu.rmvMenu(evTarget, styles.hasNav);
+                    //gives class hasNav to menuTarget, when user clicked on button that launches second menu
+                    if(this.checkEvTrgtIdForBttnId(evTarget.id, this.boxItem.scndMenuIds.runScndMenu, this.imgItem.scndMenuIds.runScndMenu, this.item.scndMenuIds.runScndMenu, this.mainBox.scndMenuIds.runScndMenu)){
+                        const menuTrgtId = localStorage.getItem('triggerid');
+                        if(menuTrgtId){
+                            const menuTrgt = document.getElementById(menuTrgtId);
+                            if (menuTrgt) {
+                                menuTrgt.classList.add(styles.hasNav);
+                            }
                         }
                     }
+                    else{//gives class hasNav to evTarget, when user clicked on frstMainBox, scndMainBox or item
+                        localStorage.setItem('triggerid', evTarget.id);
+                        evTarget.classList.add(styles.hasNav);
+                    }
+                    
+                    showHideMenu.showMenu(e,evTarget);
                 }
-                if(dataKind === 'boxItem'){
-                    if (trggrPrntKind) {
-                        if (trggrPrntKind === 'boxItem'||trggrPrntKind === 'mainBox') {
-                            nav = this.frstMenu.createFrstMenu(e, evTarget.id, this.boxItem.bttns.frstMenu.theMenu, trggrPrntKind);
-                        }
+                else if(!evTarget.classList.contains('doNotClose')) {
+                    let frstMenuNav = document.getElementById('itemMenu');
+                    //console.log(frstMenuNav)
+                    if(frstMenuNav){
+                        if(!frstMenuNav.classList.contains(styles.hide)){
+                            showHideMenu.hideMenu(evTarget, frstMenuNav, styles.hasNav);
+                        }   
                     }
                 }
             }
-            else{
-                //Second level of menu
-                let scndMenu = this.scndMenu.crtScndMenu(e, evTarget.id);
-                if (scndMenu) {
-                    nav = scndMenu;
+        }
+    }
+
+    /**
+     * When item is clicked, show the First menu or the Second menu
+     * @param e 
+     */
+    public showMenu(e:Event, evTarget:HTMLElement){
+        let nav:HTMLElement = <HTMLElement>{};
+        const dataKind = evTarget.getAttribute('data-kind');
+
+        if((dataKind === 'mainBox') ||(dataKind === 'imageItem')|| (dataKind === 'boxItem')){
+            //uloz trigger and trigger parent id and kind in local storage
+            localStorage.setItem('triggerid', evTarget.id);
+            let trggrKind = evTarget.getAttribute('data-kind');
+            if (trggrKind) {
+                localStorage.setItem('triggerkind', trggrKind);
+            }
+
+            let trggrPrnt = evTarget.parentElement;
+            let trggrPrntKind: string | null = null;
+            if (trggrPrnt) {
+                trggrPrntKind = trggrPrnt.getAttribute('data-kind');
+                if (trggrPrntKind) {
+                    localStorage.setItem('trggrPrntKind', trggrPrntKind);
                 }
+                let trggrPrntId = trggrPrnt.id;
+                localStorage.setItem('trggrPrntId', trggrPrntId);
+            }
+
+            //Menu part
+
+            //First level of menu
+            if((dataKind === 'mainBox')){
+                nav = this.frstMenu.createFrstMenu(e, evTarget.id, this.mainBox.bttns.frstMenu.theMenu);
             }
             
-            let root = document.getElementById('root');
-            root?.appendChild(nav);
+            if(dataKind === 'imageItem'){
+                if (trggrPrntKind) {
+                    if (trggrPrntKind === 'boxItem' || trggrPrntKind === 'mainBox') {
+                        nav = this.frstMenu.createFrstMenu(e, evTarget.id, this.imgItem.bttns.frstMenu.theMenu, trggrPrntKind);
+                    }
+                }
+            }
+            if(dataKind === 'boxItem'){
+                if (trggrPrntKind) {
+                    if (trggrPrntKind === 'boxItem'||trggrPrntKind === 'mainBox') {
+                        nav = this.frstMenu.createFrstMenu(e, evTarget.id, this.boxItem.bttns.frstMenu.theMenu, trggrPrntKind);
+                    }
+                }
+            }
+        }
+        else{
+            //Second level of menu
+            let scndMenu = this.scndMenu.crtScndMenu(e, evTarget.id);
+            if (scndMenu) {
+                nav = scndMenu;
+            }
+        }
+        
+        let root = document.getElementById('root');
+        root?.appendChild(nav);
         
     }
 
@@ -382,22 +391,20 @@ export class ShowHideMenu{
      */
     public showStateMenu(e:Event, evTarget:HTMLElement){
     if (
-        (evTarget.getAttribute('data-kind') === 'imageItem') || 
-        (evTarget.getAttribute('data-kind') === 'mainBox') || 
-        (evTarget.getAttribute('data-kind') === 'boxItem')
-        ) {
-            const dataKind = evTarget.getAttribute('data-kind');
+    (evTarget.getAttribute('data-kind') === 'imageItem') || 
+    (evTarget.getAttribute('data-kind') === 'mainBox') || 
+    (evTarget.getAttribute('data-kind') === 'boxItem')
+    ) {
+        let nav:HTMLElement = <HTMLElement>{};
+        if (ShowHideMenu.move) {
+            nav = this.frstMenu.createFrstMenu(e, evTarget.id, this.moveStateMenu);
+        }
+        else if (ShowHideMenu.resize) {
+            nav = this.frstMenu.createFrstMenu(e, evTarget.id, this.rszStateMenu);
+        }
+        let root = document.getElementById('root');
 
-            let nav:HTMLElement = <HTMLElement>{};
-            if (ShowHideMenu.move) {
-                nav = this.frstMenu.createFrstMenu(e, evTarget.id, this.moveStateMenu);
-            }
-            else if (ShowHideMenu.resize) {
-                nav = this.frstMenu.createFrstMenu(e, evTarget.id, this.rszStateMenu);
-            }
-            let root = document.getElementById('root');
-
-            root?.appendChild(nav);
+        root?.appendChild(nav);
         }
     }
 
@@ -441,12 +448,12 @@ export class ShowHideMenu{
             //a klikne se na jiný item, v tu chvíli tento jiný item nemá třídu hasNav a je event targetem, takže pro odstranění třídy hasNav 
             // na přechozím itemu se musí využít záznam id atributu tohoto předchozího itemu v tagu nav v atributu data-trigger a odstranit třídu na něm
             
-                console.log('Removes hasNav via triggerid')
-                let triggerId = localStorage.getItem('triggerid');
-                if(triggerId){
-                    const prevMenuItem = document.getElementById(triggerId);
-                    prevMenuItem?.classList.remove(focusClass);
-                }
+            console.log('Removes hasNav via triggerid')
+            let triggerId = localStorage.getItem('triggerid');
+            if(triggerId){
+                const prevMenuItem = document.getElementById(triggerId);
+                prevMenuItem?.classList.remove(focusClass);
+            }
             
         }
     }

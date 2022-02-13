@@ -56,23 +56,24 @@ export class EventListeners{
             {name:'click', call: this.mainBox.edtMainBoxDcrtn(this.mainBox.scndMenuIds.runFnc)},
             {name:'click', call: this.mainBox.edtOuterMainBox},
             {name:'click', call: this.mainBox.edtMainBoxPstn(this.mainBox.scndMenuIds.runFnc)},
-            {name:'click', call: this.showHideMenu.showHideMenu(this.showHideMenu)}                      
+            {name:'click', call: this.showHideMenu.showHideMenu(this.showHideMenu)},
+            {name:'click', call: this.showHideMenu.showHideStateMenuRsz.bind(this.showHideMenu)},
+            {name:'click', call: this.showHideMenu.showHideStateMenuMove.bind(this.showHideMenu)},
         ]
     }
 
-        /**
+    /**
      * Creates event delegation
      * @param element Parent element, that will catch bubble phase and on which the eventlistener is placed  
-     * @param events array In every callback function must be control of event target to make event delegation work properly
      */
     public evDelegation = (element:Element):Element => {
         this.events.forEach( (event) => {
             if (Array.isArray(event)) {
-                //rekurze, pokud je na indexu pole, spusti se funkce znovu na vnitrni objekty nebo pole
                 this.evDelegation(element);
             }
-            else
+            else{
                 element.addEventListener((<eventAndCall>event).name, (<eventAndCall>event).call);
+            }
         });
         return element;
     }
