@@ -51,6 +51,9 @@ interface edtBoxRunFunc{
     drctn:string,
     grow:string,
     bckgrnd: {clickInput:string, runFnc:string },
+    rszPxlWidth:string,
+    rszPxlHeight:string,
+    rszPxlBoth:string,
 }
 
 interface rmvBox{

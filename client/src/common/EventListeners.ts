@@ -34,7 +34,7 @@ export class EventListeners{
             {name:'click', call: this.item.rszPercent(this.item.scndMenuIds.runFnc)},
             {name:'click', call: this.boxItem.rszPixel},
             {name:'click', call: this.boxItem.rszPixelEnd},
-            {name:'click', call: this.boxItem.rszPixelState(this.item)},
+            {name:'click', call: this.boxItem.rszPixelState(this.boxItem.scndMenuIds.runFnc)},
             {name:'click', call: this.item.moveEnd},
             {name:'click', call: this.item.moveItem},
             {name:'click', call: this.item.moveItemHere},

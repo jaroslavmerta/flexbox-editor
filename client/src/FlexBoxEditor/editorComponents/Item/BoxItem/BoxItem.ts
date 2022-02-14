@@ -72,12 +72,18 @@ export class BoxItem extends Flex{
                         drctn: 'edt-box-drctn',
                         grow:'edt-box-grow',
                         bckgrnd: {clickInput:'edt-box-bckgrnd', runFnc: 'box-bckgrnd-input'},
+                        rszPxlWidth:'rsz-box-width',
+                        rszPxlHeight:'rsz-box-height',
+                        rszPxlBoth: 'rsz-box-both'
                     },
                     outerBox:{
                         pstn: 'edt-outerBox-pstn',
                         drctn:'edt-outerBox-drctn',
                         grow:'edt-outerBox-grow',
                         bckgrnd: {clickInput:'edt-outerBox-bckgrnd', runFnc: 'outerBox-bckgrnd-input'},
+                        rszPxlWidth: 'rsz-outerBox-width',
+                        rszPxlHeight:'rsz-outerBox-height',
+                        rszPxlBoth: 'rsz-outerBox-both'
                         },
                 },
                 rmv:{
@@ -168,16 +174,16 @@ export class BoxItem extends Flex{
                     {id: 'noGrow', type:'radio', name :BoxItem.width, value:'noGrow', text:'Fit content'},
                 ],
                 rszPixel:[
-                    {id: 'rsz-box-width', type:'button', text:'Resize width'},
-                    {id: 'rsz-box-height', type:'button', text:'Resize height'},
-                    {id: 'rsz-box-both', type:'button', text:'Resize both'},
-                    {id: 'rsz-box-pxl', type:'button', text:'Resize with pixels'}
+                    {id: this.scndMenuIds.runFnc.edt.box.rszPxlWidth, type:'button', text:'Resize width'},
+                    {id: this.scndMenuIds.runFnc.edt.box.rszPxlHeight, type:'button', text:'Resize height'},
+                    {id: this.scndMenuIds.runFnc.edt.box.rszPxlBoth, type:'button', text:'Resize both'},
+                    //{id: 'rsz-box-pxl', type:'button', text:'Resize with pixels'}
                 ],
                 rszPixelOuter:[
-                    {id: 'rsz-outerBox-width', type:'button', text:'Resize width'},
-                    {id: 'rsz-outerBox-height', type:'button', text:'Resize height'},
-                    {id: 'rsz-outerBox-both', type:'button', text:'Resize both'},
-                    {id: 'rsz-outerBox-pxl', type:'button', text:'Resize with pixels'}
+                    {id: this.scndMenuIds.runFnc.edt.outerBox.rszPxlWidth, type:'button', text:'Resize width'},
+                    {id: this.scndMenuIds.runFnc.edt.outerBox.rszPxlHeight, type:'button', text:'Resize height'},
+                    {id: this.scndMenuIds.runFnc.edt.outerBox.rszPxlBoth, type:'button', text:'Resize both'},
+                    //{id: 'rsz-outerBox-pxl', type:'button', text:'Resize with pixels'}
                 ]
                
             }
@@ -1075,29 +1081,29 @@ export class BoxItem extends Flex{
         }
     }
 
-    public rszPixelState(item:Item){
+    public rszPixelState(runFnc:runBoxItemFncIds){
         return (e:Event)=>{
         if (
-        (<HTMLElement>e.target).id === 'rsz-box-width' ||
-        (<HTMLElement>e.target).id === 'rsz-box-height' ||
-        (<HTMLElement>e.target).id === 'rsz-box-both' ||
-        (<HTMLElement>e.target).id === 'rsz-outerBox-width' ||
-        (<HTMLElement>e.target).id === 'rsz-outerBox-height' ||
-        (<HTMLElement>e.target).id === 'rsz-outerBox-both' 
+        (<HTMLElement>e.target).id ===  runFnc.edt.box.rszPxlWidth ||
+        (<HTMLElement>e.target).id === runFnc.edt.box.rszPxlHeight ||
+        (<HTMLElement>e.target).id === runFnc.edt.box.rszPxlBoth ||
+        (<HTMLElement>e.target).id === runFnc.edt.outerBox.rszPxlWidth ||
+        (<HTMLElement>e.target).id ===  runFnc.edt.outerBox.rszPxlHeight ||
+        (<HTMLElement>e.target).id === runFnc.edt.outerBox.rszPxlBoth
         ){
             console.log(`rsz item...${(<HTMLElement>e.target).id}`);
             let triggerId;
             let menuTrggrId;
             if (
-            (<HTMLElement>e.target).id === 'rsz-box-width' ||
-            (<HTMLElement>e.target).id === 'rsz-box-height' ||
-            (<HTMLElement>e.target).id === 'rsz-box-both') {
+            (<HTMLElement>e.target).id === runFnc.edt.box.rszPxlWidth ||
+            (<HTMLElement>e.target).id === runFnc.edt.box.rszPxlHeight ||
+            (<HTMLElement>e.target).id === runFnc.edt.box.rszPxlBoth) {
                 triggerId = localStorage.getItem('triggerid');
             }
             else if (
-            (<HTMLElement>e.target).id === 'rsz-outerBox-width' ||
-            (<HTMLElement>e.target).id === 'rsz-outerBox-height' ||
-            (<HTMLElement>e.target).id === 'rsz-outerBox-both' ){
+            (<HTMLElement>e.target).id === runFnc.edt.outerBox.rszPxlWidth ||
+            (<HTMLElement>e.target).id === runFnc.edt.outerBox.rszPxlHeight ||
+            (<HTMLElement>e.target).id === runFnc.edt.outerBox.rszPxlBoth ){
                 triggerId = localStorage.getItem('trggrPrntId');
                 menuTrggrId = localStorage.getItem('triggerid');
             }
@@ -1135,8 +1141,8 @@ export class BoxItem extends Flex{
                     trigger.appendChild(resizer);
                     
                     switch ((<HTMLElement>e.target).id) {
-                        case 'rsz-box-width':
-                        case'rsz-outerBox-width':
+                        case runFnc.edt.box.rszPxlWidth:
+                        case runFnc.edt.outerBox.rszPxlWidth:
                             localStorage.setItem('rszItem', 'rsz-width');
 
                             if (trigger.classList.contains('grow')) {
@@ -1166,8 +1172,8 @@ export class BoxItem extends Flex{
                     
                             resizer.addEventListener('mousedown', initResize, false);
                         break;
-                        case 'rsz-box-height':
-                        case 'rsz-outerBox-height':
+                        case runFnc.edt.box.rszPxlHeight:
+                        case runFnc.edt.outerBox.rszPxlHeight:
                             localStorage.setItem('rszItem', 'rsz-height');
 
                             if (trigger.classList.contains('grow')) {
@@ -1193,8 +1199,8 @@ export class BoxItem extends Flex{
                             console.log('adfadsff')
                             resizer.addEventListener('mousedown', initResize, false);
                         break;
-                        case 'rsz-box-both':
-                        case 'rsz-outerBox-both':
+                        case runFnc.edt.box.rszPxlBoth:
+                        case runFnc.edt.outerBox.rszPxlBoth:
                             localStorage.setItem('rszItem', 'rsz-both');
 
                             if (trigger.classList.contains('grow')) {
