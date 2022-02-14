@@ -1247,7 +1247,7 @@ export class BoxItem extends Flex{
      public rszPixelEnd(e:Event){
         //musí být dvě funkce, jedna pro klik na button, druhá pro klik na označený boxItem třídou moveBox
         if ((<HTMLElement>e.target).id === 'rsz-item-pixel-end') {
-            console.log('rsz-item-pixel-end');
+            
             
           /*   const mainBox = document.getElementById('frstMainBox');
             mainBox?.classList.remove('hasNavRsz'); */

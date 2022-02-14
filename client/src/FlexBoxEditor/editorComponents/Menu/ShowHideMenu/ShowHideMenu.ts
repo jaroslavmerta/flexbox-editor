@@ -196,10 +196,10 @@ export class ShowHideMenu{
             frstMainBox?.contains(evTarget) && evTarget.id !== 'resizer') && 
             !frstMainBox.classList.contains('hasNavRsz')
             ){
-            
+                
                 this.rmvMenu(frstMainBox, 'hasNavRsz');
             
-                localStorage.setItem('triggerid', evTarget.id);
+                
                 frstMainBox.classList.add('hasNavRsz');
 
                 this.showStateMenu(e,frstMainBox);
