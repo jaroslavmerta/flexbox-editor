@@ -6,8 +6,20 @@
     opacity:0.8;
     outline:2px solid blue;
     outline-offset: -2px;
-    }
+}
 
 .hasNavMove{
     outline:4px solid green;
+    outline-offset: -2px;
+}
+
+.moveBox{
+    outline:2px solid red;
+    outline-offset: -2px;
+}
+
+.focus{
+    opacity:0.8;
+    outline:2px solid blue;
+    outline-offset: -2px;
 }

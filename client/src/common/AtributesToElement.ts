@@ -1,7 +1,7 @@
 /**
- * Add inline style to a element
- * @param htmlElement HtmlElement to style
- * @param atributes Object with style information for htmlElement
+ * Add atributes to a html element
+ * @param htmlElement HtmlElement to add atributes
+ * @param atributes Object with atributes as key/value pair(example: {id: "idOfElement"}) for htmlElement
  */
  const addAtributes = (htmlElement:HTMLElement, atributes:object): void =>{
     for (const [key, value] of Object.entries(atributes)){

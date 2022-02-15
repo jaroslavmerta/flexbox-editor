@@ -51,16 +51,28 @@ export class LocStorage{
     }
     
     /**
-     * 
-     * @param items 
-     * @param ctgrId 
+     * Returns id of html element that triggered First, Second or State MENU
+     */
+    static getTrggrId(){
+        const trggrIdKey = 'triggerid';
+        const trggrId = localStorage.getItem(trggrIdKey);
+        if (trggrId) {
+            return trggrId;
+        }
+        throw new ExistInLocStorageError("Does not exist in local storage:", trggrIdKey);
+    }
+
+    /**
+     * Returns a category of items 
+     * @param items Items from local storage
+     * @param ctgrId Id of category (e.g. "frstMainBox", "scndMainBox")
      * @returns 
      */
     static getCtgr(items:items, ctgrId:ctgrId){
         
-        for (const item of items.items) {
-            if (item.id === ctgrId) {
-                return item
+        for (const category of items.items) {
+            if (category.id === ctgrId) {
+                return category
             }
         }
         throw new ExistInLocStorageError("Does not exist in local storage:", `item.id:${ctgrId}`);

@@ -2,7 +2,6 @@ import { buttonData } from '../menuIntrfc';
 import { FrstMenu } from './../FrstMenu/FrstMenu';
 import { ScndMenu } from './../ScndMenu/ScndMenu';
 import styles from './showHideMenu.module.scss';
-import stylEditor from "../../../editor.module.scss"
 import { BoxItem } from './../../Item/BoxItem/BoxItem';
 import { MainBox } from './../../MainBox/MainBox';
 import { ImageItem } from './../../Item/ImageItem/ImageItem';
@@ -12,6 +11,7 @@ import { runImgItemScndMenuIds } from '../../Item/ImageItem/objectInterface';
 import { runItemScndMenuIds } from '../../Item/objectInterfaces';
 import { CheckId } from './../../../../common/error/checkId/CheckId';
 import { runMainBoxScndMenuIds } from '../../MainBox/objectInterfaces';
+import { LocStorage } from './../../../../common/localStorage/LocStorage';
 
 const debugCheckEvTrgtIdForBttnId = false;
 
@@ -205,7 +205,7 @@ export class ShowHideMenu{
                 this.showStateMenu(e,frstMainBox);
                 
             }
-            else if (frstMainBox){
+            else if (frstMainBox && !evTarget.classList.contains('doNotClose')){
                 let frstMenuNav = document.getElementById('itemMenu');
                 if(frstMenuNav){
                     if(!frstMenuNav.classList.contains(styles.hide)){
@@ -223,44 +223,46 @@ export class ShowHideMenu{
     public showHideStateMenuMove (e:Event){
         if (ShowHideMenu.move) {
             const evTarget = (<HTMLElement>e.target);
-            const dataKind = evTarget.getAttribute('data-kind');
+            const evTrgtdataKind = evTarget.getAttribute('data-kind');
 
             if((
             evTarget.classList.contains('frstMainBox') || 
             evTarget.classList.contains('item') || 
             evTarget.classList.contains('scndMainBox')) && 
-            !evTarget.classList.contains(styles.hasNavMove)/* !itemNav[0] */ 
+            //if you have no menu
+            !evTarget.classList.contains(styles.hasNavMove) 
             ){
-                
+                //removes menu and identifier on html element that triggered menu
                 this.rmvMenu(evTarget, styles.hasNavMove);
-                //outline se nadá přebýt, takže se musí odstranit moveBox před přidáním hasNavMove
-                evTarget.classList.remove(stylEditor.moveBox);
+                //removes red outline
+                evTarget.classList.remove(styles.moveBox);
+                //adds green outline that is also menu identifier
                 evTarget.classList.add(styles.hasNavMove);
+                //creates menu
                 this.showStateMenu(e,evTarget);
                 
+                //removes green outline and adds red outline, if green outline has been already set
                 const prevItemId = localStorage.getItem('prevItem');
-                let prevItem;
                 if (prevItemId) {
-                    prevItem = document.getElementById(prevItemId);
-                }
-                if (prevItem) {
-                    
-                    if ((dataKind === 'imageItem' || dataKind === 'boxItem') && prevItem.tagName !== 'IMG') {
-                        prevItem.classList.add(stylEditor.moveBox);
+                    let prevItem = document.getElementById(prevItemId);
+                
+                    if (prevItem) {
+                        prevItem.classList.remove(styles.hasNavMove);
+                        prevItem.classList.add(styles.moveBox);
                     }
-                    
                 }
 
                 localStorage.setItem('prevItem', evTarget.id);
             }
-            else {
+            else if (!evTarget.classList.contains('doNotClose')){
+                localStorage.removeItem('prevItem');
+                if(evTrgtdataKind !== 'imageItem')
+                    evTarget.classList.add(styles.moveBox);
+
                 let frstMenuNav = document.getElementById('itemMenu');
                 if(frstMenuNav){
                     if(!frstMenuNav.classList.contains(styles.hide)){
                         this.hideMenu(evTarget, frstMenuNav, styles.hasNavMove);
-                        
-                        if(dataKind !== 'imageItem')
-                            evTarget.classList.add(stylEditor.moveBox);
 
                     }   
                 }
@@ -416,7 +418,7 @@ export class ShowHideMenu{
      */
     public hideMenu(evTarget:HTMLElement, frstMenu:HTMLElement, focusClass:string){
         frstMenu.classList.add(styles.hide);
-        this.rmvFocusClass(evTarget, frstMenu, focusClass); 
+        this.rmvFocusClass(evTarget, focusClass); 
     }
 
     /**
@@ -426,35 +428,28 @@ export class ShowHideMenu{
         //je v documentu tag nav s tímto id?
         const navTag = document.getElementById('itemMenu');
         if(navTag){
-            this.rmvFocusClass(evTarget, navTag, focusClass);
+            this.rmvFocusClass(evTarget, focusClass);
             navTag.remove();
         }
     }
 
     /**
-     * Removes class hasNav in item according to whether event target contains hasHav,removes it in this eventTarget,
-     * otherwise get itemId in navigation atribute data-triggerid and removes hasItem in this item
-     * Elements must have id atribute
-     * @param navTag 
+     * Removes menu identifier on html element that triggered menu
+     * @param evTarget 
+     * @param focusClass 
      */
-    private rmvFocusClass(evTarget:HTMLElement, navTag:HTMLElement, focusClass:string){
-        //pokud se znovu klikne do stejného elementu, kde už je otevřené menu, odstran v něm třídu hasNav
+    private rmvFocusClass(evTarget:HTMLElement, focusClass:string){
+        //when menu is open and a user clicked to the same element that triggered menu, remove menu identifier from this element that is event target
         if((evTarget.classList.contains('item') || evTarget.classList.contains('frstMainBox')) && evTarget.classList.contains(focusClass)){
             evTarget.classList.remove(focusClass);
-            console.log('removes id via checking classes');
         }
         else{
-            //spustí se při kliknutí na button, kde není id, ani class item nebo frstMainBox, a také se spustí,když je otevřené menu na jednom itemu
-            //a klikne se na jiný item, v tu chvíli tento jiný item nemá třídu hasNav a je event targetem, takže pro odstranění třídy hasNav 
-            // na přechozím itemu se musí využít záznam id atributu tohoto předchozího itemu v tagu nav v atributu data-trigger a odstranit třídu na něm
-            
-            console.log('Removes hasNav via triggerid')
-            let triggerId = localStorage.getItem('triggerid');
+            //when menu is open and user clicked to another element, remove menu identifier from previous element
+            let triggerId = LocStorage.getTrggrId();
             if(triggerId){
                 const prevMenuItem = document.getElementById(triggerId);
                 prevMenuItem?.classList.remove(focusClass);
             }
-            
         }
     }
 }

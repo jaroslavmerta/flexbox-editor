@@ -3,8 +3,7 @@ import { addInlineStyle } from "../../../common/StyleToElement";
 import { LocStorage } from '../../../common/localStorage/LocStorage';
 import { item, boxItemClass } from "../../../common/localStorage/storageInterfaces";
 import { ctgrId } from "../../editorTypes";
-import stylEditor from "../../editor.module.scss"
-import stylIMenu from "../Menu/FrstMenu/frstMenu.module.scss"
+import stylShowHideMenu from "../Menu/ShowHideMenu/showHideMenu.module.scss";
 import { InputGetter } from '../../../common/inputGetter/InputGetter';
 import { ExistInLocStorageError } from "../../../common/error/locStorageError/ExistInLocStorageError";
 import { ShowHideMenu } from './../Menu/ShowHideMenu/ShowHideMenu';
@@ -222,29 +221,36 @@ export class Item{
      * @param e 
      */
      public moveItem(e:Event){
-        //musí být dvě funkce, jedna pro klik na button, druhá pro klik na označený boxItem třídou moveBox
         if ((<HTMLElement>e.target).id === 'move-item') {
-            console.log('move-item');
-            const itemMenu = (<HTMLElement>e.target).closest('#itemMenu');
-                const triggerId = itemMenu?.getAttribute('data-triggerid');
-            if (triggerId) {
-                const trigger = document.getElementById(triggerId);
+            
+            let trggrId:string | null = null;
+            try {
+                trggrId = LocStorage.getTrggrId();
+            } 
+            catch (error:unknown) {
+                if (error instanceof ExistInLocStorageError) {
+                    console.log(error.message, error.property)
+                }
+            }
+          
+            if (trggrId) {
+                const trigger = document.getElementById(trggrId);
                 if(trigger){
-                    const triggerCategory = <ctgrId>trigger.getAttribute('data-category');
                     //nastavý všem boxům červený outline a zapne menu pro Move State
-                    if (!trigger.parentElement?.classList.contains(stylEditor.moveBox)) {
-                        let itemBoxes = document.getElementsByClassName('boxItem');
-                                const mainBox = document.getElementById('frstMainBox');
-                                mainBox?.classList.add(stylEditor.moveBox);
-                                for (const itemBox of itemBoxes) {
-                                    itemBox.classList.add(stylEditor.moveBox);
-                                }
-                                localStorage.setItem('movingItem', trigger.id)
-                                trigger.classList.add(stylEditor.focus);
-                                trigger.classList.remove(stylIMenu.hasNav);
-                                
-                                ShowHideMenu.move = true;
+                    let itemBoxes = document.getElementsByClassName('boxItem');
+                    const mainBox = document.getElementById('frstMainBox');
+                    mainBox?.classList.add(stylShowHideMenu.moveBox);
+                    for (const itemBox of itemBoxes) {
+                        itemBox.classList.add(stylShowHideMenu.moveBox);
                     }
+                    localStorage.setItem('movingItem', trggrId);
+                    trigger.classList.add(stylShowHideMenu.focus);
+
+                    //removes indication for First menu on html element that triggered this Frist menu
+                    trigger.classList.remove(stylShowHideMenu.hasNav);
+                    
+                    ShowHideMenu.move = true;
+                    
                 }
             }
         }
@@ -268,9 +274,9 @@ export class Item{
                     
                     let itemBoxes = document.getElementsByClassName('boxItem');
                     const mainBox = document.getElementById('frstMainBox');
-                    mainBox?.classList.remove(stylEditor.moveBox);
+                    mainBox?.classList.remove(stylShowHideMenu.moveBox);
                     for (const itemBox of itemBoxes) {
-                        itemBox.classList.remove(stylEditor.moveBox);
+                        itemBox.classList.remove(stylShowHideMenu.moveBox);
                     }
                     let movingItemId = localStorage.getItem('movingItem');
                     let movingItem;
@@ -278,11 +284,11 @@ export class Item{
                         movingItem = document.getElementById(movingItemId);
                     }
                     if (movingItem) {
-                        movingItem.classList.remove(stylEditor.focus);
+                        movingItem.classList.remove(stylShowHideMenu.focus);
                         
                     }
 
-                    trigger.classList.remove(stylIMenu.hasNavMove);
+                    trigger.classList.remove(stylShowHideMenu.hasNavMove);
                     ShowHideMenu.move = false;
                     
                 }
@@ -324,7 +330,7 @@ export class Item{
 
                             if (movingItem) {
                                 if (!movingItem.contains(trigger)) {
-                                    movingItem.classList.remove(stylEditor.focus);
+                                    movingItem.classList.remove(stylShowHideMenu.focus);
                                     let movingItemCtgr  = <ctgrId | null>movingItem.getAttribute('data-category');
                                     //Local storage part
                                     let movingItemData = <item |null>{};
@@ -402,11 +408,11 @@ export class Item{
                                     //odstraní všem boxům červený outline a vypne menu pro Move State
                                     let itemBoxes = document.getElementsByClassName('boxItem');
                                     const mainBox = document.getElementById('frstMainBox');
-                                    mainBox?.classList.remove(stylEditor.moveBox);
+                                    mainBox?.classList.remove(stylShowHideMenu.moveBox);
                                     for (const itemBox of itemBoxes) {
-                                        itemBox.classList.remove(stylEditor.moveBox);
+                                        itemBox.classList.remove(stylShowHideMenu.moveBox);
                                     }
-                                    trigger.classList.remove(stylIMenu.hasNavMove);
+                                    trigger.classList.remove(stylShowHideMenu.hasNavMove);
                                     ShowHideMenu.move = false;
                                 }
                                 //pokud je target ditetem moving itemu, upozorni uživatele, že nelze přesouvat otce do svého dítěte
