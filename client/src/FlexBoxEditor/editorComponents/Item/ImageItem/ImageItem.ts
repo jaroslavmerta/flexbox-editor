@@ -120,7 +120,7 @@ export class ImageItem {
                                             height:['y0'],
                                         }, 
                                         img:`${uploaded_image}`,
-                                    }//tady
+                                    }
                                     let saved = LocStorage.pushNewItem(items.items, trggrCtgrName, newItem);
                                     if (saved) {
                                         LocStorage.setItem('items', items);
