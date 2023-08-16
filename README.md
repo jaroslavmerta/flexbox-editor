@@ -1,4 +1,3 @@
-**This readme is still not complete, but in a few days it will be for this time ;-)
 # flexbox-editor
 
 Hey everyone,  
